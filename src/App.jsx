@@ -1,5 +1,9 @@
 import Navbar from '../components/Navbar';
+import Meme from '../components/Meme';
+
+
 import './index.css'
+
 
 function App() {
   
@@ -7,6 +11,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <Meme />
     </>
   )
 }

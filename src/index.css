@@ -73,7 +73,7 @@ body {
 .meme-image {
   border-radius: 3px;
   max-height: 80dvh;
-  width: 70dvw;
+  width: max-content;
   margin: 17px;
 }
 

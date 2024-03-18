@@ -63,6 +63,36 @@ export default function Meme() {
         }));
     }, []);
 
+    const handleMouseDown = (e) => {
+        const target = e.target;
+        const memeText = target.closest('.meme-text');
+        if (memeText) {
+            const rect = memeText.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const offsetY = e.clientY - rect.top;
+            
+            const handleMouseMove = (e) => {
+    const parentRect = memeText.parentElement.getBoundingClientRect();
+    const x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
+    let y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
+    if (memeText.classList.contains('bottom')) {
+        y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
+    }
+    memeText.style.transform = `translate(${x}px, ${y}px)`;
+};
+
+    
+            const handleMouseUp = () => {
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+            };
+    
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        }
+    };
+
+
     return (
         <main>
             <div className="form">
@@ -120,7 +150,7 @@ export default function Meme() {
                 )}
 
             </div>
-            <div className="meme">
+            <div className="meme" onMouseDown={handleMouseDown}>
                 <img
                     src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
                     className="meme-image"

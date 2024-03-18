@@ -91,6 +91,7 @@ body {
 }
 
 .meme {
+  
   position: relative;
   display: flex;
   flex-direction: column;
@@ -100,6 +101,8 @@ body {
 }
 
 .meme-image {
+  user-select: none; /* Prevent the image from being highlighted */
+  pointer-events: none; /* Make the image non-draggable */
   border-radius: 3px;
   max-height: 80dvh;
   width: max-content;
@@ -108,10 +111,8 @@ body {
 
 .meme-text {
   position: absolute;
-  width: 80%;
+  width: 100%;
   text-align: center;
-  left: 50%;
-  transform: translateX(-50%);
   margin: 15px 0;
   padding: 0 5px;
   font-family: impact, sans-serif;
@@ -129,16 +130,20 @@ body {
       0 -2px 0 #000,
       -2px 0 0 #000,
       2px 2px 5px #000;
-}
-
-.bottom {
-  bottom: 0;
+  cursor: move;
 }
 
 .top {
-  top: 0;
+  top: 20px; /* Adjust the initial top position as needed */
+  left: 50%; /* Align to the center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
 }
 
+.bottom {
+  bottom: 20px; /* Adjust the initial bottom position as needed */
+  left: 50%; /* Align to the center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+}
 
 @media only screen and (max-width: 767px) {
   .form {
@@ -197,12 +202,10 @@ body {
     position: absolute;
     width: 80%;
     text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
     margin: 15px 0;
-    padding: 5px 5px;
+    padding: 0 5px;
     font-family: impact, sans-serif;
-    font-size: 1.7em;
+    font-size: 2em;
     text-transform: uppercase;
     color: white;
     letter-spacing: 1px;
@@ -216,5 +219,6 @@ body {
         0 -2px 0 #000,
         -2px 0 0 #000,
         2px 2px 5px #000;
+    cursor: move;
   }
 }

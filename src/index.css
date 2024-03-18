@@ -148,6 +148,11 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
+  body {
+    font-family: "Karla", sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+  }
   .form {
     flex-direction: column;
     justify-content: center;

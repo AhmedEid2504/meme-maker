@@ -64,31 +64,47 @@ export default function Meme() {
     }, []);
 
     const handleMouseDown = (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        
         const target = e.target;
         const memeText = target.closest('.meme-text');
+        
         if (memeText) {
             const rect = memeText.getBoundingClientRect();
             const offsetX = e.clientX - rect.left;
             const offsetY = e.clientY - rect.top;
             
             const handleMouseMove = (e) => {
-        const parentRect = memeText.parentElement.getBoundingClientRect();
-        const x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
-        let y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
-        if (memeText.classList.contains('bottom')) {
-            y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
-        }
-        memeText.style.transform = `translate(${x}px, ${y}px)`;
-};
-
-    
+                const parentRect = memeText.parentElement.getBoundingClientRect();
+                let x, y;
+                
+                if (e.type === 'mousemove') {
+                    x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
+                    y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
+                } else if (e.type === 'touchmove') {
+                    const touch = e.touches[0];
+                    x = touch.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
+                    y = touch.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
+                }
+                
+                if (memeText.classList.contains('bottom')) {
+                    y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
+                }
+                
+                memeText.style.transform = `translate(${x}px, ${y}px)`;
+            };
+            
             const handleMouseUp = () => {
                 document.removeEventListener('mousemove', handleMouseMove);
                 document.removeEventListener('mouseup', handleMouseUp);
+                document.removeEventListener('touchmove', handleMouseMove);
+                document.removeEventListener('touchend', handleMouseUp);
             };
-    
+            
             document.addEventListener('mousemove', handleMouseMove);
             document.addEventListener('mouseup', handleMouseUp);
+            document.addEventListener('touchmove', handleMouseMove);
+            document.addEventListener('touchend', handleMouseUp);
         }
     };
 

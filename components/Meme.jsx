@@ -1,6 +1,23 @@
 import { useState, useEffect, useCallback } from "react";
 
 export default function Meme() {
+    useEffect(() => {
+        const preventScrollRefresh = (e) => {
+            // Check if the user is scrolling up
+            if (e.touches.length !== 1) return;
+            if (e.touches[0].clientY > 0) {
+                e.preventDefault();
+            }
+        };
+
+        document.body.addEventListener("touchmove", preventScrollRefresh, {
+            passive: false,
+        });
+
+        return () => {
+            document.body.removeEventListener("touchmove", preventScrollRefresh);
+        };
+    }, []);
     const [meme, setMeme] = useState({
         topText: "",
         bottomText: "",

@@ -63,12 +63,39 @@ export default function Meme() {
         }));
     }, []);
 
-    const handleMouseDown = (e) => {
-        e.preventDefault(); // Prevent default touch behavior
-        
+    const handleTouchStart = (e) => {
+        e.preventDefault();
         const target = e.target;
         const memeText = target.closest('.meme-text');
-        
+        if (memeText) {
+            const rect = memeText.getBoundingClientRect();
+            const offsetX = e.touches[0].clientX - rect.left;
+            const offsetY = e.touches[0].clientY - rect.top;
+            
+            const handleTouchMove = (e) => {
+                const parentRect = memeText.parentElement.getBoundingClientRect();
+                const x = e.touches[0].clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
+                let y = e.touches[0].clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
+                if (memeText.classList.contains('bottom')) {
+                    y = e.touches[0].clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
+                }
+                memeText.style.transform = `translate(${x}px, ${y}px)`;
+            };
+
+    
+            const handleTouchEnd = () => {
+                document.removeEventListener('touchmove', handleTouchMove);
+                document.removeEventListener('touchend', handleTouchEnd);
+            };
+    
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.addEventListener('touchend', handleTouchEnd, { passive: false });
+        }
+    };
+
+    const handleMouseDown = (e) => {
+        const target = e.target;
+        const memeText = target.closest('.meme-text');
         if (memeText) {
             const rect = memeText.getBoundingClientRect();
             const offsetX = e.clientX - rect.left;
@@ -76,35 +103,22 @@ export default function Meme() {
             
             const handleMouseMove = (e) => {
                 const parentRect = memeText.parentElement.getBoundingClientRect();
-                let x, y;
-                
-                if (e.type === 'mousemove') {
-                    x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
-                    y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
-                } else if (e.type === 'touchmove') {
-                    const touch = e.touches[0];
-                    x = touch.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
-                    y = touch.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
-                }
-                
+                const x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
+                let y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
                 if (memeText.classList.contains('bottom')) {
                     y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
                 }
-                
                 memeText.style.transform = `translate(${x}px, ${y}px)`;
             };
-            
+
+    
             const handleMouseUp = () => {
                 document.removeEventListener('mousemove', handleMouseMove);
                 document.removeEventListener('mouseup', handleMouseUp);
-                document.removeEventListener('touchmove', handleMouseMove);
-                document.removeEventListener('touchend', handleMouseUp);
             };
-            
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-            document.addEventListener('touchmove', handleMouseMove);
-            document.addEventListener('touchend', handleMouseUp);
+    
+            document.addEventListener('mousemove', handleMouseMove, { passive: false });
+            document.addEventListener('mouseup', handleMouseUp, { passive: false });
         }
     };
 
@@ -166,7 +180,7 @@ export default function Meme() {
                 )}
 
             </div>
-            <div className="meme" onMouseDown={handleMouseDown}>
+            <div className="meme" onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
                 <img
                     src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
                     className="meme-image"

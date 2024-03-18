@@ -38,8 +38,10 @@ body {
 }
 
 .form {
-  display: grid;
-  grid-template: 40px 40px / 1fr 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 17px;
   margin: 17px;
 }
@@ -48,17 +50,44 @@ body {
   border-radius: 5px;
   border: 1px solid #D5D4D8;
   text-indent: 5px;
+  height: 40px;
+}
+
+.upload-container {
+  display: flex;
+}
+
+.upload-btn {
+  background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.upload-btn:hover {
+  background-color: #ffffff;
+}
+
+.upload-btn:focus {
+  outline: none;
+}
+
+.upload-input {
+  display: none;
 }
 
 .form-button {
-  grid-column: 1 / -1;
   border-radius: 5px;
   background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
   color: white;
   border: none;
   cursor: pointer;
-  height: 50px;
+  height: 40px;
   width: auto;
+  font-size: 1rem;
 }
 
 .meme {
@@ -110,10 +139,12 @@ body {
   top: 0;
 }
 
+
 @media only screen and (max-width: 767px) {
   .form {
-    display: grid;
-    grid-template: 40px 40px / 1fr;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 17px;
     margin: 17px;
   }
@@ -125,15 +156,25 @@ body {
   }
   
   .form-button {
-    grid-column: 1 / -1;
     border-radius: 5px;
     background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
     color: white;
     border: none;
     cursor: pointer;
-    height: 50px;
+    height: 40px;
     width: auto;
   }
+
+  .upload-container {
+    display: flex;
+  }
+  
+  .upload-btn {
+    background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
+    color: white;
+    margin-right: 0px;
+  }
+  
   
   .meme {
     position: relative;

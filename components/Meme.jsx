@@ -72,13 +72,13 @@ export default function Meme() {
             const offsetY = e.clientY - rect.top;
             
             const handleMouseMove = (e) => {
-    const parentRect = memeText.parentElement.getBoundingClientRect();
-    const x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
-    let y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
-    if (memeText.classList.contains('bottom')) {
-        y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
-    }
-    memeText.style.transform = `translate(${x}px, ${y}px)`;
+        const parentRect = memeText.parentElement.getBoundingClientRect();
+        const x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
+        let y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
+        if (memeText.classList.contains('bottom')) {
+            y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
+        }
+        memeText.style.transform = `translate(${x}px, ${y}px)`;
 };
 
     

@@ -64,7 +64,6 @@ export default function Meme() {
     }, []);
 
     const handleTouchStart = (e) => {
-        e.preventDefault();
         const target = e.target;
         const memeText = target.closest('.meme-text');
         if (memeText) {

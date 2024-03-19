@@ -329,7 +329,7 @@ main.dark {
   
   .meme-text {
     position: absolute;
-    width: 80%;
+    width: auto;
     text-align: center;
     margin: 15px 0;
     padding: 0 5px;

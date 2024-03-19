@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-
-export default function Meme() {
+import PropTypes from "prop-types";
+export default function Meme(props) {
     useEffect(() => {
         const preventScrollRefresh = (e) => {
-            // Check if the user is scrolling up
+            // prevent scrolling up
             if (e.touches.length !== 1) return;
             if (e.touches[0].clientY > 0) {
                 e.preventDefault();
@@ -140,7 +140,7 @@ export default function Meme() {
 
 
     return (
-        <main>
+        <main className={props.darkMode ? "dark" : ""}>
             <div className="form">
                 <label htmlFor="top-text">
                     Top text
@@ -165,9 +165,10 @@ export default function Meme() {
                     value={meme.bottomText}
                     onChange={handleChange}
                 />
+                <>
                 <div className="upload-container">
                     <label htmlFor="upload-input" className="upload-btn">
-                        Upload Meme Image
+                        Upload Image
                     </label>
                     <input
                         id="upload-input"
@@ -183,7 +184,7 @@ export default function Meme() {
                         className="form-button"
                         onClick={getMemeImage}
                     >
-                        Generate Random Meme
+                        Random Meme
                     </button>
                 )}
                 {meme.showUploadedImage && (
@@ -194,6 +195,8 @@ export default function Meme() {
                         Remove Uploaded Image
                     </button>
                 )}
+                </>
+
 
             </div>
             <div className="meme" onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
@@ -208,3 +211,7 @@ export default function Meme() {
         </main>
     )
 }
+Meme.propTypes = {
+    // Define PropTypes here
+    darkMode: PropTypes.bool,
+};

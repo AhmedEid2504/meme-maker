@@ -1,5 +1,4 @@
 :root {
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,17 +14,33 @@ body {
   font-family: "Karla", sans-serif;
   margin: 0;
   overflow-x: hidden;
+  transition: all ease-in 0.3s;
+}
+body.dark {
+  background-color: #282D35;
+  transition: all ease-in 0.3s;
 }
 
-.navbar {
+nav {
   font-family: Karla;
   display: flex;
   justify-items: center;
+  justify-content: space-between;
   align-items: center;
   padding: 5px;
   background: linear-gradient(to right, #672280, #A626D3);
+  color: #000;
+  height: 10dvh;
+}
+nav.dark {
+  transition: all ease-in 0.3s;
+}
+.logo-container {
+  display: flex;
   justify-content: center;
-  color: #FFFFFF;
+  align-items: center;
+  padding: 10px;
+  color: white;
 }
 
 .logo {
@@ -38,13 +53,91 @@ body {
   font-size: 1.6rem;
 }
 
+.toggler {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+  align-self: center;
+  padding: 13px;
+}
+
+.toggler p {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.toggler--slider {
+  width: 35px;
+  height: 20px;
+  background-color: #2B283A;
+  border-radius: 2rem;
+  margin-inline: 7px;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid black;
+  box-sizing: content-box;
+}
+
+nav.dark .toggler--slider {
+  border-color: white;
+  background-color: #F5F5F5;
+}
+
+.toggler--slider--circle {
+  height: 20px;
+  width: 18px;
+  background-color: white;
+  border-radius: 50%;
+  transition: all ease-in 0.3s;
+}
+
+nav.dark .toggler--slider--circle {
+  background-color: black;
+  transition: all ease-in 0.3s;
+}
+
+.toggler--light {
+  color: white;
+  transition: all ease-in 0.3s;
+}
+
+nav.dark .toggler--light {
+  color: black;
+  transition: all ease-in 0.3s;
+}
+
+.toggler--dark {
+  color: black;
+}
+
+nav.dark .toggler--dark {
+  color: #FFFFFF;
+  transition: all ease-in 0.3s;
+}
+
+nav.dark .toggler--slider {
+  justify-content: flex-end;
+  transition: all ease-in 0.3s;
+}
+main {
+  color: #000;
+  height: 100%;
+}
+main.dark {
+  background-image: url("./images/react-icon-dark.png"); 
+  color: white;   
+  transition: all ease-in 0.3s;
+}
+
 .form {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 17px;
-  margin: 17px;
+  padding: 17px;
 }
 
 .form-input {
@@ -52,6 +145,11 @@ body {
   border: 1px solid #D5D4D8;
   text-indent: 5px;
   height: 40px;
+}
+
+label {
+  padding: 0;
+  margin: 0;
 }
 
 .upload-container {
@@ -153,28 +251,42 @@ body {
     margin: 0;
     overflow-x: hidden;
   }
+  nav {
+    font-family: Karla;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    background: linear-gradient(to right, #672280, #A626D3);
+    color: #000;
+    height: 13dvh;
+    margin: 0;
+  }
+  .logo-container {
+    padding: 0;
+  }
+  
   .form {
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 17px;
-    margin: 17px;
   }
   
   .form-input {
     border-radius: 5px;
     border: 1px solid #D5D4D8;
     text-indent: 5px;
+    width: 30%;
+    flex-basis: 100%;
   }
   
   .form-button {
-    border-radius: 5px;
     background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
-    color: white;
-    border: none;
-    cursor: pointer;
-    height: 40px;
     width: auto;
+    flex:50%;
   }
 
   .upload-container {
@@ -185,6 +297,7 @@ body {
     background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
     color: white;
     margin-right: 0px;
+    flex: 50%;
   }
   
   
@@ -200,7 +313,7 @@ body {
   .meme-image {
     max-width: 100%;
     border-radius: 3px;
-    max-height: 50dvh;
+    max-height: 100%;
     width: 90dvw;
     margin: 17px;
   }

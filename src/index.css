@@ -291,13 +291,12 @@ main.dark {
     border-radius: 5px;
     border: 1px solid #D5D4D8;
     text-indent: 5px;
-    flex-basis: 100%;
+    flex-basis: 50%;
   }
   
   .form-button {
     background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
     width: auto;
-    flex:50%;
   }
 
   .upload-container {
@@ -308,7 +307,6 @@ main.dark {
     background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
     color: white;
     margin-right: 0px;
-    flex: 50%;
   }
   
   

@@ -139,6 +139,7 @@ export default function Meme() {
     
     return (
         <main 
+            onTouchStart={(event) => event.preventDefault()}
             onMouseMove={handlePointerMove} 
             onMouseUp={handlePointerUp}
             onTouchMove={handlePointerMove} 

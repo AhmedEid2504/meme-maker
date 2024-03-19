@@ -1,29 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
-import PropTypes from "prop-types";
-export default function Meme(props) {
-    useEffect(() => {
-        const preventScrollRefresh = (e) => {
-            // prevent scrolling up
-            if (e.touches.length !== 1) return;
-            if (e.touches[0].clientY > 0) {
-                e.preventDefault();
-            }
-        };
 
-        document.body.addEventListener("touchmove", preventScrollRefresh, {
-            passive: false,
-        });
-
-        return () => {
-            document.body.removeEventListener("touchmove", preventScrollRefresh);
-        };
-    }, []);
+export default function Meme() {
     const [meme, setMeme] = useState({
-        topText: "",
-        bottomText: "",
         randomImage: "http://i.imgflip.com/1bij.jpg",
         uploadedImage: null,
         showUploadedImage: false,
+        isDragging: false,
+        dragElement: "",
+        mouseX: 0,
+        mouseY: 0,
+        dragOffsetX: 0,
+        dragOffsetY: 0,
+        textInputs: [{ text: "", position: { x: "0%", y: "0%" } }],
     });
 
     const [allMemes, setAllMemes] = useState([]);
@@ -51,14 +39,6 @@ export default function Meme(props) {
         }
     }, [allMemes, meme.showUploadedImage, meme.uploadedImage]);
 
-    const handleChange = useCallback((event) => {
-        const { name, value } = event.target;
-        setMeme(prevMeme => ({
-            ...prevMeme,
-            [name]: value
-        }));
-    }, []);
-
     const handleImageUpload = useCallback((event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -80,95 +60,146 @@ export default function Meme(props) {
         }));
     }, []);
 
-    const handleTouchStart = (e) => {
-        const target = e.target;
-        const memeText = target.closest('.meme-text');
-        if (memeText) {
-            const rect = memeText.getBoundingClientRect();
-            const offsetX = e.touches[0].clientX - rect.left;
-            const offsetY = e.touches[0].clientY - rect.top;
-            
-            const handleTouchMove = (e) => {
-                const parentRect = memeText.parentElement.getBoundingClientRect();
-                const x = e.touches[0].clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
-                let y = e.touches[0].clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
-                if (memeText.classList.contains('bottom')) {
-                    y = e.touches[0].clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
-                }
-                memeText.style.transform = `translate(${x}px, ${y}px)`;
-            };
+    const handleMouseDown = useCallback((event, index) => {
+        event.preventDefault();
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            isDragging: true,
+            dragElement: index,
+            mouseX: event.clientX,
+            mouseY: event.clientY,
+            dragOffsetX: prevMeme.textInputs[index].position.x,
+            dragOffsetY: prevMeme.textInputs[index].position.y,
+        }));
+    }, []);
 
-    
-            const handleTouchEnd = () => {
-                document.removeEventListener('touchmove', handleTouchMove);
-                document.removeEventListener('touchend', handleTouchEnd);
-            };
-    
-            document.addEventListener('touchmove', handleTouchMove, { passive: false });
-            document.addEventListener('touchend', handleTouchEnd, { passive: false });
+    const handleMouseMove = useCallback((event) => {
+        if (meme.isDragging) {
+            const deltaX = event.clientX - meme.mouseX;
+            const deltaY = event.clientY - meme.mouseY;
+
+            setMeme(prevMeme => ({
+                ...prevMeme,
+                textInputs: prevMeme.textInputs.map((textInput, index) => {
+                    if (index === prevMeme.dragElement) {
+                        return {
+                            ...textInput,
+                            position: {
+                                x: `calc(${prevMeme.dragOffsetX} + ${deltaX}px)`,
+                                y: `calc(${prevMeme.dragOffsetY} + ${deltaY}px)`,
+                            },
+                        };
+                    }
+                    return textInput;
+                }),
+                mouseX: event.clientX,
+                mouseY: event.clientY,
+            }));
         }
-    };
+    }, [meme.isDragging]);
 
-    const handleMouseDown = (e) => {
-        const target = e.target;
-        const memeText = target.closest('.meme-text');
-        if (memeText) {
-            const rect = memeText.getBoundingClientRect();
-            const offsetX = e.clientX - rect.left;
-            const offsetY = e.clientY - rect.top;
-            
-            const handleMouseMove = (e) => {
-                const parentRect = memeText.parentElement.getBoundingClientRect();
-                const x = e.clientX - parentRect.left - offsetX - memeText.offsetWidth / 2;
-                let y = e.clientY - parentRect.top - offsetY - memeText.offsetHeight / 2;
-                if (memeText.classList.contains('bottom')) {
-                    y = e.clientY - parentRect.bottom + memeText.offsetHeight + offsetY;
-                }
-                memeText.style.transform = `translate(${x}px, ${y}px)`;
-            };
+    const handleMouseUp = useCallback(() => {
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            isDragging: false,
+        }));
+    }, []);
 
-    
-            const handleMouseUp = () => {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
-            };
-    
-            document.addEventListener('mousemove', handleMouseMove, { passive: false });
-            document.addEventListener('mouseup', handleMouseUp, { passive: false });
+    const handleTouchStart = useCallback((event, index) => {
+        event.preventDefault();
+        const touch = event.touches[0];
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            isDragging: true,
+            dragElement: index,
+            mouseX: touch.clientX,
+            mouseY: touch.clientY,
+            dragOffsetX: prevMeme.textInputs[index].position.x,
+            dragOffsetY: prevMeme.textInputs[index].position.y,
+        }));
+    }, []);
+
+    const handleTouchMove = useCallback((event) => {
+        if (meme.isDragging) {
+            const touch = event.touches[0];
+            const deltaX = touch.clientX - meme.mouseX;
+            const deltaY = touch.clientY - meme.mouseY;
+
+            setMeme(prevMeme => ({
+                ...prevMeme,
+                textInputs: prevMeme.textInputs.map((textInput, index) => {
+                    if (index === prevMeme.dragElement) {
+                        return {
+                            ...textInput,
+                            position: {
+                                x: `calc(${prevMeme.dragOffsetX} + ${deltaX}px)`,
+                                y: `calc(${prevMeme.dragOffsetY} + ${deltaY}px)`,
+                            },
+                        };
+                    }
+                    return textInput;
+                }),
+                mouseX: touch.clientX,
+                mouseY: touch.clientY,
+            }));
         }
-    };
+    }, [meme.isDragging]);
 
+    const handleTouchEnd = useCallback(() => {
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            isDragging: false,
+        }));
+    }, []);
 
+    const handleAddTextInput = useCallback(() => {
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            textInputs: [...prevMeme.textInputs, { text: "", position: { x: "0%", y: "0%" } }],
+        }));
+    }, []);
+
+    const handleRemoveTextInput = useCallback((index) => {
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            textInputs: prevMeme.textInputs.filter((_, i) => i !== index),
+        }));
+    }, []);
+
+    const handleChange = useCallback((event, index) => {
+        const { value } = event.target;
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            textInputs: prevMeme.textInputs.map((textInput, i) => {
+                if (i === index) {
+                    return { ...textInput, text: value };
+                }
+                return textInput;
+            }),
+        }));
+    }, []);
+    
     return (
-        <main className={props.darkMode ? "dark" : ""}>
+        <main onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
             <div className="form">
-                <label htmlFor="top-text">
-                    Top text
-                </label>
-                <input
-                    id="top-text"
-                    type="text"
-                    placeholder=""
-                    className="form-input"
-                    name="topText"
-                    value={meme.topText}
-                    onChange={handleChange}
-                />
-                <label htmlFor="bottom-text">
-                    Bottom text
-                </label>
-                <input
-                    id="bottom-text"
-                    type="text"
-                    className="form-input"
-                    name="bottomText"
-                    value={meme.bottomText}
-                    onChange={handleChange}
-                />
-                <>
+                <div className="inputs-container">
+                    <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
+                        {meme.textInputs.map((textInput, index) => (
+                            <div key={index}>
+                                <input
+                                    type="text"
+                                    placeholder={`Text ${index + 1}`}
+                                    className="form-input"
+                                    value={textInput.text}
+                                    onChange={(event) => handleChange(event, index)}
+                                />
+                                <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>Remove</button>
+                            </div>
+                        ))}
+                </div>
                 <div className="upload-container">
                     <label htmlFor="upload-input" className="upload-btn">
-                        Upload Image
+                        Upload Meme Image
                     </label>
                     <input
                         id="upload-input"
@@ -184,7 +215,7 @@ export default function Meme(props) {
                         className="form-button"
                         onClick={getMemeImage}
                     >
-                        Random Meme
+                        Generate Random Meme
                     </button>
                 )}
                 {meme.showUploadedImage && (
@@ -195,23 +226,27 @@ export default function Meme(props) {
                         Remove Uploaded Image
                     </button>
                 )}
-                </>
-
-
             </div>
-            <div className="meme" onMouseDown={handleMouseDown} onTouchStart={handleTouchStart}>
+            <div className="meme">
                 <img
                     src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
                     className="meme-image"
                     alt="Meme"
                 />
-                <h2 className="meme-text top">{meme.topText}</h2>
-                <h2 className="meme-text bottom">{meme.bottomText}</h2>
+                {meme.textInputs.map((textInput, index) => (
+                    <div
+                    key={index}
+                    className="meme-text"
+                    style={{ left: textInput.position.x, top: textInput.position.y }}
+                    onMouseDown={(event) => handleMouseDown(event, index)}
+                    onTouchStart={(event) => handleTouchStart(event, index)}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                >
+                    {textInput.text}
+                </div>
+                ))}
             </div>
         </main>
-    )
+    );
 }
-Meme.propTypes = {
-    // Define PropTypes here
-    darkMode: PropTypes.bool,
-};

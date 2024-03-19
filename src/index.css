@@ -122,7 +122,6 @@ nav.dark .toggler--slider {
   transition: all ease-in 0.3s;
 }
 main {
-  color: #000;
   height: 100%;
 }
 main.dark {
@@ -130,6 +129,7 @@ main.dark {
   color: white;   
   transition: all ease-in 0.3s;
 }
+
 
 .form {
   display: flex;
@@ -140,16 +140,28 @@ main.dark {
   padding: 17px;
 }
 
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  gap: 10px;
+  flex-basis: 100%;
+}
+.inputs-container .add {
+  padding: 10px;
+}
+.inputs-container .remove {
+  padding: 10px;
+}
+
+
 .form-input {
   border-radius: 5px;
   border: 1px solid #D5D4D8;
   text-indent: 5px;
   height: 40px;
-}
-
-label {
-  padding: 0;
-  margin: 0;
 }
 
 .upload-container {
@@ -211,7 +223,7 @@ label {
 
 .meme-text {
   position: absolute;
-  width: 100%;
+  width: auto;
   text-align: center;
   margin: 15px 0;
   padding: 0 5px;
@@ -279,7 +291,6 @@ label {
     border-radius: 5px;
     border: 1px solid #D5D4D8;
     text-indent: 5px;
-    width: 30%;
     flex-basis: 100%;
   }
   

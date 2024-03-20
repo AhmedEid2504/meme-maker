@@ -156,16 +156,13 @@ export default function Meme() {
         const { name, value } = event.target;
         setMeme(prevMeme => ({
             ...prevMeme,
-            textInputs: prevMeme.textInputs.map((textInput, i) => {
-                if (i === index) {
-                    if (name === "size") {
-                        return { ...textInput, size: parseInt(value) };
-                    } else {
-                        return { ...textInput, [name]: value };
-                    }
-                }
-                return textInput;
-            }),
+            textInputs: prevMeme.textInputs.map((textInput, i) =>
+                i === index
+                    ? name === "size"
+                        ? { ...textInput, size: parseInt(value) }
+                        : { ...textInput, [name]: value }
+                    : textInput
+            ),
         }));
     }, []);
     

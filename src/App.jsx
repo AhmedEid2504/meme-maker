@@ -22,7 +22,7 @@ function App() {
   const playSound = () => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.1; // Adjust volume here
+      audio.volume = 0.3; // Adjust volume here
       audio.play();
     }
   };

@@ -1,23 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 export default function Meme() {
-    useEffect(() => {
-        const preventScrollRefresh = (e) => {
-            // Check if the user is scrolling up
-            if (e.touches.length !== 1) return;
-            if (e.touches[0].clientY > 0) {
-                e.preventDefault();
-            }
-        };
-
-        document.body.addEventListener("touchmove", preventScrollRefresh, {
-            passive: false,
-        });
-
-        return () => {
-            document.body.removeEventListener("touchmove", preventScrollRefresh);
-        };
-    }, []);
+    
     const [meme, setMeme] = useState({
         randomImage: "http://i.imgflip.com/1bij.jpg",
         uploadedImage: null,
@@ -35,8 +19,26 @@ export default function Meme() {
             size: "25"
         }],
     });
-
     const [allMemes, setAllMemes] = useState([]);
+
+    useEffect(() => {
+        const preventScrollRefresh = (e) => {
+            // Check if the user is scrolling up
+            if (e.touches.length !== 1) return;
+            if (e.touches[0].clientY > 0) {
+                e.preventDefault();
+            }
+        };
+
+        document.body.addEventListener("touchmove", preventScrollRefresh, {
+            passive: false,
+        });
+
+        return () => {
+            document.body.removeEventListener("touchmove", preventScrollRefresh);
+        };
+    }, [meme.isDragging]);
+
 
     useEffect(() => {
         // Fetch API request here

@@ -1,27 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-
-
 export default function Meme() {
-
-    useEffect(() => {
-        const preventScrollRefresh = (e) => {
-            // Check if the user is scrolling up
-            if (e.touches.length !== 1) return;
-            if (e.touches[0].clientY > 0) {
-                e.preventDefault();
-            }
-        };
-
-        document.body.addEventListener("touchmove", preventScrollRefresh, {
-            passive: false,
-        });
-
-        return () => {
-            document.body.removeEventListener("touchmove", preventScrollRefresh);
-        };
-    }, []);
-    
     const [meme, setMeme] = useState({
         randomImage: "http://i.imgflip.com/1bij.jpg",
         uploadedImage: null,
@@ -32,7 +11,12 @@ export default function Meme() {
         mouseY: 0,
         dragOffsetX: 0,
         dragOffsetY: 0,
-        textInputs: [{ text: "", position: { x: "27%", y: "0%" } }],
+        textInputs: [{ 
+            text: "", 
+            position: { x: "27%", y: "0%" }, 
+            color: "#F5F5F5",
+            size: "25"
+        }],
     });
 
     const [allMemes, setAllMemes] = useState([]);
@@ -122,6 +106,7 @@ export default function Meme() {
                 mouseY: clientY,
             }));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meme.isDragging]);
 
     const handlePointerUp = useCallback(() => {
@@ -134,7 +119,12 @@ export default function Meme() {
     const handleAddTextInput = useCallback(() => {
         setMeme(prevMeme => ({
             ...prevMeme,
-            textInputs: [...prevMeme.textInputs, { text: "", position: { x: "27%", y: "0%" } }],
+            textInputs: [...prevMeme.textInputs, { 
+                text: "", 
+                position: { x: "27%", y: "0%" }, 
+                color: "#F5F5F5", // Default color
+                size: "25"      // Default size
+            }],
         }));
     }, []);
 
@@ -146,12 +136,16 @@ export default function Meme() {
     }, []);
 
     const handleChange = useCallback((event, index) => {
-        const { value } = event.target;
+        const { name, value } = event.target;
         setMeme(prevMeme => ({
             ...prevMeme,
             textInputs: prevMeme.textInputs.map((textInput, i) => {
                 if (i === index) {
-                    return { ...textInput, text: value };
+                    if (name === "size") {
+                        return { ...textInput, size: parseInt(value) };
+                    } else {
+                        return { ...textInput, [name]: value };
+                    }
                 }
                 return textInput;
             }),
@@ -160,7 +154,6 @@ export default function Meme() {
     
     return (
         <main 
-            onTouchStart={(event) => event.preventDefault()}
             onMouseMove={handlePointerMove} 
             onMouseUp={handlePointerUp}
             onTouchMove={handlePointerMove} 
@@ -169,67 +162,87 @@ export default function Meme() {
             <div className="form">
                 <div className="inputs-container">
                     <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
-                        {meme.textInputs.map((textInput, index) => (
-                            <div key={index}>
-                                <input
-                                    type="text"
-                                    placeholder={`Text ${index + 1}`}
-                                    className="form-input"
-                                    value={textInput.text}
-                                    onChange={(event) => handleChange(event, index)}
-                                />
-                                <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>Remove</button>
-                            </div>
-                        ))}
-                </div>
-                <div className="upload-container">
-                    <label htmlFor="upload-input" className="upload-btn">
-                        Upload Image
-                    </label>
-                    <input
-                        id="upload-input"
-                        type="file"
-                        accept="image/*"
-                        className="upload-input"
-                        onChange={handleImageUpload}
-                    />
-                </div>
-
-                {!meme.showUploadedImage && (
-                    <button
-                        className="form-button"
-                        onClick={getMemeImage}
-                    >
-                        Generate Meme
-                    </button>
-                )}
-                {meme.showUploadedImage && (
-                    <button
-                        className="form-button"
-                        onClick={removeUploadedImage}
-                    >
-                        Remove Image
-                    </button>
-                )}
-            </div>
-            <div className="meme">
-                <img
-                    src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
-                    className="meme-image"
-                    alt="Meme"
-                />
-                {meme.textInputs.map((textInput, index) => (
-                    <div
-                        key={index}
-                        className="meme-text"
-                        style={{ left: textInput.position.x, top: textInput.position.y }}
-                        onMouseDown={(event) => handlePointerDown(event, index)}
-                        onTouchStart={(event) => handlePointerDown(event, index)}
-                    >
-                        {textInput.text}
+                    {meme.textInputs.map((textInput, index) => (
+                        <div className="input-container" key={index}>
+                            <input
+                                type="color"
+                                name="color"
+                                className="form-input color"
+                                value={textInput.color}
+                                onChange={(event) => handleChange(event, index)}
+                            />
+                            <input
+                                type="text"
+                                name="text"
+                                placeholder={`Text ${index + 1}`}
+                                className="form-input text"
+                                value={textInput.text}
+                                onChange={(event) => handleChange(event, index)}
+                            />
+                            <input
+                                type="number"
+                                name="size"
+                                className="form-input size"
+                                value={textInput.size}
+                                onChange={(event) => handleChange(event, index)}
+                            />
+                            <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>Remove</button>
+                        </div>
+                    ))}
                     </div>
-                ))}
-            </div>
-        </main>
-    );
-}
+                    <div className="upload-container">
+                        <label htmlFor="upload-input" className="upload-btn">
+                            Upload Image
+                        </label>
+                        <input
+                            id="upload-input"
+                            type="file"
+                            accept="image/*"
+                            className="upload-input"
+                            onChange={handleImageUpload}
+                        />
+                    </div>
+    
+                    {!meme.showUploadedImage && (
+                        <button
+                            className="form-button"
+                            onClick={getMemeImage}
+                        >
+                            Generate Meme
+                        </button>
+                    )}
+                    {meme.showUploadedImage && (
+                        <button
+                            className="form-button"
+                            onClick={removeUploadedImage}
+                        >
+                            Remove Image
+                        </button>
+                    )}
+                </div>
+                <div className="meme">
+                    <img
+                        src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
+                        className="meme-image"
+                        alt="Meme"
+                    />
+                    {meme.textInputs.map((textInput, index) => (
+                        <div
+                            key={index}
+                            className="meme-text"
+                            style={{ 
+                                left: textInput.position.x, 
+                                top: textInput.position.y,
+                                color: textInput.color,
+                                fontSize: textInput.size
+                            }}
+                            onMouseDown={(event) => handlePointerDown(event, index)}
+                            onTouchStart={(event) => handlePointerDown(event, index)}
+                        >
+                            {textInput.text}
+                        </div>
+                    ))}
+                </div>
+            </main>
+        );
+    }

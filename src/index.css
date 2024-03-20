@@ -261,15 +261,15 @@ button:hover {
   color: white;
   letter-spacing: 1px;
   text-shadow:
-      2px 2px 0 #000,
-      -2px -2px 0 #000,
-      2px -2px 0 #000,
-      -2px 2px 0 #000,
-      0 2px 0 #000,
-      2px 0 0 #000,
-      0 -2px 0 #000,
-      -2px 0 0 #000,
-      2px 2px 5px #000;
+    1px 1px 0 #000,
+    -0.5px 1px 0 #000,
+    1px -0.5px 0 #000,
+    -0.5px 1px 0 #000,
+    1px 1px 0 #000,
+    1px 1px 0 #000,
+    1px -0.5px 0 #000,
+    -0.5px 1px 0 #000,
+    1px 1px 5px #000;
   cursor: move;
 }
 
@@ -361,13 +361,13 @@ button:hover {
     letter-spacing: 1px;
     text-shadow:
         1px 1px 0 #000,
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        0 1px 0 #000,
-        1px 0 0 #000,
-        0 -1px 0 #000,
-        -1px 0 0 #000,
+        -0.5px 1px 0 #000,
+        1px -0.5px 0 #000,
+        -0.5px 1px 0 #000,
+        1px 1px 0 #000,
+        1px 1px 0 #000,
+        1px -0.5px 0 #000,
+        -0.5px 1px 0 #000,
         1px 1px 5px #000;
     cursor: move;
   }

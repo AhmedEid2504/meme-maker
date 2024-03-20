@@ -23,7 +23,7 @@ export default function Meme() {
 
     useEffect(() => {
         const preventScrollRefresh = (e) => {
-            if (!meme.isDragging) {
+            if (meme.isDragging) {
                 if (e.touches.length !== 1) return;
                 if (e.touches[0].clientY > 0) {
                     e.preventDefault();

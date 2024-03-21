@@ -13,14 +13,16 @@ export default function Meme() {
         dragOffsetX: 0,
         dragOffsetY: 0,
         textInputs: [{ 
-            text: "", 
+            text: "Text", 
             position: { x: "27%", y: "0%" }, 
             color: "#F5F5F5",
-            size: "25"
+            size: ""
         }],
     });
     const [allMemes, setAllMemes] = useState([]);
+    const defaultSizes = ["20", "25", "30", "35", "40", "45", "50", "55"]; // Default sizes
 
+    // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
             if (meme.isDragging) {
@@ -41,8 +43,8 @@ export default function Meme() {
     }, [meme.isDragging]);
 
 
+    // Fetch API request here
     useEffect(() => {
-        // Fetch API request here
         fetch("https://api.imgflip.com/get_memes")
             .then((res) => res.json())
             .then(data => setAllMemes(data.data.memes));
@@ -140,7 +142,7 @@ export default function Meme() {
         setMeme(prevMeme => ({
             ...prevMeme,
             textInputs: [...prevMeme.textInputs, { 
-                text: "", 
+                text: "Text", 
                 position: { x: "27%", y: "0%" }, 
                 color: "#F5F5F5", // Default color
                 size: "25"      // Default size
@@ -201,8 +203,16 @@ export default function Meme() {
                                 name="size"
                                 className="form-input size"
                                 value={textInput.size}
+                                min={13}
+                                list="defaultNumbers"
                                 onChange={(event) => handleChange(event, index)}
                             />
+                            <datalist id="defaultNumbers">
+                                {defaultSizes.map((size, i) => (
+                                    <option key={i} value={size}></option>
+                                ))}
+                            </datalist>
+
                             <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>Remove</button>
                         </div>
                     ))}

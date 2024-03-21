@@ -164,14 +164,12 @@ main.dark {
 
 .form-input {
   border-radius: 0px;
-  border: none;
   text-indent: 5px;
   height: 40px;
   border: 1px solid black;
-  outline: none;
 }
 .size {
-  width: 60px;
+  width: 65px;
   border: 1px solid black;
 }
 .text {

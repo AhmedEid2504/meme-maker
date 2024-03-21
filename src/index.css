@@ -11,13 +11,14 @@
 }
 
 body {
+  background-image: radial-gradient(circle, #ffffff 30%, #276ac0 100%);
   font-family: "Karla", sans-serif;
   margin: 0;
   overflow-x: hidden;
   transition: all ease-in 0.3s;
 }
 body.dark {
-  background-color: #282D35;
+  background-image: radial-gradient(circle, #1d0120 50%, #380650 100%);
   transition: all ease-in 0.3s;
 }
 
@@ -28,12 +29,13 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  background: linear-gradient(to right, #672280, #A626D3);
+  background-image: radial-gradient(circle, #ffffff 10%, #276ac0 100%);
   color: #000;
   height: 10dvh;
 }
 nav.dark {
   transition: all ease-in 0.3s;
+  background-image: radial-gradient(circle, #1d0120 25%, #380650 100%)
 }
 .logo-container {
   display: flex;
@@ -69,31 +71,33 @@ nav.dark {
 .toggler-slider {
   width: 35px;
   height: 20px;
-  background-color: #2B283A;
+  background-image: radial-gradient(circle, #fdfdfd 0%, #2773a5 100%);
   border-radius: 2rem;
   margin-inline: 7px;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid rgb(84, 20, 87);
   box-sizing: content-box;
 }
 
 nav.dark .toggler-slider {
-  background-color: #F5F5F5;
+  background-image: radial-gradient(circle, #fdfdfd 0%, #7b27a5 100%);
 }
 
 .toggler-slider-circle {
   height: 20px;
   width: 18px;
-  background-color: white;
+  background-color: rgb(233, 242, 255);
   border-radius: 50%;
   transition: all ease-in 0.3s;
+  border: 1px solid #2773a5;
 }
 
 nav.dark .toggler-slider-circle {
-  background-color: black;
+  background-color: rgb(47, 10, 54);
+  border: 1px solid #7b27a5;
   transition: all ease-in 0.3s;
 }
 
@@ -103,12 +107,13 @@ nav.dark .toggler-slider-circle {
 }
 
 nav.dark .toggler-light {
-  color: black;
+  color: rgb(78, 7, 92);
   transition: all ease-in 0.3s;
 }
 
 .toggler-dark {
-  color: black;
+  color: rgb(7, 47, 92);
+  transition: all ease-in 0.3s;
 }
 
 nav.dark .toggler-dark {
@@ -166,11 +171,11 @@ main.dark {
   border-radius: 0px;
   text-indent: 5px;
   height: 40px;
-  border: 1px solid black;
+  border: 1px solid rgb(92, 23, 119);
 }
 .size {
   width: 65px;
-  border: 1px solid black;
+  border: 1px solid rgb(72, 24, 87);
 }
 .text {
   width: 40%;
@@ -185,13 +190,16 @@ main.dark {
 }
 
 .upload-btn {
-  background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
+  background: linear-gradient(90.41deg, #1f5c8d 1.14%, #1873da 100%);
   color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-right: 10px;
+}
+main.dark  .upload-btn {
+  background-image: radial-gradient(circle, #fdfdfd 0%, #7b27a5 100%);
 }
 
 .upload-btn:hover {
@@ -291,7 +299,7 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     padding: 0px;
-    background: linear-gradient(to right, #672280, #A626D3);
+    background-image: radial-gradient(circle, #71aed6 0%, #276ac0 100%);
     color: #000;
     height: 13dvh;
     margin: 0;

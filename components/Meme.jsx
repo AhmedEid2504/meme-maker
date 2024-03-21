@@ -189,108 +189,110 @@ export default function Meme() {
     }, []);
     
     return (
-        <main 
-            onMouseMove={handlePointerMove} 
-            onMouseUp={handlePointerUp}
-            onTouchMove={handlePointerMove} 
-            onTouchEnd={handlePointerUp}
-        >
-            <div className="form">
-                <div className="inputs-container">
-                    <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
-                    {meme.textInputs.map((textInput, index) => (
-                        <div className="input-container" key={index}>
-                            <input
-                                type="color"
-                                name="color"
-                                className="form-input color"
-                                value={textInput.color}
-                                onChange={(event) => handleChange(event, index)}
-                            />
-                            <input
-                                type="text"
-                                name="text"
-                                placeholder={`Text ${index + 1}`}
-                                className="form-input text"
-                                value={textInput.text}
-                                onChange={(event) => handleChange(event, index)}
-                            />
-                            
-                            <input
-                                placeholder="px"
-                                id="fontSize"
-                                type="number"
-                                name="size"
-                                className="form-input size"
-                                value={textInput.size}
-                                min={13}
-                                list="defaultNumbers"
-                                onChange={(event) => handleChange(event, index)}
-                            />
-                            <datalist id="defaultNumbers">
-                                {defaultSizes.map((size, i) => (
-                                    <option key={i} value={size}></option>
-                                ))}
-                            </datalist>
+        <div className="main-container">
+            <main 
+                onMouseMove={handlePointerMove} 
+                onMouseUp={handlePointerUp}
+                onTouchMove={handlePointerMove} 
+                onTouchEnd={handlePointerUp}
+            >
+                <div className="form">
+                    <div className="inputs-container">
+                        <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
+                        {meme.textInputs.map((textInput, index) => (
+                            <div className="input-container" key={index}>
+                                <input
+                                    type="color"
+                                    name="color"
+                                    className="form-input color"
+                                    value={textInput.color}
+                                    onChange={(event) => handleChange(event, index)}
+                                />
+                                <input
+                                    type="text"
+                                    name="text"
+                                    placeholder={`Text ${index + 1}`}
+                                    className="form-input text"
+                                    value={textInput.text}
+                                    onChange={(event) => handleChange(event, index)}
+                                />
+                                
+                                <input
+                                    placeholder="px"
+                                    id="fontSize"
+                                    type="number"
+                                    name="size"
+                                    className="form-input size"
+                                    value={textInput.size}
+                                    min={13}
+                                    list="defaultNumbers"
+                                    onChange={(event) => handleChange(event, index)}
+                                />
+                                <datalist id="defaultNumbers">
+                                    {defaultSizes.map((size, i) => (
+                                        <option key={i} value={size}></option>
+                                    ))}
+                                </datalist>
 
-                            <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>X</button>
+                                <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}><img src="images/delete.png" alt="delete icon" /></button>
+                            </div>
+                        ))}
+                        </div>
+                        <div className="upload-container">
+                            <label htmlFor="upload-input" className="upload-btn">
+                                Upload Template
+                            </label>
+                            <input
+                                id="upload-input"
+                                type="file"
+                                accept="image/*"
+                                className="upload-input"
+                                onChange={handleImageUpload}
+                            />
+                        </div>
+        
+                        {!meme.showUploadedImage && (
+                            <button
+                                className="form-button"
+                                onClick={getMemeImage}
+                            >
+                                Random Template
+                            </button>
+                        )}
+                        {meme.showUploadedImage && (
+                            <button
+                                className="form-button"
+                                onClick={removeUploadedImage}
+                            >
+                                Remove Image
+                            </button>
+                        )}
+                    </div>
+                    <div ref={memeContainerRef} className="meme">
+                    <img
+                        src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
+                        className="meme-image"
+                        alt="Meme"
+                    />
+                    {meme.textInputs.map((textInput, index) => (
+                        <div
+                            key={index}
+                            className="meme-text"
+                            style={{ 
+                                left: textInput.position.x, 
+                                top: textInput.position.y,
+                                color: textInput.color,
+                                fontSize: textInput.size
+                            }}
+                            onMouseDown={(event) => handlePointerDown(event, index)}
+                            onTouchStart={(event) => handlePointerDown(event, index)}
+                        >
+                            {textInput.text}
                         </div>
                     ))}
-                    </div>
-                    <div className="upload-container">
-                        <label htmlFor="upload-input" className="upload-btn">
-                            Upload Image
-                        </label>
-                        <input
-                            id="upload-input"
-                            type="file"
-                            accept="image/*"
-                            className="upload-input"
-                            onChange={handleImageUpload}
-                        />
-                    </div>
-    
-                    {!meme.showUploadedImage && (
-                        <button
-                            className="form-button"
-                            onClick={getMemeImage}
-                        >
-                            Generate Meme
-                        </button>
-                    )}
-                    {meme.showUploadedImage && (
-                        <button
-                            className="form-button"
-                            onClick={removeUploadedImage}
-                        >
-                            Remove Image
-                        </button>
-                    )}
                 </div>
-                <div ref={memeContainerRef} className="meme">
-                <img
-                    src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
-                    className="meme-image"
-                    alt="Meme"
-                />
-                {meme.textInputs.map((textInput, index) => (
-                    <div
-                        key={index}
-                        className="meme-text"
-                        style={{ 
-                            left: textInput.position.x, 
-                            top: textInput.position.y,
-                            color: textInput.color,
-                            fontSize: textInput.size
-                        }}
-                        onMouseDown={(event) => handlePointerDown(event, index)}
-                        onTouchStart={(event) => handlePointerDown(event, index)}
-                    >
-                        {textInput.text}
-                    </div>
-                ))}
+                <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
+                </main>
             </div>
-            <button className="form-button download" onClick={captureScreenshot}>Download Meme</button>
-            </main>
         );
     }

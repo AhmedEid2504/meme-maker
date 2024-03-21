@@ -4,6 +4,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --primary-color: #00ADB5;
+  --secondary-color:#EEEEEE;
+  --third-color: #393E46;
+  --fourth-color:#222831;
 }
 
 * {
@@ -17,22 +21,22 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--primary-color);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #380650;
+    background: #222831;
 }
 
 body {
-  background-color: #afccf8;
+  background-color: var(--secondary-color);
   font-family: "Karla", sans-serif;
   margin: 0;
   overflow-x: hidden;
   transition: all ease-in 0.3s;
 }
 body.dark {
-  background-color: #0c042e;
+  background-color: var(--fourth-color);
   transition: all ease-in 0.3s;
 }
 
@@ -43,13 +47,12 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  background-color: #080224;
+  background-color: var(--third-color);
   height: 10dvh;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all ease-in 0.3s;
 }
 nav.dark {
-  background-color: #080224;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all ease-in 0.3s;
 }
@@ -57,14 +60,14 @@ nav.dark {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 30px;
   color: white;
 }
 
 .logo {
-  width: 60px;
-  height: 50px;
-  margin: 5px;
+  width: 50px;
+  height: 40px;
+  margin: 0px;
 }
 
 .logo-text {
@@ -122,12 +125,24 @@ nav.dark .toggler-slider {
   justify-content: flex-end;
   transition: all ease-in 0.3s;
 }
-main {
-  height: 100%;
+.main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-content: center;
+  width: 100vw;
+  height: 100%;
+  margin-top: 40px;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--third-color);
+  width: 80%;
+  padding: 20px;
 }
 main.dark {
   color: white;   
@@ -152,19 +167,6 @@ main.dark {
   justify-items: center;
   gap: 10px;
   flex-basis: 100%;
-}
-.inputs-container .add {
-  padding: 10px;
-}
-.inputs-container .remove {
-  padding: 10px;
-  background-image: none;
-  background-color: rgb(155, 30, 30);
-  border-radius: 0;
-}
-
-.remove:hover {
-  color: white;
 }
 .input-container {
   display: flex;
@@ -195,6 +197,52 @@ main.dark {
   display: flex;
 }
 
+
+/* buttons */
+
+.form-button {
+  border-radius: 5px;
+  background-color: #00ADB5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  box-shadow: inset 2px 2px 6px rgba(0, 0,0,.5);
+  transition: all .3s ease-in;
+}
+
+.add {
+  padding: 10px;
+}
+
+.remove {
+  background-color: transparent;
+}
+
+.remove img {
+  width: 35px;
+  padding: 5px;
+}
+
+.remove:hover {
+  color: white;
+}
+.download {
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  background-color: transparent;
+  background-color: var(--primary-color);
+}
+.download img{
+  width: 40px;
+  padding: 8px;
+}
+
 .upload-btn {
   background-color: white;
   color: black;
@@ -219,25 +267,6 @@ main.dark {
   display: none;
 }
 
-.form-button {
-  border-radius: 5px;
-  background-color: #080a9b;
-  color: white;
-  border: 1px solid black;
-  cursor: pointer;
-  height: 40px;
-  width: auto;
-  font-size: 1rem;
-  padding: 10px;
-}
-button:hover {
-  background:none;
-  background-color: #ffffff;
-  color: #000;
-  box-shadow: inset 2px 2px 6px rgba(0, 0,0,.5);
-  transition: all .3s ease-in;
-}
-
 .meme {
   position: relative;
   display: flex;
@@ -247,6 +276,7 @@ button:hover {
   height: fit-content;
   width: fit-content;
   max-width: 80vw;
+  margin: 20px;
 }
 
 .meme-image {
@@ -261,12 +291,10 @@ button:hover {
   width: auto;
   text-align: center;
   margin: 15px 0;
-  padding: 0 5px;
-  font-family: impact, sans-serif;
+  font-family: Impact, 'Arial Narrow Bold', sans-serif, sans-serif;
   font-size: 2em;
   text-transform: uppercase;
   color: white;
-  letter-spacing: 1px;
   text-shadow:
     -1px -1px 1px rgba(0, 0, 0, 1), /* Top-left */
     1px -1px 1px rgba(0, 0, 0, 1), /* Top-right */
@@ -275,21 +303,6 @@ button:hover {
   cursor: move;
 }
 
-.top {
-  top: 20px; /* Adjust the initial top position as needed */
-  left: 50%; /* Align to the center horizontally */
-  transform: translateX(-50%); /* Center horizontally */
-}
-
-.bottom {
-  bottom: 20px; /* Adjust the initial bottom position as needed */
-  left: 50%; /* Align to the center horizontally */
-  transform: translateX(-50%); /* Center horizontally */
-}
-
-.download {
-  margin: 15px;
-}
 
 @media only screen and (max-width: 767px) {
   body {
@@ -347,7 +360,6 @@ button:hover {
     border-radius: 3px;
     height:  auto;
     width: auto;
-    max-width: 90vw;
   }
   
   .meme-text {
@@ -355,12 +367,7 @@ button:hover {
     width: auto;
     text-align: center;
     margin: 15px 0;
-    padding: 0 5px;
-    font-family: impact, sans-serif;
-    font-size: 2em;
     text-transform: uppercase;
-    color: white;
-    letter-spacing: 1px;
     text-shadow:
       -1px -1px 0 #000,  
       1px -1px 0 #000,

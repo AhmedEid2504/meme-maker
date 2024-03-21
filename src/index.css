@@ -10,6 +10,20 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background: #7f29b1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #380650;
+}
+
 body {
   background-image: radial-gradient(circle, #ffffff 30%, #276ac0 100%);
   font-family: "Karla", sans-serif;

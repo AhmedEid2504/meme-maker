@@ -215,7 +215,10 @@ export default function Meme() {
                                 value={textInput.text}
                                 onChange={(event) => handleChange(event, index)}
                             />
+                            
                             <input
+                                placeholder="px"
+                                id="fontSize"
                                 type="number"
                                 name="size"
                                 className="form-input size"
@@ -230,7 +233,7 @@ export default function Meme() {
                                 ))}
                             </datalist>
 
-                            <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>Remove</button>
+                            <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}>X</button>
                         </div>
                     ))}
                     </div>

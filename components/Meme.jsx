@@ -287,7 +287,7 @@ export default function Meme() {
                     </div>
                 ))}
             </div>
-            <button className="form-button download" onClick={captureScreenshot}>Download Screenshot</button>
+            <button className="form-button download" onClick={captureScreenshot}>Download Meme</button>
             </main>
         );
     }

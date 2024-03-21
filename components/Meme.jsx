@@ -253,7 +253,7 @@ export default function Meme() {
         
                         {!meme.showUploadedImage && (
                             <button
-                                className="form-button"
+                                className="form-button random"
                                 onClick={getMemeImage}
                             >
                                 Random Template

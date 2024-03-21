@@ -198,9 +198,6 @@ main.dark {
   cursor: pointer;
   margin-right: 10px;
 }
-main.dark .upload-btn {
-  background-image: radial-gradient(circle, #fdfdfd 0%, #7b27a5 100%);
-}
 
 .upload-btn:hover {
   background:none;

@@ -145,7 +145,7 @@ export default function Meme() {
                 text: "Text", 
                 position: { x: "27%", y: "0%" }, 
                 color: "#F5F5F5", // Default color
-                size: "25"      // Default size
+                size: ""      // Default size
             }],
         }));
     }, []);

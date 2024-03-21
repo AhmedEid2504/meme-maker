@@ -1,9 +1,15 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import html2canvas from 'html2canvas';
 export default function Meme() {
+    // Fetch API request here
+    useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+            .then((res) => res.json())
+            .then(data => setAllMemes(data.data.memes));
+    }, []);
     
     const [meme, setMeme] = useState({
-        randomImage: "http://i.imgflip.com/1bij.jpg",
+        randomImage: "/images/defaultMeme.png",
         uploadedImage: null,
         showUploadedImage: false,
         isDragging: false,
@@ -43,12 +49,6 @@ export default function Meme() {
     }, [meme.isDragging]);
 
 
-    // Fetch API request here
-    useEffect(() => {
-        fetch("https://api.imgflip.com/get_memes")
-            .then((res) => res.json())
-            .then(data => setAllMemes(data.data.memes));
-    }, []);
 
     const memeContainerRef = useRef(null);
 
@@ -57,7 +57,7 @@ export default function Meme() {
             const screenshotUrl = canvas.toDataURL();
             const downloadLink = document.createElement('a');
             downloadLink.href = screenshotUrl;
-            downloadLink.download = 'meme_screenshot.png';
+            downloadLink.download = 'Meme_Maker.png';
             downloadLink.click();
         });
     }, []);

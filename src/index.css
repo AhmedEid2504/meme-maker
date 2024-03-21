@@ -305,74 +305,26 @@ button:hover {
 
 
 @media only screen and (max-width: 767px) {
-  body {
-    font-family: "Karla", sans-serif;
-    margin: 0;
-    overflow-x: hidden;
-  }
   nav {
     display: flex;
     justify-items: center;
     justify-content: space-between;
     align-items: center;
-    padding: 0px;
-    height: 13dvh;
+    height: 12dvh;
     margin: 0;
   }
   .logo-container {
-    padding: 0;
+    padding-left: 15px;
   }
   
   .form {
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 17px;
-  }
-  
-  .form-button {
-    width: auto;
-  }
-
-  .upload-container {
-    display: flex;
+    gap: 20px;
   }
   
   .upload-btn {
-    color: black;
     margin-right: 0px;
-  }
-  
-  
-  .meme {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    width: fit-content;
-  }
-  
-  .meme-image {
-    max-width: 100%;
-    border-radius: 3px;
-    height:  auto;
-    width: auto;
-  }
-  
-  .meme-text {
-    position: absolute;
-    width: auto;
-    text-align: center;
-    margin: 15px 0;
-    text-transform: uppercase;
-    text-shadow:
-      -1px -1px 0 #000,  
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-      1px 1px 0 #000;
-    cursor: move;
-  }
+  } 
 }

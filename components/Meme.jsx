@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-
+import { useState, useEffect, useCallback, useRef } from "react";
+import html2canvas from 'html2canvas';
 export default function Meme() {
     
     const [meme, setMeme] = useState({
@@ -50,13 +50,30 @@ export default function Meme() {
             .then(data => setAllMemes(data.data.memes));
     }, []);
 
-    const getMemeImage = useCallback(() => {
+    const memeContainerRef = useRef(null);
+
+    const captureScreenshot = useCallback(() => {
+        html2canvas(memeContainerRef.current).then(canvas => {
+            const screenshotUrl = canvas.toDataURL();
+            const downloadLink = document.createElement('a');
+            downloadLink.href = screenshotUrl;
+            downloadLink.download = 'meme_screenshot.png';
+            downloadLink.click();
+        });
+    }, []);
+
+    const getMemeImage = useCallback(async () => {
         if (!meme.showUploadedImage) {
             const randomNumber = Math.floor(Math.random() * allMemes.length);
             const url = allMemes[randomNumber].url;
+            // downloading the image from the api and creating a blob object with it
+            // so that it works for the screenshot function as well
+            const response = await fetch(url);
+            const imageBlob = await response.blob();
+            const imageUrl = URL.createObjectURL(imageBlob);
             setMeme(prevMeme => ({
                 ...prevMeme,
-                randomImage: url,
+                randomImage: imageUrl,
             }));
         } else {
             setMeme(prevMeme => ({
@@ -247,29 +264,30 @@ export default function Meme() {
                         </button>
                     )}
                 </div>
-                <div className="meme">
-                    <img
-                        src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
-                        className="meme-image"
-                        alt="Meme"
-                    />
-                    {meme.textInputs.map((textInput, index) => (
-                        <div
-                            key={index}
-                            className="meme-text"
-                            style={{ 
-                                left: textInput.position.x, 
-                                top: textInput.position.y,
-                                color: textInput.color,
-                                fontSize: textInput.size
-                            }}
-                            onMouseDown={(event) => handlePointerDown(event, index)}
-                            onTouchStart={(event) => handlePointerDown(event, index)}
-                        >
-                            {textInput.text}
-                        </div>
-                    ))}
-                </div>
+                <div ref={memeContainerRef} className="meme">
+                <img
+                    src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
+                    className="meme-image"
+                    alt="Meme"
+                />
+                {meme.textInputs.map((textInput, index) => (
+                    <div
+                        key={index}
+                        className="meme-text"
+                        style={{ 
+                            left: textInput.position.x, 
+                            top: textInput.position.y,
+                            color: textInput.color,
+                            fontSize: textInput.size
+                        }}
+                        onMouseDown={(event) => handlePointerDown(event, index)}
+                        onTouchStart={(event) => handlePointerDown(event, index)}
+                    >
+                        {textInput.text}
+                    </div>
+                ))}
+            </div>
+            <button className="form-button download" onClick={captureScreenshot}>Download Screenshot</button>
             </main>
         );
     }

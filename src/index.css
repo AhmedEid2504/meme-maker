@@ -11,28 +11,28 @@
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-  cursor: pointer;
+    width: 6px;
+    height: 6px;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar-track {
-  background: #7f29b1;
+    background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #380650;
+    background: #380650;
 }
 
 body {
-  background-image: radial-gradient(circle, #ffffff 30%, #276ac0 100%);
+  background-color: #5ca2ff;
   font-family: "Karla", sans-serif;
   margin: 0;
   overflow-x: hidden;
   transition: all ease-in 0.3s;
 }
 body.dark {
-  background-image: radial-gradient(circle, #1d0120 50%, #380650 100%);
+  background-color: #380650;
   transition: all ease-in 0.3s;
 }
 
@@ -43,13 +43,15 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  background-image: radial-gradient(circle, #ffffff 10%, #276ac0 100%);
-  color: #000;
+  background-color: #5ca2ff;
   height: 10dvh;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all ease-in 0.3s;
 }
 nav.dark {
+  background-image: radial-gradient(circle, #380650 25%, #380650 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all ease-in 0.3s;
-  background-image: radial-gradient(circle, #1d0120 25%, #380650 100%)
 }
 .logo-container {
   display: flex;
@@ -141,6 +143,10 @@ nav.dark .toggler-slider {
 }
 main {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 main.dark {
   background-image: url("./images/react-icon-dark.png"); 
@@ -253,17 +259,17 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-height: 90dvh;
+  height: fit-content;
+  width: fit-content;
+  max-width: 80vw;
 }
 
 .meme-image {
   user-select: none; /* Prevent the image from being highlighted */
   pointer-events: none; /* Make the image non-draggable */
-  border-radius: 3px;
   max-height: 80dvh;
-  width: max-content;
-  max-width: 80vw;
-  margin: 17px;
+  width: 100%;
+  
 }
 
 .meme-text {
@@ -295,6 +301,10 @@ button:hover {
   bottom: 20px; /* Adjust the initial bottom position as needed */
   left: 50%; /* Align to the center horizontally */
   transform: translateX(-50%); /* Center horizontally */
+}
+
+.download {
+  margin: 15px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -348,7 +358,8 @@ button:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-height: 90dvh;
+    height: fit-content;
+    width: fit-content;
   }
   
   .meme-image {
@@ -357,7 +368,6 @@ button:hover {
     height:  auto;
     width: auto;
     max-width: 90vw;
-    margin: 17px;
   }
   
   .meme-text {

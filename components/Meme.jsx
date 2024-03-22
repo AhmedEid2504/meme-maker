@@ -264,36 +264,39 @@ export default function Meme() {
                             </div>
                         ))}
                         </div>
-                        <div className="upload-container">
-                            <label htmlFor="upload-input" className="upload-btn">
-                                Upload Template
-                            </label>
-                            <input
-                                id="upload-input"
-                                type="file"
-                                accept="image/*"
-                                className="upload-input"
-                                onChange={handleImageUpload}
-                            />
+                        <div className="mid-buttons">
+
+                            <div className="upload-container">
+                                <label htmlFor="upload-input" className="upload-btn">
+                                    Upload Template
+                                </label>
+                                <input
+                                    id="upload-input"
+                                    type="file"
+                                    accept="image/*"
+                                    className="upload-input"
+                                    onChange={handleImageUpload}
+                                />
+                            </div>
+            
+                            {!meme.showUploadedImage && (
+                                <button
+                                    className="form-button random"
+                                    onClick={getMemeImage}
+                                >
+                                    Random Template
+                                </button>
+                            )}
+                            {meme.showUploadedImage && (
+                                <button
+                                    className="form-button"
+                                    onClick={removeUploadedImage}
+                                >
+                                    Remove Image
+                                </button>
+                            )}
                         </div>
-        
-                        {!meme.showUploadedImage && (
-                            <button
-                                className="form-button random"
-                                onClick={getMemeImage}
-                            >
-                                Random Template
-                            </button>
-                        )}
-                        {meme.showUploadedImage && (
-                            <button
-                                className="form-button"
-                                onClick={removeUploadedImage}
-                            >
-                                Remove Image
-                            </button>
-                        )}
-                    </div>
+                </div>
                     <div ref={memeContainerRef} className="meme">
                     <img
                         src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
@@ -317,7 +320,10 @@ export default function Meme() {
                         </div>
                     ))}
                 </div>
-                <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
+                <div className="footer-buttons">
+                    <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
+                    <button className="form-button share"><img src="images/share.png" alt="share icon" /></button>
+                </div>
                 </main>
             </div>
         );

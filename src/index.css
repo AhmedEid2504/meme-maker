@@ -164,8 +164,7 @@ body.dark main {
 
 .inputs-container {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: flex-start;
   flex-wrap: nowrap;
   gap: 15px;
   height:100%;
@@ -175,11 +174,10 @@ body.dark main {
   padding: 10px;
 }
 .input-container {
+  margin: 10px;
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
   border: 3px solid var(--third-color);
   padding: 10px;
   border-radius: 15px;

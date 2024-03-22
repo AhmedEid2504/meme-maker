@@ -18,7 +18,7 @@ const Navbar =(props) => {
                     className="toggler-slider"
                     onClick={props.toggleDarkMode}
                 >
-                    <div className="toggler-slider-circle"></div>
+                    <div className="toggler-slider-circle"><img src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
                 </div>
             </div>
         </nav>

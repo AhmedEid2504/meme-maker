@@ -29,8 +29,7 @@
 }
 
 body {
-  background-color: var(--third-color);
-  font-family: "Karla", sans-serif;
+  font-family: 'Arial Narrow Bold', sans-serif;
   margin: 0;
   overflow-x: hidden;
   transition: all ease-in 0.3s;
@@ -41,7 +40,7 @@ body.dark {
 }
 
 nav {
-  font-family: Karla;
+  font-family: impact, sans-serif;
   display: flex;
   justify-items: center;
   justify-content: space-between;
@@ -71,6 +70,7 @@ nav.dark {
 }
 
 .logo-text {
+  padding: 6px;
   font-size: 1.6rem;
 }
 
@@ -89,35 +89,26 @@ nav.dark {
 
 .toggler-slider {
   width: 35px;
-  height: 20px;
+  height: 18px;
   border-radius: 2rem;
-  margin-inline: 7px;
+  margin-inline: 5px;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid rgb(255, 255, 255);
+  align-content: center;
   background-color:white ;
   box-sizing: content-box;
+  padding: 2px;
 }
 
 nav.dark .toggler-slider {
-  border: 1px solid rgb(255, 255, 255);
   background-color:black ;
 }
 
-.toggler-slider-circle {
-  height: 20px;
+.toggler-slider-circle img{
+  height: 18px;
   width: 18px;
-  background-color: rgb(211, 185, 40);
-  border: 1px solid rgb(190, 153, 29);
-  border-radius: 50%;
-  transition: all ease-in 0.3s;
-}
-
-nav.dark .toggler-slider-circle {
-  background-color: rgb(78, 76, 76);
-  border: 1px solid rgb(253, 252, 248);
   transition: all ease-in 0.3s;
 }
 
@@ -146,10 +137,11 @@ main {
 }
 body.dark main {
   color: white;   
-  background-color: var(--third-color);
+  background-color: var(--fourth-color);
+  border: 5px solid var(--third-color);
+  border-radius: 15px;
   transition: all ease-in 0.3s;
 }
-
 
 .form {
   display: flex;
@@ -162,38 +154,45 @@ body.dark main {
 
 .inputs-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  justify-items: center;
+  justify-items: flex-start;
+  flex-wrap: wrap;
   gap: 10px;
   flex-basis: 100%;
 }
 .input-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-
+.add {
+  width: auto;
+}
 
 .form-input {
-  border-radius: 0px;
+  border-radius: 10px;
   text-indent: 5px;
-  height: 40px;
-  border: 1px solid rgb(92, 23, 119);
+  height: 35px;
+  border: none;
+  margin: 5px;
 }
-
+.input {
+  flex: 1;
+}
 
 .size {
   width: 65px;
   border: 1px solid rgb(72, 24, 87);
 }
 .text {
-  width: 40%;
+  width: 79%;
 }
 
 .color {
-  width: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 .upload-container {
@@ -224,14 +223,21 @@ button:hover {
   
 } */
 
-.remove {
-  background-color: transparent;
-  padding: 3px;
-}
 
+.remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width:  35px;
+  border-radius: 10px;
+  flex-basis: 1;
+}
 .remove img {
   width: 35px;
-  padding: 5px;
+  padding: 3px;
 }
 
 .remove:hover {
@@ -244,6 +250,24 @@ button:hover {
   padding: 0px;
   background-color: transparent;
   background-color: var(--primary-color);
+}
+.settings-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  width:  40px;
+}
+.settings-btn img {
+  width: 40px;
+  padding: 5px;
+}
+.settings-btn:hover img {
+  rotate:  -180deg;
+  transition: all  .4s ease-in-out;
 }
 .download img{
   width: 40px;
@@ -319,6 +343,10 @@ button:hover {
     align-items: center;
     height: 12dvh;
     margin: 0;
+    
+  }
+  .logo-text {
+    font-size: 1.3rem;
   }
   .logo-container {
     padding-left: 15px;

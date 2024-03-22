@@ -197,42 +197,49 @@ export default function Meme() {
                 onTouchEnd={handlePointerUp}
             >
                 <div className="form">
+                    <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
                     <div className="inputs-container">
-                        <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
                         {meme.textInputs.map((textInput, index) => (
                             <div className="input-container" key={index}>
-                                <input
-                                    type="color"
-                                    name="color"
-                                    className="form-input color"
-                                    value={textInput.color}
-                                    onChange={(event) => handleChange(event, index)}
-                                />
-                                <input
-                                    type="text"
-                                    name="text"
-                                    placeholder={`Text ${index + 1}`}
-                                    className="form-input text"
-                                    value={textInput.text}
-                                    onChange={(event) => handleChange(event, index)}
-                                />
-                                
-                                <input
-                                    placeholder="px"
-                                    id="fontSize"
-                                    type="number"
-                                    name="size"
-                                    className="form-input size"
-                                    value={textInput.size}
-                                    min={13}
-                                    list="defaultNumbers"
-                                    onChange={(event) => handleChange(event, index)}
-                                />
-                                <datalist id="defaultNumbers">
-                                    {defaultSizes.map((size, i) => (
-                                        <option key={i} value={size}></option>
-                                    ))}
-                                </datalist>
+                                <div className="input">
+                                    <label htmlFor={`text${index + 1}`}>Text:</label>
+                                    <input
+                                        type="text"
+                                        name="text"
+                                        placeholder={`Text ${index + 1}`}
+                                        className="form-input text"
+                                        value={textInput.text}
+                                        onChange={(event) => handleChange(event, index)}
+                                    />
+                                </div>
+                                <div className="input">
+                                    <label htmlFor="fontSize">Font Size (px):</label>
+                                    <input
+                                        id="fontSize"
+                                        type="number"
+                                        name="size"
+                                        className="form-input size"
+                                        value={textInput.size}
+                                        min={13}
+                                        list="defaultNumbers"
+                                        onChange={(event) => handleChange(event, index)}
+                                    />
+                                    <datalist id="defaultNumbers">
+                                        {defaultSizes.map((size, i) => (
+                                            <option key={i} value={size}></option>
+                                        ))}
+                                    </datalist>
+                                </div>
+                                <div className="input">
+                                    <label htmlFor={`color${index + 1}`}>Color:</label>
+                                    <input
+                                        type="color"
+                                        name="color"
+                                        className="form-input color"
+                                        value={textInput.color}
+                                        onChange={(event) => handleChange(event, index)}
+                                    />
+                                </div>
 
                                 <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}><img src="images/delete.png" alt="delete icon" /></button>
                             </div>

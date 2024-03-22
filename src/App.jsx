@@ -1,4 +1,4 @@
-import { createRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Meme from '../components/Meme';
 import './index.css'
@@ -6,7 +6,7 @@ import './index.css'
 function App() {
 
   const [darkMode, setDarkMode] = useState(true)
-  const audioRef = createRef();
+
 
   useEffect(() => {
     document.body.className = darkMode ? "dark" : ""
@@ -20,9 +20,9 @@ function App() {
   }
 
   const playSound = () => {
-    const audio = audioRef.current;
+    const audio = new Audio('audio/flashbang.mp3');
     if (audio) {
-      audio.volume = 0.3; // Adjust volume here
+      audio.volume = 0.2; // Adjust volume here
       audio.play();
     }
   };
@@ -31,8 +31,9 @@ function App() {
   return (
     <>
       <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-      <audio ref={audioRef} src="/audio/flashbang.mp3"/>
-      <Meme darkMode={darkMode} />
+      <main>
+        <Meme darkMode={darkMode} />
+      </main>
     </>
   )
 }

@@ -214,7 +214,7 @@ export default function Meme() {
     }
     return (
         <div className="main-container">
-            <main 
+            <div className="main" 
                 onMouseMove={handlePointerMove} 
                 onMouseUp={handlePointerUp}
                 onTouchMove={handlePointerMove} 
@@ -350,7 +350,7 @@ export default function Meme() {
                     <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
                     <button className="form-button share"><img src="images/share.png" alt="share icon" /></button>
                 </div>
-                </main>
+                </div>
             </div>
         );
     }

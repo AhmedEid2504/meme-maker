@@ -27,6 +27,7 @@ export default function Meme() {
         }],
     });
     const [allMemes, setAllMemes] = useState([]);
+    const [counter, setCounter] = useState(0);
     // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
@@ -46,8 +47,20 @@ export default function Meme() {
             document.body.removeEventListener("touchmove", preventScrollRefresh);
         };
     }, [meme.isDragging]);
+    
+    useEffect(() => {
+        if (counter > 1) {
+            playSound()
+        }
+    }, [counter])
 
-
+    const playSound = () => {
+        const audio = new Audio('audio/anotherone.mp3');
+        if (audio) {
+            audio.volume = 0.1; // Adjust volume here
+            audio.play();
+        }
+    };
 
     const memeContainerRef = useRef(null);
 
@@ -58,6 +71,8 @@ export default function Meme() {
             downloadLink.href = screenshotUrl;
             downloadLink.download = 'Meme_Maker.png';
             downloadLink.click();
+            const audio = new Audio('');
+            audio.play();
         });
     }, []);
 
@@ -155,6 +170,7 @@ export default function Meme() {
     }, []);
 
     const handleAddTextInput = useCallback(() => {
+        setCounter(prevCount => prevCount + 1)
         setMeme(prevMeme => ({
             ...prevMeme,
             textInputs: [...prevMeme.textInputs, { 
@@ -165,9 +181,11 @@ export default function Meme() {
                 defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"]
             }],
         }));
+        
     }, []);
 
     const handleRemoveTextInput = useCallback((index) => {
+        setCounter(prevCount => prevCount - 1)
         setMeme(prevMeme => ({
             ...prevMeme,
             textInputs: prevMeme.textInputs.filter((_, i) => i !== index),

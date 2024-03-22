@@ -19,15 +19,14 @@ export default function Meme() {
         dragOffsetX: 0,
         dragOffsetY: 0,
         textInputs: [{ 
-            text: "Text", 
+            text: "", 
             position: { x: "27%", y: "0%" }, 
             color: "#F5F5F5",
-            size: ""
+            size: "",
+            defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"]
         }],
     });
     const [allMemes, setAllMemes] = useState([]);
-    const defaultSizes = ["20", "25", "30", "35", "40", "45", "50", "55"]; // Default sizes
-
     // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
@@ -159,10 +158,11 @@ export default function Meme() {
         setMeme(prevMeme => ({
             ...prevMeme,
             textInputs: [...prevMeme.textInputs, { 
-                text: "Text", 
+                text: "", 
                 position: { x: "27%", y: "0%" }, 
                 color: "#F5F5F5", // Default color
-                size: ""      // Default size
+                size: "",   // Default size
+                defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"]
             }],
         }));
     }, []);
@@ -213,19 +213,20 @@ export default function Meme() {
                                     />
                                 </div>
                                 <div className="input">
-                                    <label htmlFor="fontSize">Font Size (px):</label>
+                                    <label htmlFor="fontSize">Font Size: </label>
                                     <input
                                         id="fontSize"
                                         type="number"
                                         name="size"
                                         className="form-input size"
+                                        placeholder="px"
                                         value={textInput.size}
                                         min={13}
                                         list="defaultNumbers"
                                         onChange={(event) => handleChange(event, index)}
                                     />
                                     <datalist id="defaultNumbers">
-                                        {defaultSizes.map((size, i) => (
+                                        {textInput.defaultSizes.map((size, i) => (
                                             <option key={i} value={size}></option>
                                         ))}
                                     </datalist>

@@ -170,7 +170,7 @@ body.dark main {
   height:100%;
   overflow-x: auto;
   flex: 1;
-  width:95% ;
+  width:95%;
   padding: 15px;
 }
 .input-container {
@@ -182,6 +182,7 @@ body.dark main {
   border: 3px solid var(--third-color);
   padding: 10px;
   border-radius: 15px;
+  width: 100%;
 }
 .add {
   width: auto;
@@ -433,10 +434,18 @@ body.dark .upload-btn:hover {
     align-items: center;
     flex-wrap: wrap;
   }
+
+  label {
+    font-size: 0.8rem;
+  }
   
   .upload-btn {
     margin-right: 0px;
   } 
+
+  .input-buttons {
+    flex-wrap: wrap;
+  }
 
   .meme {
     position: relative;

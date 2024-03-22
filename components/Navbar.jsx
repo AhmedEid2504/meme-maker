@@ -1,24 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 const Navbar =(props) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showMenu, setShowMenu] = useState(false); 
+    const ulRef = useRef(null);
+
+
 
 useEffect(() => {
     const handleResize = () => {
         setWindowWidth(window.innerWidth);
-        setShowMenu(false); // Close menu on resize
     };
 
     window.addEventListener('resize', handleResize);
 
+    // Add event listener for clicks outside the ul
+    document.addEventListener('click', handleClickOutside);
+
     return () => {
         window.removeEventListener('resize', handleResize);
+        document.removeEventListener('click', handleClickOutside);
     };
-}, []);
+    }, []);
 
-const toggleMenu = () => {
+    const handleClickOutside = (event) => {
+        if (ulRef.current && !ulRef.current.contains(event.target)) {
+            setShowMenu(false);
+        }
+    };
+
+const toggleMenu = (event) => {
+    event.stopPropagation(); // Stop event propagation
     setShowMenu(!showMenu);
 };
 
@@ -53,7 +66,7 @@ const toggleMenu = () => {
                 <div className="mobile-nav">
                     <button className="hamburger-button" onClick={toggleMenu}>☰</button>
                     {showMenu && (
-                        <ul className={showMenu ? "show" : ""}>
+                        <ul className={showMenu ? "show" : ""} ref={ulRef}>
                             <li><button className="nav-button" onClick={() => {/* handle state change */}}>Wall Of Memes</button></li>
                             <li><button className="nav-button" onClick={() => {/* handle state change */}}>Image Memes</button></li>
                             <li><button className="nav-button" onClick={() => {/* handle state change */}}>Video Memes</button></li>

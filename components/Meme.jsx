@@ -23,7 +23,8 @@ export default function Meme() {
             position: { x: "27%", y: "0%" }, 
             color: "#F5F5F5",
             size: "",
-            defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"]
+            defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
+            rotate:"",
         }],
     });
     const [allMemes, setAllMemes] = useState([]);
@@ -178,7 +179,8 @@ export default function Meme() {
                 position: { x: "27%", y: "0%" }, 
                 color: "#F5F5F5", // Default color
                 size: "",   // Default size
-                defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"]
+                defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
+                rotate:"",
             }],
         }));
         
@@ -199,7 +201,7 @@ export default function Meme() {
             textInputs: prevMeme.textInputs.map((textInput, i) =>
                 i === index
                     ? name === "size"
-                        ? { ...textInput, size: parseInt(value) }
+                        ? { ...textInput, [name]: parseInt(value) }
                         : { ...textInput, [name]: value }
                     : textInput
             ),
@@ -250,8 +252,21 @@ export default function Meme() {
                                     </datalist>
                                 </div>
                                 <div className="input">
+                                    <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
+                                    <input
+                                        id="rotate"
+                                        type="number"
+                                        name="rotate"
+                                        placeholder="deg"
+                                        className="form-input rotate"
+                                        value={textInput.rotate}
+                                        onChange={(event) => handleChange(event, index)}
+                                    />
+                                </div>
+                                <div className="input">
                                     <label htmlFor={`color${index + 1}`}>Color:</label>
                                     <input
+                                        id="color"
                                         type="color"
                                         name="color"
                                         className="form-input color"
@@ -259,6 +274,7 @@ export default function Meme() {
                                         onChange={(event) => handleChange(event, index)}
                                     />
                                 </div>
+
 
                                 <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}><img src="images/delete.png" alt="delete icon" /></button>
                             </div>
@@ -311,7 +327,8 @@ export default function Meme() {
                                 left: textInput.position.x, 
                                 top: textInput.position.y,
                                 color: textInput.color,
-                                fontSize: textInput.size
+                                fontSize: `${textInput.size}px`,
+                                rotate: `${textInput.rotate}deg`
                             }}
                             onMouseDown={(event) => handlePointerDown(event, index)}
                             onTouchStart={(event) => handlePointerDown(event, index)}

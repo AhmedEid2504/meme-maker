@@ -212,8 +212,13 @@ body.dark main {
 .color {
   width: 25px;
   height: 25px;
+  border: 1px solid var(--fourth-color);
 }
 
+.rotate {
+  width: 65px;
+  border: 1px solid var(--fourth-color);
+}
 .upload-container {
   display: flex;
 }
@@ -381,7 +386,6 @@ body.dark .upload-btn:hover {
   text-align: center;
   margin: 15px 0;
   font-family: Impact, 'Arial Narrow Bold', sans-serif, sans-serif;
-  font-size: 2em;
   text-transform: uppercase;
   color: white;
   text-shadow:

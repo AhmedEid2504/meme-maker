@@ -249,7 +249,11 @@ button:hover {
   
 } */
 
-
+.input-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
 .remove {
   display: flex;
   justify-content: center;
@@ -259,8 +263,9 @@ button:hover {
   border: none;
   cursor: pointer;
   width:  35px;
+  height:  35px;
   border-radius: 10px;
-  flex-basis: 1;
+  flex-basis: 0.5;
 }
 .remove img {
   width: 35px;
@@ -271,8 +276,7 @@ button:hover {
   color: white;
   background-color: transparent;
 }
-
-.settings-btn {
+.settings {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -281,12 +285,18 @@ button:hover {
   cursor: pointer;
   border-radius: 100%;
   width:  40px;
+  height: 40px;
+  flex-basis: 0.5;
 }
-.settings-btn img {
+.settings:hover{
+  background-color: transparent;
+}
+.settings img {
   width: 40px;
   padding: 5px;
 }
-.settings-btn:hover img {
+
+.settings:hover img {
   rotate:  -180deg;
   transition: all  .4s ease-in-out;
 }

@@ -29,6 +29,7 @@ export default function Meme() {
     });
     const [allMemes, setAllMemes] = useState([]);
     const [counter, setCounter] = useState(0);
+    const [showSettings, setShowSettings] = useState(false);
     // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
@@ -208,6 +209,9 @@ export default function Meme() {
         }));
     }, []);
     
+    const handleShowSettings = () => {
+        setShowSettings(!showSettings);
+    }
     return (
         <div className="main-container">
             <main 
@@ -232,51 +236,56 @@ export default function Meme() {
                                         onChange={(event) => handleChange(event, index)}
                                     />
                                 </div>
-                                <div className="input">
-                                    <label htmlFor="fontSize">Font Size: </label>
-                                    <input
-                                        id="fontSize"
-                                        type="number"
-                                        name="size"
-                                        className="form-input size"
-                                        placeholder="px"
-                                        value={textInput.size}
-                                        min={13}
-                                        list="defaultNumbers"
-                                        onChange={(event) => handleChange(event, index)}
-                                    />
-                                    <datalist id="defaultNumbers">
-                                        {textInput.defaultSizes.map((size, i) => (
-                                            <option key={i} value={size}></option>
-                                        ))}
-                                    </datalist>
+                                {showSettings && ( 
+                                    <>
+                                        <div className="input">
+                                            <label htmlFor="fontSize">Font Size: </label>
+                                            <input
+                                                id="fontSize"
+                                                type="number"
+                                                name="size"
+                                                className="form-input size"
+                                                placeholder="px"
+                                                value={textInput.size}
+                                                min={13}
+                                                list="defaultNumbers"
+                                                onChange={(event) => handleChange(event, index)}
+                                            />
+                                            <datalist id="defaultNumbers">
+                                                {textInput.defaultSizes.map((size, i) => (
+                                                    <option key={i} value={size}></option>
+                                                ))}
+                                            </datalist>
+                                        </div>
+                                        <div className="input">
+                                            <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
+                                            <input
+                                                id="rotate"
+                                                type="number"
+                                                name="rotate"
+                                                placeholder="deg"
+                                                className="form-input rotate"
+                                                value={textInput.rotate}
+                                                onChange={(event) => handleChange(event, index)}
+                                            />
+                                        </div>
+                                        <div className="input">
+                                            <label htmlFor={`color${index + 1}`}>Color:</label>
+                                            <input
+                                                id="color"
+                                                type="color"
+                                                name="color"
+                                                className="form-input color"
+                                                value={textInput.color}
+                                                onChange={(event) => handleChange(event, index)}
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                                <div className="input-buttons">
+                                    <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}><img src="images/delete.png" alt="delete icon" /></button>
+                                    <button className="form-button settings" onClick={handleShowSettings} ><img src="/images/settings.png" alt="settings icon" /></button>
                                 </div>
-                                <div className="input">
-                                    <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
-                                    <input
-                                        id="rotate"
-                                        type="number"
-                                        name="rotate"
-                                        placeholder="deg"
-                                        className="form-input rotate"
-                                        value={textInput.rotate}
-                                        onChange={(event) => handleChange(event, index)}
-                                    />
-                                </div>
-                                <div className="input">
-                                    <label htmlFor={`color${index + 1}`}>Color:</label>
-                                    <input
-                                        id="color"
-                                        type="color"
-                                        name="color"
-                                        className="form-input color"
-                                        value={textInput.color}
-                                        onChange={(event) => handleChange(event, index)}
-                                    />
-                                </div>
-
-
-                                <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}><img src="images/delete.png" alt="delete icon" /></button>
                             </div>
                         ))}
                         </div>

@@ -219,6 +219,7 @@ nav.dark .toggler-slider {
   color: black; 
   border: 5px solid var(--third-color);
   border-radius: 15px;
+  transition: all ease-in 0.3s;
 }
 body.dark .main {
   color: white;   
@@ -543,11 +544,24 @@ body.dark .upload-btn:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15px;
-  gap: 15px;
-  text-align: center;
-  width: 100vw;
+  background-color: var(--secondary-color);
+  width: auto;
+  margin: 50px;
+  padding: 20px;
+  color: black; 
+  border: 5px solid var(--third-color);
+  border-radius: 15px;
+  transition: all ease-in 0.3s;
 }
+
+body.dark .joke-container {
+  color: white;   
+  background-color: var(--fourth-color);
+  border: 5px solid var(--third-color);
+  border-radius: 15px;
+  transition: all ease-in 0.3s;
+}
+
 
 .joke-button {
   border-radius: 5px;

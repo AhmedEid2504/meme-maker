@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Meme from '../components/Meme';
-import './index.css'
+import './index.css';
 import DadJokes from '../components/DadJokes';
 
 function App() {

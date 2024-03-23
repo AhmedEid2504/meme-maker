@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import html2canvas from 'html2canvas';
+import './componentsCSS/meme.css';
 export default function Meme() {
     // Fetch API request here
     useEffect(() => {

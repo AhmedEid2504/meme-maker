@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-
+import './componentsCSS/nav.css'
 const Navbar =(props) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showMenu, setShowMenu] = useState(false); 

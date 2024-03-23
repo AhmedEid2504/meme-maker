@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import './componentsCSS/joke.css'
 const DadJokes = () => {
     const [joke, setJoke] = useState("Loading...");
     

@@ -2,11 +2,16 @@ import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Meme from '../components/Meme';
 import './index.css'
+import DadJokes from '../components/DadJokes';
 
 function App() {
 
-  const [darkMode, setDarkMode] = useState(true)
-
+  const [darkMode, setDarkMode] = useState(true);
+  const [activeComponent, setActiveComponent] = useState('meme');
+  // Function to switch between components in the main section of the page
+  function changeComponent(component) {
+    setActiveComponent(component);
+  }
 
   useEffect(() => {
     document.body.className = darkMode ? "dark" : ""
@@ -30,9 +35,14 @@ function App() {
 
   return (
     <>
-      <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+      <Navbar 
+        toggleDarkMode={toggleDarkMode} 
+        darkMode={darkMode} 
+        changeComponent={changeComponent}
+        activeComponent={activeComponent}
+      />
       <main>
-        <Meme darkMode={darkMode} />
+        {activeComponent === 'meme' ?  <Meme darkMode={darkMode} /> : <DadJokes />} 
       </main>
     </>
   )

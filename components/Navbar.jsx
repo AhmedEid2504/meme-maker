@@ -47,10 +47,10 @@ const toggleMenu = (event) => {
             </div>
             {windowWidth > 768 ? (
                 <ul>
-                    <li><button className="nav-button" onClick={() => {/* handle state change */}}>Wall Of Memes</button></li>
-                    <li><button className="nav-button" onClick={() => {/* handle state change */}}>Image Memes</button></li>
-                    <li><button className="nav-button" onClick={() => {/* handle state change */}}>Video Memes</button></li>
-                    <li><button className="nav-button" onClick={() => {/* handle state change */}}>Dad Jokes</button></li>
+                    <li><button className="nav-button" onClick={() => {props.changeComponent('wallofmemes')}}>Wall Of Memes</button></li>
+                    <li><button className="nav-button" onClick={() => {props.changeComponent('meme')}}>Image Memes</button></li>
+                    <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
+                    <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
                     <li>
                         <div className="toggler" >
                             <div 
@@ -67,10 +67,10 @@ const toggleMenu = (event) => {
                     <button className="hamburger-button" onClick={toggleMenu}>☰</button>
                     {showMenu && (
                         <ul className={showMenu ? "show" : ""} ref={ulRef}>
-                            <li><button className="nav-button" onClick={() => {/* handle state change */}}>Wall Of Memes</button></li>
-                            <li><button className="nav-button" onClick={() => {/* handle state change */}}>Image Memes</button></li>
-                            <li><button className="nav-button" onClick={() => {/* handle state change */}}>Video Memes</button></li>
-                            <li><button className="nav-button" onClick={() => {/* handle state change */}}>Dad Jokes</button></li>
+                            <li><button className="nav-button" onClick={() => {props.changeComponent('wallofmemes')}}>Wall Of Memes</button></li>
+                            <li><button className="nav-button" onClick={() => {props.changeComponent('meme')}}>Image Memes</button></li>
+                            <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
+                            <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
                             <li>
                                 <div className="toggler" >
                                     <div 
@@ -92,7 +92,9 @@ const toggleMenu = (event) => {
 Navbar.propTypes = {
     // Define PropTypes here
         darkMode: PropTypes.bool,
-        toggleDarkMode: PropTypes.func
+        toggleDarkMode: PropTypes.func,
+        changeComponent:     PropTypes.func,
+
 };
 
 export default Navbar;

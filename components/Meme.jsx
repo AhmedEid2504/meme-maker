@@ -189,27 +189,9 @@ export default function Meme() {
         
     }, []);
 
-    const handleRemoveTextInput = useCallback((index) => {
-        setCounter(prevCount => prevCount - 1)
-        setMeme(prevMeme => ({
-            ...prevMeme,
-            textInputs: prevMeme.textInputs.filter((_, i) => i !== index),
-        }));
-    }, []);
+    
 
-    const handleChange = useCallback((event, index) => {
-        const { name, value } = event.target;
-        setMeme(prevMeme => ({
-            ...prevMeme,
-            textInputs: prevMeme.textInputs.map((textInput, i) =>
-                i === index
-                    ? name === "size"
-                        ? { ...textInput, [name]: parseInt(value) }
-                        : { ...textInput, [name]: value }
-                    : textInput
-            ),
-        }));
-    }, []);
+    
     
     const handleShowSettings = () => {
         setShowSettings(!showSettings);
@@ -230,11 +212,11 @@ export default function Meme() {
                                 key={index}
                                 textInput={textInput}
                                 index={index}
-                                handleChange={handleChange}
-                                handleRemoveTextInput={handleRemoveTextInput}
                                 showSettings={showSettings}
                                 handleShowSettings={handleShowSettings} // Add this line
                                 handlePointerDown={handlePointerDown}
+                                setMeme={setMeme} 
+                                setCounter={setCounter}
                         />
                         ))}
                     </div>

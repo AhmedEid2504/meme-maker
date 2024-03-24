@@ -1,6 +1,30 @@
 import PropTypes from "prop-types";
+import {useCallback} from 'react';
 
-const TextInput = ({ textInput, index, handleChange, handleRemoveTextInput, showSettings, handleShowSettings }) => {
+const TextInput = ({ textInput, index, setMeme, setCounter, showSettings, handleShowSettings }) => {
+    
+    const handleChange = useCallback((event, index) => {
+        const { name, value } = event.target;
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            textInputs: prevMeme.textInputs.map((textInput, i) =>
+                i === index
+                    ? name === "size"
+                        ? { ...textInput, [name]: parseInt(value) }
+                        : { ...textInput, [name]: value }
+                    : textInput
+            ),
+        }));
+    }, [setMeme]);
+
+    const handleRemoveTextInput = useCallback((index) => {
+        setCounter(prevCount => prevCount - 1)
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            textInputs: prevMeme.textInputs.filter((_, i) => i !== index),
+        }));
+    }, []);
+    
     return (
         <div className="input-container">
             <div className="input">
@@ -69,6 +93,8 @@ TextInput.propTypes = {
     handleRemoveTextInput: PropTypes.func.isRequired,
     showSettings: PropTypes.bool.isRequired,
     handleShowSettings: PropTypes.func.isRequired,
+    setMeme:  PropTypes.func.isRequired,
+    setCounter:  PropTypes.func.isRequired,
 };
 
 export default TextInput;

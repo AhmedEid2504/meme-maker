@@ -23,9 +23,9 @@ export default function Meme() {
             text: "", 
             position: { x: "27%", y: "0%" }, 
             color: "#F5F5F5",
-            size: "",
+            size: "25",
             defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
-            rotate:"",
+            // rotate:"",
         }],
     });
     const [allMemes, setAllMemes] = useState([]);
@@ -180,9 +180,9 @@ export default function Meme() {
                 text: "", 
                 position: { x: "27%", y: "0%" }, 
                 color: "#F5F5F5", // Default color
-                size: "",   // Default size
+                size: "25",   // Default size
                 defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
-                rotate:"",
+                // rotate:"",
             }],
         }));
         
@@ -258,7 +258,7 @@ export default function Meme() {
                                                 ))}
                                             </datalist>
                                         </div>
-                                        <div className="input">
+                                        {/* <div className="input">
                                             <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
                                             <input
                                                 id="rotate"
@@ -269,7 +269,7 @@ export default function Meme() {
                                                 value={textInput.rotate}
                                                 onChange={(event) => handleChange(event, index)}
                                             />
-                                        </div>
+                                        </div> */}
                                         <div className="input">
                                             <label htmlFor={`color${index + 1}`}>Color:</label>
                                             <input

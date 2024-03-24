@@ -24,7 +24,7 @@ const TextInput = ({ textInput, index, setMeme, setCounter }) => {
             ...prevMeme,
             textInputs: prevMeme.textInputs.filter((_, i) => i !== index),
         }));
-    }, []);
+    }, [setCounter, setMeme]);
 
     const handleShowSettings = () => {
         setShowSettings(!showSettings);

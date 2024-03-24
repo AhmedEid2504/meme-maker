@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import html2canvas from 'html2canvas';
 import './componentsCSS/meme.css';
+import TextInput from './TextInput'
 export default function Meme() {
     // Fetch API request here
     useEffect(() => {
@@ -225,71 +226,18 @@ export default function Meme() {
                     <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
                     <div className="inputs-container">
                         {meme.textInputs.map((textInput, index) => (
-                            <div className="input-container" key={index}>
-                                <div className="input">
-                                    <label htmlFor={`text${index + 1}`}>Text:</label>
-                                    <input
-                                        type="text"
-                                        name="text"
-                                        placeholder={`Text ${index + 1}`}
-                                        className="form-input text"
-                                        value={textInput.text}
-                                        onChange={(event) => handleChange(event, index)}
-                                    />
-                                </div>
-                                {showSettings && ( 
-                                    <>
-                                        <div className="input">
-                                            <label htmlFor="fontSize">Font Size: </label>
-                                            <input
-                                                id="fontSize"
-                                                type="number"
-                                                name="size"
-                                                className="form-input size"
-                                                placeholder="px"
-                                                value={textInput.size}
-                                                min={13}
-                                                list="defaultNumbers"
-                                                onChange={(event) => handleChange(event, index)}
-                                            />
-                                            <datalist id="defaultNumbers">
-                                                {textInput.defaultSizes.map((size, i) => (
-                                                    <option key={i} value={size}></option>
-                                                ))}
-                                            </datalist>
-                                        </div>
-                                        {/* <div className="input">
-                                            <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
-                                            <input
-                                                id="rotate"
-                                                type="number"
-                                                name="rotate"
-                                                placeholder="deg"
-                                                className="form-input rotate"
-                                                value={textInput.rotate}
-                                                onChange={(event) => handleChange(event, index)}
-                                            />
-                                        </div> */}
-                                        <div className="input">
-                                            <label htmlFor={`color${index + 1}`}>Color:</label>
-                                            <input
-                                                id="color"
-                                                type="color"
-                                                name="color"
-                                                className="form-input color"
-                                                value={textInput.color}
-                                                onChange={(event) => handleChange(event, index)}
-                                            />
-                                        </div>
-                                    </>
-                                )}
-                                <div className="input-buttons">
-                                    <button className="form-button remove" onClick={() => handleRemoveTextInput(index)}><img src="images/delete.png" alt="delete icon" /></button>
-                                    <button className="form-button settings" onClick={handleShowSettings} ><img src="/images/settings.png" alt="settings icon" /></button>
-                                </div>
-                            </div>
+                            <TextInput
+                                key={index}
+                                textInput={textInput}
+                                index={index}
+                                handleChange={handleChange}
+                                handleRemoveTextInput={handleRemoveTextInput}
+                                showSettings={showSettings}
+                                handleShowSettings={handleShowSettings} // Add this line
+                                handlePointerDown={handlePointerDown}
+                        />
                         ))}
-                        </div>
+                    </div>
                         <div className="mid-buttons">
 
                             <div className="upload-container">

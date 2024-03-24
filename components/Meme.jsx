@@ -31,7 +31,7 @@ export default function Meme() {
     });
     const [allMemes, setAllMemes] = useState([]);
     const [counter, setCounter] = useState(0);
-    const [showSettings, setShowSettings] = useState(false);
+    
     // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
@@ -190,12 +190,7 @@ export default function Meme() {
     }, []);
 
     
-
     
-    
-    const handleShowSettings = () => {
-        setShowSettings(!showSettings);
-    }
     return (
         <div className="main-container">
             <div className="main" 
@@ -212,8 +207,6 @@ export default function Meme() {
                                 key={index}
                                 textInput={textInput}
                                 index={index}
-                                showSettings={showSettings}
-                                handleShowSettings={handleShowSettings} // Add this line
                                 handlePointerDown={handlePointerDown}
                                 setMeme={setMeme} 
                                 setCounter={setCounter}

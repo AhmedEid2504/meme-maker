@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 
-const TextInput = ({ textInput, index, setMeme, setCounter, showSettings, handleShowSettings }) => {
-    
+const TextInput = ({ textInput, index, setMeme, setCounter }) => {
+    const [showSettings, setShowSettings] = useState(false);
+
     const handleChange = useCallback((event, index) => {
         const { name, value } = event.target;
         setMeme(prevMeme => ({
@@ -24,6 +25,10 @@ const TextInput = ({ textInput, index, setMeme, setCounter, showSettings, handle
             textInputs: prevMeme.textInputs.filter((_, i) => i !== index),
         }));
     }, []);
+
+    const handleShowSettings = () => {
+        setShowSettings(!showSettings);
+    }
     
     return (
         <div className="input-container">

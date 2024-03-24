@@ -210,7 +210,7 @@ export default function Meme() {
                                 handlePointerDown={handlePointerDown}
                                 setMeme={setMeme} 
                                 setCounter={setCounter}
-                        />
+                            />
                         ))}
                     </div>
                         <div className="mid-buttons">

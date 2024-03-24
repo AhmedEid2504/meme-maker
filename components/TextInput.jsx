@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+/* eslint-disable react/prop-types */
 import {useCallback, useState} from 'react';
 
 const TextInput = ({ textInput, index, setMeme, setCounter }) => {
@@ -86,20 +86,6 @@ const TextInput = ({ textInput, index, setMeme, setCounter }) => {
     );
 }
 
-TextInput.propTypes = {
-    textInput: PropTypes.shape({
-        text: PropTypes.string.isRequired,
-        size: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
-        defaultSizes: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    handleChange: PropTypes.func.isRequired,
-    handleRemoveTextInput: PropTypes.func.isRequired,
-    showSettings: PropTypes.bool.isRequired,
-    handleShowSettings: PropTypes.func.isRequired,
-    setMeme:  PropTypes.func.isRequired,
-    setCounter:  PropTypes.func.isRequired,
-};
+
 
 export default TextInput;

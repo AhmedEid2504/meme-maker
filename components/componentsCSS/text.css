@@ -56,6 +56,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    padding: 6px;
 }
 .remove {
     display: flex;
@@ -64,20 +65,17 @@
     align-self: center;
     border: none;
     cursor: pointer;
-    width:  35px;
-    height:  35px;
+    width:  22px;
+    height:  28px;
     border-radius: 10px;
     flex-basis: 0.5;
-    background-color: var(--secondary-color);
+    background-color: rgb(212, 21, 21);
 }
 .remove img {
-    width: 35px;
+    width: 25px;
     padding: 3px;
 }
 
-.remove:hover {
-    background-color: rgb(212, 21, 21);
-}
 .settings {
     display: flex;
     justify-content: center;
@@ -85,14 +83,14 @@
     border: none;
     cursor: pointer;
     border-radius: 100%;
-    width:  40px;
-    height: 40px;
+    width:  25px;
+    height:  25px;
     flex-basis: 0.5;
     background-color: var(--secondary-color);
 }
 
 .settings img {
-    width: 40px;
+    width: 30px;
     padding: 5px;
 }
 

@@ -67,17 +67,6 @@ const TextInput = ({ textInput, index, setMeme, setCounter }) => {
                         </datalist>
                     </div>
                     <div className="input">
-                        <label htmlFor={`color${index + 1}`}>Color:</label>
-                        <input
-                            id={`color${index + 1}`}
-                            type="color"
-                            name="color"
-                            className="form-input color"
-                            value={textInput.color}
-                            onChange={(event) => handleChange(event, index)}
-                        />
-                    </div>
-                    <div className="input">
                         <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
                         <input
                             id="rotate"
@@ -86,6 +75,17 @@ const TextInput = ({ textInput, index, setMeme, setCounter }) => {
                             placeholder="deg"
                             className="form-input rotate"
                             value={textInput.rotate}
+                            onChange={(event) => handleChange(event, index)}
+                        />
+                    </div>
+                    <div className="input">
+                        <label htmlFor={`color${index + 1}`}>Color:</label>
+                        <input
+                            id={`color${index + 1}`}
+                            type="color"
+                            name="color"
+                            className="form-input color"
+                            value={textInput.color}
                             onChange={(event) => handleChange(event, index)}
                         />
                     </div>

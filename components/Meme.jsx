@@ -71,8 +71,8 @@ export default function Meme() {
         const memeContainer = memeContainerRef.current;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        const width = memeContainer.offsetWidth;
-        const height = memeContainer.offsetHeight;
+        const width = memeContainer.offsetWidth * devicePixelRatio;
+        const height = memeContainer.offsetHeight * devicePixelRatio;
         canvas.width = width * devicePixelRatio;
         canvas.height = height * devicePixelRatio;
     
@@ -89,6 +89,7 @@ export default function Meme() {
                     const color = computedStyle.color;
                     const text = node.innerText;
                     const rotation = parseFloat(computedStyle.rotate) || 0; // Get rotation angle or default to 0
+    
                     // Draw the text
                     ctx.fillStyle = color;
                     ctx.font = `${fontSize}px Impact, sans-serif`;
@@ -124,6 +125,10 @@ export default function Meme() {
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
     };
+    
+    
+    
+    
     
     const getMemeImage = useCallback(async () => {
         if (!meme.showUploadedImage) {

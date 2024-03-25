@@ -67,12 +67,12 @@ export default function Meme() {
 
     const memeContainerRef = useRef(null);
 
-    const captureScreenshot = (fullSize = false) => {
+    const captureScreenshot = () => {
         const memeContainer = memeContainerRef.current;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        const width = fullSize ? memeContainer.offsetWidth : memeContainer.clientWidth;
-    const height = fullSize ? memeContainer.offsetHeight : memeContainer.clientHeight;
+        const width = memeContainer.offsetWidth;
+        const height = memeContainer.offsetHeight;
         canvas.width = width * devicePixelRatio;
         canvas.height = height * devicePixelRatio;
     

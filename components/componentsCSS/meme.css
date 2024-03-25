@@ -186,18 +186,15 @@ body.dark .upload-btn:hover {
 
 .meme-text {
     position: absolute;
-    width: auto;
-    text-align: center;
-    margin: 15px 0;
-    font-family: Impact, 'Arial Narrow Bold', sans-serif, sans-serif;
+    font-family: Impact, sans-serif;
     text-transform: uppercase;
-    color: white;
     text-shadow:
         -1px -1px 1px rgba(0, 0, 0, 1), /* Top-left */
         1px -1px 1px rgba(0, 0, 0, 1), /* Top-right */
         -1px 1px 1px rgba(0, 0, 0, 1), /* Bottom-left */
         1px 1px 1px rgba(0, 0, 0, 1); /* Bottom-right */
     cursor: move;
+    height:min-content;
 }
 
 
@@ -225,8 +222,6 @@ label {
     align-items: center;
     height: fit-content;
     width: fit-content;
-    max-width: 80vw;
-    margin: 0px;
 }
 
 }

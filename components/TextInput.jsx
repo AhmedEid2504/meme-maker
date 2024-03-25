@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import {useCallback, useState} from 'react';
 import './componentsCSS/text.css'
+
+
 const TextInput = ({ textInput, index, setMeme, setCounter }) => {
     const [showSettings, setShowSettings] = useState(false);
 
@@ -75,7 +77,18 @@ const TextInput = ({ textInput, index, setMeme, setCounter }) => {
                             onChange={(event) => handleChange(event, index)}
                         />
                     </div>
-                    {/* Other settings */}
+                    <div className="input">
+                        <label htmlFor={`rotate${index + 1}`}>Rotate:</label>
+                        <input
+                            id="rotate"
+                            type="number"
+                            name="rotate"
+                            placeholder="deg"
+                            className="form-input rotate"
+                            value={textInput.rotate}
+                            onChange={(event) => handleChange(event, index)}
+                        />
+                    </div>
                 </>
             )}
             <div className="input-buttons">

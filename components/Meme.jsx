@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import html2canvas from 'html2canvas';
 import './componentsCSS/meme.css';
 import TextInput from './TextInput'
 export default function Meme() {
@@ -22,11 +21,11 @@ export default function Meme() {
         dragOffsetY: 0,
         textInputs: [{ 
             text: "", 
-            position: { x: "27%", y: "0%" }, 
+            position: { x: "0%", y: "0%" }, 
             color: "#F5F5F5",
             size: "25",
             defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
-            // rotate:"",
+            rotate:"0",
         }],
     });
     const [allMemes, setAllMemes] = useState([]);
@@ -68,18 +67,64 @@ export default function Meme() {
 
     const memeContainerRef = useRef(null);
 
-    const captureScreenshot = useCallback(() => {
-        html2canvas(memeContainerRef.current).then(canvas => {
-            const screenshotUrl = canvas.toDataURL();
-            const downloadLink = document.createElement('a');
-            downloadLink.href = screenshotUrl;
-            downloadLink.download = 'Meme_Maker.png';
-            downloadLink.click();
-            const audio = new Audio('');
-            audio.play();
+    const captureScreenshot = () => {
+        const memeContainer = memeContainerRef.current;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const width = memeContainer.offsetWidth;
+        const height = memeContainer.offsetHeight;
+        canvas.width = width * devicePixelRatio;
+        canvas.height = height * devicePixelRatio;
+    
+        // Draw the content of the meme container onto the canvas
+        memeContainer.childNodes.forEach(node => {
+            if (node.nodeType === 1) { // If it's an element node
+                if (node.tagName === 'IMG') { // If it's an image element
+                    ctx.drawImage(node, 0, 0, width, height);
+                } else if (node.classList.contains('meme-text')) { // If it's a text element
+                    const computedStyle = window.getComputedStyle(node);
+                    const left = parseFloat(computedStyle.left);
+                    const top = parseFloat(computedStyle.top);
+                    const fontSize = parseFloat(computedStyle.fontSize);
+                    const color = computedStyle.color;
+                    const text = node.innerText;
+                    const rotation = parseFloat(computedStyle.rotate) || 0; // Get rotation angle or default to 0
+                    // Draw the text
+                    ctx.fillStyle = color;
+                    ctx.font = `${fontSize}px Impact, sans-serif`;
+    
+                    // Calculate the center point of the text
+                    const textWidth = ctx.measureText(text).width;
+                    const textHeight = fontSize;
+                    const centerX = left + textWidth / 2;
+                    const centerY = top + textHeight / 2;
+    
+                    // Translate to the center point
+                    ctx.translate(centerX, centerY);
+    
+                    // Rotate the context
+                    ctx.rotate(rotation * Math.PI / 180);
+    
+                    // Draw the text at the adjusted coordinates (relative to the center point)
+                    ctx.fillText(text, -textWidth / 2, textHeight / 2);
+    
+                    // Reset transformations
+                    ctx.rotate(-rotation * Math.PI / 180);
+                    ctx.translate(-centerX, -centerY);
+                }
+            }
         });
-    }, []);
-
+    
+        // Convert the canvas to a data URL
+        const screenshotUrl = canvas.toDataURL();
+    
+        // Create a download link and trigger the download
+        const downloadLink = document.createElement('a');
+        downloadLink.href = screenshotUrl;
+        downloadLink.download = 'Meme_Maker.png';
+        downloadLink.click();
+    };
+    
     const getMemeImage = useCallback(async () => {
         if (!meme.showUploadedImage) {
             const randomNumber = Math.floor(Math.random() * allMemes.length);
@@ -179,11 +224,11 @@ export default function Meme() {
             ...prevMeme,
             textInputs: [...prevMeme.textInputs, { 
                 text: "", 
-                position: { x: "27%", y: "0%" }, 
-                color: "#F5F5F5", // Default color
-                size: "25",   // Default size
+                position: { x: "0%", y: "0%" }, 
+                color: "#F5F5F5",
+                size: "25",
                 defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
-                // rotate:"",
+                rotate:"0",
             }],
         }));
         

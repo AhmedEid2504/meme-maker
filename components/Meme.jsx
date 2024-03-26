@@ -66,17 +66,15 @@ export default function Meme() {
     };
 
     const memeContainerRef = useRef(null);
-    const [scale, setScale] = useState(1);
 
     const captureScreenshot = () => {
         const memeContainer = memeContainerRef.current;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        const rect = memeContainer.getBoundingClientRect();
-        const width = rect.width * devicePixelRatio * scale; // Apply scaling factor
-        const height = rect.height * devicePixelRatio * scale; // Apply scaling factor
-        canvas.width = width;
-        canvas.height = height;
+        const width = memeContainer.offsetWidth;
+        const height = memeContainer.offsetHeight;
+        canvas.width = width * devicePixelRatio;
+        canvas.height = height * devicePixelRatio;
     
         // Draw the content of the meme container onto the canvas
         memeContainer.childNodes.forEach(node => {
@@ -129,16 +127,7 @@ export default function Meme() {
     };
     
     
-    const handlePinch = (event) => {
-        event.preventDefault();
-        if (event.touches.length >= 2) {
-            const distance = Math.hypot(
-                event.touches[0].clientX - event.touches[1].clientX,
-                event.touches[0].clientY - event.touches[1].clientY
-            );
-            setScale(distance / 200); // Adjust 200 to control zoom sensitivity
-        }
-    };
+    
     
     
     const getMemeImage = useCallback(async () => {
@@ -307,12 +296,7 @@ export default function Meme() {
                             )}
                         </div>
                 </div>
-                    <div 
-                        ref={memeContainerRef} 
-                        className="meme"
-                        onTouchStart={handlePinch}
-                        onTouchMove={handlePinch}
-                    >
+                    <div ref={memeContainerRef} className="meme">
                     <img
                         src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
                         className="meme-image"

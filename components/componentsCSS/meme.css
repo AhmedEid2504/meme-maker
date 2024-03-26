@@ -180,8 +180,8 @@ body.dark .upload-btn:hover {
 .meme-image {
     user-select: none; /* Prevent the image from being highlighted */
     pointer-events: none; /* Make the image non-draggable */
-    max-width: 100%;
-    height: auto;
+    max-height: 80dvh;
+    width: 100%;
 }
 
 .meme-text {
@@ -222,11 +222,6 @@ label {
     align-items: center;
     height: fit-content;
     width: fit-content;
-}
-
-.meme-image {
-    width: 100%;
-    height: auto;
 }
 
 }

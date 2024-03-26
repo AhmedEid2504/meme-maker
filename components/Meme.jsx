@@ -71,21 +71,30 @@ export default function Meme() {
         const memeContainer = memeContainerRef.current;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        const width = memeContainer.offsetWidth;
-        const height = memeContainer.offsetHeight;
-        canvas.width = width;
-        canvas.height = height;
+    
+        // Get the dimensions of the actual image
+        const imageElement = memeContainer.querySelector('.meme-image');
+        const imageWidth = imageElement.naturalWidth;
+        const imageHeight = imageElement.naturalHeight;
+    
+        // Set canvas width and height to match the dimensions of the image
+        canvas.width = imageWidth;
+        canvas.height = imageHeight;
+    
+        // Calculate scaling factors
+        const scaleX = imageWidth / memeContainer.offsetWidth;
+        const scaleY = imageHeight / memeContainer.offsetHeight;
     
         // Draw the content of the meme container onto the canvas
         memeContainer.childNodes.forEach(node => {
             if (node.nodeType === 1) { // If it's an element node
                 if (node.tagName === 'IMG') { // If it's an image element
-                    ctx.drawImage(node, 0, 0, width, height);
+                    ctx.drawImage(node, 0, 0, imageWidth, imageHeight);
                 } else if (node.classList.contains('meme-text')) { // If it's a text element
                     const computedStyle = window.getComputedStyle(node);
-                    const left = parseFloat(computedStyle.left);
-                    const top = parseFloat(computedStyle.top);
-                    const fontSize = parseFloat(computedStyle.fontSize);
+                    const left = parseFloat(computedStyle.left) * scaleX;
+                    const top = parseFloat(computedStyle.top) * scaleY;
+                    const fontSize = parseFloat(computedStyle.fontSize) * Math.min(scaleX, scaleY); // Scale font size
                     const color = computedStyle.color;
                     const text = node.innerText;
                     const rotation = parseFloat(computedStyle.rotate) || 0; // Get rotation angle or default to 0
@@ -125,6 +134,7 @@ export default function Meme() {
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
     };
+    
     
     
     

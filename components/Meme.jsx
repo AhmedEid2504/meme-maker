@@ -99,28 +99,32 @@ export default function Meme() {
                     const text = node.innerText;
                     const rotation = parseFloat(computedStyle.rotate) || 0; // Get rotation angle or default to 0
     
-                    // Draw the text
-                    ctx.fillStyle = color;
-                    ctx.font = `${fontSize}px Impact, sans-serif`;
+                    // Apply text shadow effect as an outline
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+                    ctx.lineWidth = 1 * Math.min(scaleX, scaleY); // Adjusted outline width
     
                     // Calculate the center point of the text
-                    const textWidth = ctx.measureText(text).width;
-                    const textHeight = fontSize;
-                    const centerX = left + textWidth / 2;
-                    const centerY = top + textHeight / 2;
+                    const centerX = left + (node.offsetWidth * scaleX) / 2;
+                    const centerY = top + (node.offsetHeight * scaleY) / 2;
+    
+                    // Draw the text outline and actual text with the same rotation
+                    ctx.save(); // Save the current transformation state
     
                     // Translate to the center point
                     ctx.translate(centerX, centerY);
     
                     // Rotate the context
-                    ctx.rotate(rotation * Math.PI / 180);
+                    ctx.rotate(rotation * Math.PI / 180); // Apply rotation
     
-                    // Draw the text at the adjusted coordinates (relative to the center point)
-                    ctx.fillText(text, -textWidth / 2, textHeight / 2);
+                    // Draw the text outline
+                    ctx.fillStyle = color;
+                    ctx.font = `${fontSize}px Impact, sans-serif`;
+                    ctx.strokeText(text, -node.offsetWidth * scaleX / 2, fontSize / 2);
     
-                    // Reset transformations
-                    ctx.rotate(-rotation * Math.PI / 180);
-                    ctx.translate(-centerX, -centerY);
+                    // Draw the actual text
+                    ctx.fillText(text, -node.offsetWidth * scaleX / 2, fontSize / 2);
+    
+                    ctx.restore(); // Restore the original transformation state
                 }
             }
         });
@@ -134,6 +138,8 @@ export default function Meme() {
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
     };
+    
+    
     
     
     

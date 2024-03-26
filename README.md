@@ -33,7 +33,7 @@ The project consists of the following components:
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/yourusername/meme-maker.git
+    git clone https://github.com/AhmedEid2504/meme-maker.git
     ```
 
 2. Navigate to the project directory:

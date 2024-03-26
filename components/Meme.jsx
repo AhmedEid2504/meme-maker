@@ -101,7 +101,7 @@ export default function Meme() {
     
                     // Apply text shadow effect as an outline
                     ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
-                    ctx.lineWidth = 1 * Math.min(scaleX, scaleY); // Adjusted outline width
+                    ctx.lineWidth = 2 * Math.min(scaleX, scaleY); // Adjusted outline width
     
                     // Calculate the center point of the text
                     const centerX = left + (node.offsetWidth * scaleX) / 2;
@@ -138,13 +138,6 @@ export default function Meme() {
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
     };
-    
-    
-    
-    
-    
-    
-    
     
     const getMemeImage = useCallback(async () => {
         if (!meme.showUploadedImage) {

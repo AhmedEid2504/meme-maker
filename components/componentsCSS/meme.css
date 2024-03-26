@@ -171,17 +171,21 @@ body.dark .upload-btn:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: fit-content;
-    width: fit-content;
-    max-width: 80vw;
+
     margin: 10px;
+
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
 .meme-image {
     user-select: none; /* Prevent the image from being highlighted */
     pointer-events: none; /* Make the image non-draggable */
-    max-height: 80dvh;
+    height: auto;
     width: 100%;
+    transition: transform 0.3s ease;
 }
 
 .meme-text {
@@ -197,6 +201,9 @@ body.dark .upload-btn:hover {
     height:min-content;
 }
 
+.zoomed {
+    transform: scale(1.5); /* Adjust the scale factor as needed */
+}
 
 @media only screen and (max-width: 767px) {
     

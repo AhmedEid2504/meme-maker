@@ -12,11 +12,12 @@ export default function Meme() {
     }, []);
     
     const [meme, setMeme] = useState({
-        randomImage: "/images/defaultMeme.png",
-        uploadedImage: null,
-        showUploadedImage: false,
+        randomTemplate: "/images/defaultMeme.png",
+        uploadedTemplate: null,
+        showUploadedTemplate: false,
         isDragging: false,
         dragElement: "",
+        currentElement: "",
         mouseX: 0,
         mouseY: 0,
         dragOffsetX: 0,
@@ -28,11 +29,18 @@ export default function Meme() {
             size: "25",
             defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
             rotate:"0",
+            type:"text"
         }],
+        addedImages: [{
+            result: null,
+            position: { x: "0%", y: "0%" },
+            width: "60px",
+            type:"image",
+        }]
     });
     const [allMemes, setAllMemes] = useState([]);
     const [counter, setCounter] = useState(0);
-    
+    const memeContainerRef = useRef(null);
     // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
@@ -53,26 +61,10 @@ export default function Meme() {
         };
     }, [meme.isDragging]);
     
-    useEffect(() => {
-        if (counter > 1) {
-            playSound()
-        }
-    }, [counter])
-
-    const playSound = () => {
-        const audio = new Audio('audio/anotherone.mp3');
-        if (audio) {
-            audio.volume = 0.1; // Adjust volume here
-            audio.play();
-        }
-    };
-
-    const memeContainerRef = useRef(null);
-
     
-    
+
     const getMemeImage = useCallback(async () => {
-        if (!meme.showUploadedImage) {
+        if (!meme.showUploadedTemplate) {
             const randomNumber = Math.floor(Math.random() * allMemes.length);
             const url = allMemes[randomNumber].url;
             // downloading the image from the api and creating a blob object with it
@@ -82,52 +74,66 @@ export default function Meme() {
             const imageUrl = URL.createObjectURL(imageBlob);
             setMeme(prevMeme => ({
                 ...prevMeme,
-                randomImage: imageUrl,
+                randomTemplate: imageUrl,
             }));
         } else {
             setMeme(prevMeme => ({
                 ...prevMeme,
-                randomImage: meme.uploadedImage,
+                randomTemplate: meme.uploadedTemplate,
             }));
         }
-    }, [allMemes, meme.showUploadedImage, meme.uploadedImage]);
+    }, [allMemes, meme.showUploadedTemplate, meme.uploadedTemplate]);
 
-    const handleImageUpload = useCallback((event) => {
+    const handleTemplateUpload = useCallback((event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
             setMeme(prevMeme => ({
                 ...prevMeme,
-                uploadedImage: reader.result,
-                showUploadedImage: true,
+                uploadedTemplate: reader.result,
+                showUploadedTemplate: true,
             }));
         };
         reader.readAsDataURL(file);
     }, []);
 
-    const removeUploadedImage = useCallback(() => {
+    
+    const removeUploadedTemplate = useCallback(() => {
         setMeme(prevMeme => ({
             ...prevMeme,
-            uploadedImage: null,
-            showUploadedImage: false,
+            uploadedTemplate: null,
+            showUploadedTemplate: false,
         }));
     }, []);
-
-    const handlePointerDown = useCallback((event, index) => {
+    
+    const handlePointerDown = useCallback((event, index, type) => {
         event.preventDefault();
         const clientX = event.type === 'touchstart' ? event.touches[0].clientX : event.clientX;
         const clientY = event.type === 'touchstart' ? event.touches[0].clientY : event.clientY;
+        type === "image" ? 
         setMeme(prevMeme => ({
             ...prevMeme,
             isDragging: true,
             dragElement: index,
+            currentElement: type,
+            mouseX: clientX,
+            mouseY: clientY,
+            dragOffsetX: prevMeme.addedImages[index].position.x,
+            dragOffsetY: prevMeme.addedImages[index].position.y,
+        })): 
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            isDragging: true,
+            dragElement: index,
+            currentElement: type,
             mouseX: clientX,
             mouseY: clientY,
             dragOffsetX: prevMeme.textInputs[index].position.x,
             dragOffsetY: prevMeme.textInputs[index].position.y,
         }));
+        console.log(type)
     }, []);
-
+    
     const handlePointerMove = useCallback((event) => {
         event.preventDefault(); // Prevent default scrolling behavior
         if (meme.isDragging) {
@@ -135,7 +141,25 @@ export default function Meme() {
             const clientY = event.type === 'touchmove' ? event.touches[0].clientY : event.clientY;
             const deltaX = clientX - meme.mouseX;
             const deltaY = clientY - meme.mouseY;
-
+            
+            meme.currentElement === "image" ? 
+            setMeme(prevMeme => ({
+                ...prevMeme,
+                addedImages: prevMeme.addedImages.map((addedImage, index) => {
+                    if (index === prevMeme.dragElement) {
+                        return {
+                            ...addedImage,
+                            position: {
+                                x: `calc(${prevMeme.dragOffsetX} + ${deltaX}px)`,
+                                y: `calc(${prevMeme.dragOffsetY} + ${deltaY}px)`,
+                            },
+                        };
+                    }
+                    return addedImage;
+                }),
+                mouseX: clientX,
+                mouseY: clientY,
+            })) : 
             setMeme(prevMeme => ({
                 ...prevMeme,
                 textInputs: prevMeme.textInputs.map((textInput, index) => {
@@ -152,18 +176,29 @@ export default function Meme() {
                 }),
                 mouseX: clientX,
                 mouseY: clientY,
-            }));
+            }))
+            
+            
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meme.isDragging]);
-
+    
     const handlePointerUp = useCallback(() => {
         setMeme(prevMeme => ({
             ...prevMeme,
             isDragging: false,
+            currentElement: "",
         }));
     }, []);
-
+    
+    const playSound = () => {
+        const audio = new Audio('audio/anotherone.mp3');
+        if (audio) {
+            audio.volume = 0.1; // Adjust volume here
+            audio.play();
+        }
+    };
+    
     const handleAddTextInput = useCallback(() => {
         setCounter(prevCount => prevCount + 1)
         setMeme(prevMeme => ({
@@ -175,11 +210,29 @@ export default function Meme() {
                 size: "25",
                 defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
                 rotate:"0",
+                type:"text"
             }],
         }));
+        {counter > 1 ?  playSound() : null}
         
-    }, []);
-
+    }, [counter]);
+    
+    const handleAddImage = useCallback((event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setMeme(prevMeme => ({
+                ...prevMeme,
+                addedImages: [...meme.addedImages, {
+                    result: reader.result,
+                    position: { x: "0%", y: "0%" },
+                    width:"60px",
+                    type: "image"
+                }]
+            }));
+        }
+    }, [meme.addedImages]);
     
     
     return (
@@ -192,13 +245,24 @@ export default function Meme() {
             >
                 <div className="form">
                     <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
+                    <div className="upload-container">
+                            <label htmlFor="upload-input" className="upload-btn">
+                                Upload Template
+                            </label>
+                            <input
+                                id="upload-input"
+                                type="file"
+                                accept="image/*"
+                                className="upload-input"
+                                onChange={handleAddImage}
+                            />
+                    </div>
                     <div className="inputs-container">
                         {meme.textInputs.map((textInput, index) => (
                             <TextInput
                                 key={index}
                                 textInput={textInput}
                                 index={index}
-                                handlePointerDown={handlePointerDown}
                                 setMeme={setMeme} 
                                 setCounter={setCounter}
                             />
@@ -215,11 +279,11 @@ export default function Meme() {
                                     type="file"
                                     accept="image/*"
                                     className="upload-input"
-                                    onChange={handleImageUpload}
+                                    onChange={handleTemplateUpload}
                                 />
                             </div>
             
-                            {!meme.showUploadedImage && (
+                            {!meme.showUploadedTemplate && (
                                 <button
                                     className="form-button random"
                                     onClick={getMemeImage}
@@ -227,22 +291,45 @@ export default function Meme() {
                                     Random Template
                                 </button>
                             )}
-                            {meme.showUploadedImage && (
+                            {meme.showUploadedTemplate && (
                                 <button
                                     className="form-button"
-                                    onClick={removeUploadedImage}
+                                    onClick={removeUploadedTemplate}
                                 >
-                                    Remove Image
+                                    Remove Template
                                 </button>
                             )}
                         </div>
                 </div>
-                    <div ref={memeContainerRef} className="meme">
+                <div ref={memeContainerRef} className="meme">
                     <img
-                        src={meme.showUploadedImage ? meme.uploadedImage : meme.randomImage}
+                        src={meme.showUploadedTemplate ? meme.uploadedTemplate : meme.randomTemplate}
                         className="meme-image"
                         alt="Meme"
                     />
+                    {meme.addedImages.map((addedImage, index) => (
+                        
+                        <div
+                            key={index}
+                            className="meme-added-image"
+                            style={{ 
+                                left: addedImage.position.x, 
+                                top: addedImage.position.y,
+                                width: addedImage.width,
+                            }}
+                            
+                            onMouseDown={(event) => handlePointerDown(event, index, meme.addedImages[0].type)}
+                            onTouchStart={(event) => handlePointerDown(event, index, meme.addedImages[0].type)}
+                        >
+                            {addedImage.result && <img
+                                src={addedImage.result}
+                                className="meme-image"
+                                alt="Meme added image"
+                            />}
+                            
+                        </div>
+                    ))}
+                    
                     {meme.textInputs.map((textInput, index) => (
                         <div
                             key={index}
@@ -254,12 +341,13 @@ export default function Meme() {
                                 fontSize: `${textInput.size}px`,
                                 rotate: `${textInput.rotate}deg`
                             }}
-                            onMouseDown={(event) => handlePointerDown(event, index)}
-                            onTouchStart={(event) => handlePointerDown(event, index)}
+                            onMouseDown={(event) => handlePointerDown(event, index, textInput.type)}
+                            onTouchStart={(event) => handlePointerDown(event, index, textInput.type)}
                         >
                             {textInput.text}
                         </div>
                     ))}
+                    
                 </div>
                 <div className="footer-buttons">
                     <Canvas memeContainerRef={memeContainerRef} />

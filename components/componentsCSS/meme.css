@@ -197,6 +197,12 @@ body.dark .upload-btn:hover {
     height:min-content;
 }
 
+.meme-added-image {
+    position: absolute;
+    width: 200px;
+    cursor: move;
+}
+
 
 @media only screen and (max-width: 767px) {
     

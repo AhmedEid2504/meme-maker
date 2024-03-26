@@ -73,8 +73,8 @@ export default function Meme() {
         const ctx = canvas.getContext('2d');
         const width = memeContainer.offsetWidth;
         const height = memeContainer.offsetHeight;
-        canvas.width = width * devicePixelRatio;
-        canvas.height = height * devicePixelRatio;
+        canvas.width = width;
+        canvas.height = height;
     
         // Draw the content of the meme container onto the canvas
         memeContainer.childNodes.forEach(node => {

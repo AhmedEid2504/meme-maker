@@ -215,6 +215,7 @@ export default function Meme() {
             }],
         }));
         {counter > 1 ?  playSound() : null}
+        toggleTextInputs();
         
     }, [counter]);
     
@@ -234,6 +235,7 @@ export default function Meme() {
             
         }));
         {counter > 1 ?  playSound() : null}
+        toggleImageInputs();
     }, [counter])
     
     

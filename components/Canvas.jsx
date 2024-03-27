@@ -60,6 +60,15 @@ const Canvas = (props) => {
                     ctx.fillText(text, -node.offsetWidth * scaleX / 2, fontSize / 2);
     
                     ctx.restore(); // Restore the original transformation state
+                } else if (node.classList.contains('meme-added-image')) { // If it's an added image element
+                    const computedStyle = window.getComputedStyle(node);
+                    const left = parseFloat(computedStyle.left) * scaleX;
+                    const top = parseFloat(computedStyle.top) * scaleY;
+                    const width = parseFloat(computedStyle.width) * scaleX;
+                    const height = parseFloat(computedStyle.height) * scaleY;
+    
+                    // Draw the added image onto the canvas
+                    ctx.drawImage(node.querySelector('img'), left, top, width, height);
                 }
             }
         });
@@ -73,6 +82,7 @@ const Canvas = (props) => {
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
     };
+    
 
     return (  
         <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>

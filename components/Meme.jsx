@@ -37,6 +37,7 @@ export default function Meme() {
             position: { x: "0%", y: "0%" },
             width: "6rem",
             type:"image",
+            blob:null,
         }]
     });
     const [allMemes, setAllMemes] = useState([]);
@@ -228,7 +229,8 @@ export default function Meme() {
                 url: null,
                 position: { x: "0%", y: "0%" },
                 width: "6rem",
-                type: "image"
+                type: "image",
+                blob:null,
             }],
             
         }));

@@ -199,7 +199,7 @@ body.dark .upload-btn:hover {
 
 .meme-added-image {
     position: absolute;
-    width: 200px;
+    display: flex;
     cursor: move;
 }
 

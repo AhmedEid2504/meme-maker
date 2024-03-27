@@ -35,7 +35,7 @@ export default function Meme() {
         imageInputs: [{
             url: null,
             position: { x: "0%", y: "0%" },
-            width: "60px",
+            width: "6rem",
             type:"image",
         }]
     });
@@ -221,18 +221,18 @@ export default function Meme() {
     
 
     const handleAddImageInput = useCallback(() => {
+        setCounter(prevCount => prevCount + 1)
         setMeme(prevMeme => ({
             ...prevMeme,
             imageInputs: [...prevMeme.imageInputs, { 
                 url: null,
                 position: { x: "0%", y: "0%" },
-                width:"60px",
+                width: "6rem",
                 type: "image"
             }],
             
         }));
         {counter > 1 ?  playSound() : null}
-        console.log('added input')
     }, [counter])
     
     
@@ -319,7 +319,7 @@ export default function Meme() {
                             style={{ 
                                 left: imageInput.position.x, 
                                 top: imageInput.position.y,
-                                width: imageInput.width,
+                                
                             }}
                             
                             onMouseDown={(event) => handlePointerDown(event, index, meme.imageInputs[0].type)}
@@ -328,7 +328,9 @@ export default function Meme() {
                             
                                 {imageInput.url && <img
                                     src={imageInput.url}
-                                    className="meme-added-image"
+                                    style={{
+                                        width: imageInput.width,
+                                    }}
                                     alt="Meme added image"
                                 />}
                             

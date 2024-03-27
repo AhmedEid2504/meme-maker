@@ -8,17 +8,27 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
     const [showSettings, setShowSettings] = useState(false);
 
     const handleChange = useCallback((event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
+        const { name, value } = event.target;
+        if (name.startsWith('url')) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setMeme(prevMeme => ({
+                    ...prevMeme,
+                    imageInputs: prevMeme.imageInputs.map((imageInput, i) =>
+                        i === index ? { ...imageInput, url: reader.result } : imageInput
+                    ),
+                }));
+            };
+            reader.readAsDataURL(file);
+        } else if (name.startsWith('width')) {
             setMeme(prevMeme => ({
                 ...prevMeme,
-                imageInputs: prevMeme.imageInputs.map((imageInput, i) =>
-                    i === index ? { ...imageInput, url: reader.result } : imageInput
+                imageInputs: prevMeme.imageInputs.map((input, i) =>
+                    i === index ? { ...input, width: `${value}rem` } : input
                 ),
             }));
-        };
-        reader.readAsDataURL(file);
+        }
     }, [index, setMeme]);
 
 
@@ -53,22 +63,21 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
             <img className='image-preview' src={imageInput.url} alt="" />
         </div>
         {showSettings && (
-            <>
-                <div className="input">
-                    <label htmlFor="width">Image Width: </label>
-                    <input
-                        id="width"
-                        type="number"
-                        name="width"
-                        className="form-input size"
-                        value={imageInput.size}
-                        min={30}
-                        onChange={(event) => handleChange(event, index)}
-                    />
-                    
-                </div>
-            </>
-        )}
+                <>
+                    <div className="input">
+                        <label htmlFor={`width-${index}`}>Image Width:</label>
+                        <input
+                            id={`width-${index}`}
+                            name={`width-${index}`}
+                            type="number"
+                            className="form-input size"
+                            value={parseInt(imageInput.width)}
+                            min={1}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </>
+            )}
         <div className="input-buttons">
                 <button className="form-button remove" onClick={() => handleRemove(index)}><img src="images/delete.png" alt="delete icon" /></button>
                 <button className="form-button settings" onClick={handleShowSettings} ><img src="/images/settings.png" alt="settings icon" /></button>

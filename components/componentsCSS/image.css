@@ -1,3 +1,26 @@
+.inputs-container {
+    width: 100%;
+}
+.image{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap:  10px;
+    width: auto;
+}
+.input {
+    width: auto;
+}
+
 .image-preview {
-    width: 60px;
+    width: 100px;
+    padding: 10px;
+}
+
+.image .input-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 6px;
 }

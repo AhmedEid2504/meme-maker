@@ -23,26 +23,25 @@ export default function Meme() {
         mouseY: 0,
         dragOffsetX: 0,
         dragOffsetY: 0,
-        textInputs: [{ 
-            text: "", 
-            position: { x: "0%", y: "0%" }, 
-            color: "#F5F5F5",
-            size: "25",
-            defaultSizes:["20", "25", "30", "35", "40", "45", "50", "55"],
-            rotate:"0",
-            type:"text"
-        }],
-        imageInputs: [{
-            url: null,
-            position: { x: "0%", y: "0%" },
-            width: "6rem",
-            type:"image",
-            blob:null,
-        }]
+        textInputs: [],
+        imageInputs: [],
     });
     const [allMemes, setAllMemes] = useState([]);
     const [counter, setCounter] = useState(0);
     const memeContainerRef = useRef(null);
+    const [imageInputsVisible, setImageInputsVisible] = useState(false);
+    const [textInputsVisible, setTextInputsVisible] = useState(true);
+
+    const toggleImageInputs = () => {
+        setImageInputsVisible(true);
+        setTextInputsVisible(false); // Hide text inputs when showing image inputs
+    };
+
+    const toggleTextInputs = () => {
+        setTextInputsVisible(true);
+        setImageInputsVisible(false); // Hide image inputs when showing text inputs
+    };
+
     // prevent scrolling when dragging for phones
     useEffect(() => {
         const preventScrollRefresh = (e) => {
@@ -230,7 +229,7 @@ export default function Meme() {
                 position: { x: "0%", y: "0%" },
                 width: "6rem",
                 type: "image",
-                blob:null,
+                imageUploaded: false,
             }],
             
         }));
@@ -247,33 +246,45 @@ export default function Meme() {
                 onTouchEnd={handlePointerUp}
             >
                 <div className="form">
-                    
-                    <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
-                    <br/>
-                    <button className="form-button add" onClick={handleAddImageInput}>Add Image</button>
-                    
-                    <div className="inputs-container">
-                        {meme.imageInputs.map((imageInput, index) => (
-                            <ImageInput 
-                                key={index}
-                                index={index}
-                                imageInput={imageInput}
-                                setMeme={setMeme} 
-                                setCounter={setCounter}
-                            />
-                        ))}
+                    <div className="top-buttons">
+                        <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
+                        <button className="form-button add" onClick={handleAddImageInput}>Add Image</button>
                     </div>
-                    <div className="inputs-container">
-                        {meme.textInputs.map((textInput, index) => (
-                            <TextInput
-                                key={index}
-                                textInput={textInput}
-                                index={index}
-                                setMeme={setMeme} 
-                                setCounter={setCounter}
-                            />
-                        ))}
+                    <div className="input-switch">
+                        <button className={textInputsVisible ? "active-input" : ""} onClick={toggleTextInputs}>
+                            Text Inputs
+                        </button>
+                        <button className={imageInputsVisible ? "active-input" : ""} onClick={toggleImageInputs}>
+                            Image Inputs
+                        </button>
                     </div>
+                    
+                    {imageInputsVisible && (
+                        <div className="inputs-container">
+                            {meme.imageInputs.map((imageInput, index) => (
+                                <ImageInput 
+                                    key={index}
+                                    index={index}
+                                    imageInput={imageInput}
+                                    setMeme={setMeme} 
+                                    setCounter={setCounter}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {textInputsVisible && (
+                        <div className="inputs-container">
+                            {meme.textInputs.map((textInput, index) => (
+                                <TextInput
+                                    key={index}
+                                    textInput={textInput}
+                                    index={index}
+                                    setMeme={setMeme} 
+                                    setCounter={setCounter}
+                                />
+                            ))}
+                        </div>
+                    )}
                         <div className="mid-buttons">
 
                             <div className="upload-container">
@@ -360,7 +371,10 @@ export default function Meme() {
                     
                 </div>
                 <div className="footer-buttons">
-                    <Canvas memeContainerRef={memeContainerRef} />
+                    <Canvas 
+                        memeContainerRef={memeContainerRef} 
+                        imageInputs={meme.imageInputs}
+                    />
                     <button className="form-button share"><img src="images/share.png" alt="share icon" /></button>
                 </div>
                 </div>

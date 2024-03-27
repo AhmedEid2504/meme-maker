@@ -18,6 +18,35 @@ button {
     font-size: 16px;
 }
 
+.top-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.input-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+}
+.input-switch button {
+    background-color: transparent;
+}
+.input-switch button:hover {
+    background-color: transparent;
+    box-shadow: none;
+    color: var(--primary-color);
+}
+
+.active-input {
+    color: var(--primary-color);
+}
+
 .main-container {
     display: flex;
     flex-direction: column;

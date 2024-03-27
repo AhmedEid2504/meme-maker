@@ -16,7 +16,7 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
                 setMeme(prevMeme => ({
                     ...prevMeme,
                     imageInputs: prevMeme.imageInputs.map((imageInput, i) =>
-                        i === index ? { ...imageInput, url: reader.result } : imageInput
+                        i === index ? { ...imageInput, url: reader.result, imageUploaded: true } : imageInput
                     ),
                 }));
             };
@@ -45,7 +45,7 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
         setShowSettings(!showSettings);
     }
   return (
-    <div className="input-container">
+    <div className="input-container image">
         <div className="input">
             <div className="upload-container">
                 <label htmlFor={`url-${index}`} className="upload-btn">
@@ -58,10 +58,11 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
                     accept="image/*"
                     className="upload-input"
                     onChange={handleChange}
+                    required 
                 />
             </div>
-            <img className='image-preview' src={imageInput.url} alt="" />
         </div>
+        <img className='image-preview' src={imageInput.url} alt="" />
         {showSettings && (
                 <>
                     <div className="input">

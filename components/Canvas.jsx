@@ -3,6 +3,14 @@
 const Canvas = (props) => {
 
     const captureScreenshot = () => {
+        // Check if all image inputs are uploaded
+        const allUploaded = props.imageInputs.every(input => input.imageUploaded);
+        if (!allUploaded) {
+            // Alert or handle the case where not all images are uploaded
+            alert('Please upload all images before capturing the screenshot.');
+            return;
+        }
+
         const memeContainer = props.memeContainerRef.current;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -60,7 +68,7 @@ const Canvas = (props) => {
                     ctx.fillText(text, -node.offsetWidth * scaleX / 2, fontSize / 2);
     
                     ctx.restore(); // Restore the original transformation state
-                } else if (node.classList.contains('meme-added-image')) { // If it's an added image element
+                } else if (node.classList.contains('meme-added-image')) {
                     const computedStyle = window.getComputedStyle(node);
                     const left = parseFloat(computedStyle.left) * scaleX;
                     const top = parseFloat(computedStyle.top) * scaleY;
@@ -81,12 +89,12 @@ const Canvas = (props) => {
         downloadLink.href = screenshotUrl;
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
-    };
-    
+    }
 
     return (  
         <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
     )
+    
 }
 
 export default Canvas

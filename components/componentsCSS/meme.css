@@ -34,13 +34,26 @@ button {
     gap: 10px;
     padding: 20px;
 }
+
 .input-switch button {
     background-color: transparent;
+    color: var(--third-color);
 }
 .input-switch button:hover {
     background-color: transparent;
     box-shadow: none;
     color: var(--primary-color);
+    transition: all ease-in 0.2s;
+}
+body.dark .input-switch button {
+    background-color: transparent;
+    color: var(--secondary-color);
+}
+body.dark .input-switch button:hover {
+    background-color: transparent;
+    box-shadow: none;
+    color: var(--primary-color);
+    transition: all ease-in 0.2s;
 }
 
 .active-input {
@@ -129,6 +142,7 @@ body.dark .main {
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 10px;
+    padding-top: 40px;
     gap: 15px;
 }
 

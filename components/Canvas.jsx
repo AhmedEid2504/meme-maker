@@ -7,7 +7,7 @@ const Canvas = (props) => {
         const allUploaded = props.imageInputs.every(input => input.imageUploaded);
         if (!allUploaded) {
             // Alert or handle the case where not all images are uploaded
-            alert('Please upload all images before capturing the screenshot.');
+            alert('Please upload all images before downloading or remove the empty inputs.');
             return;
         }
 

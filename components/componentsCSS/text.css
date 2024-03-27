@@ -18,7 +18,7 @@
     border: 3px solid var(--third-color);
     padding: 10px;
     border-radius: 15px;
-    width: auto;
+    width: 100%;
 }
 .add {
     width: auto;
@@ -29,7 +29,7 @@
     border: 1px solid var(--fourth-color);
 }
 .text {
-    width: 75%;
+    width: 68%;
     border: 1px solid var(--fourth-color);
 }
 

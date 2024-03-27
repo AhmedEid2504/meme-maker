@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import './componentsCSS/meme.css';
 import TextInput from './TextInput'
+import ImageInput from "./ImageInput";
 import Canvas from "./Canvas";
 
 export default function Meme() {
@@ -31,8 +32,8 @@ export default function Meme() {
             rotate:"0",
             type:"text"
         }],
-        addedImages: [{
-            result: null,
+        imageInputs: [{
+            url: null,
             position: { x: "0%", y: "0%" },
             width: "60px",
             type:"image",
@@ -118,8 +119,8 @@ export default function Meme() {
             currentElement: type,
             mouseX: clientX,
             mouseY: clientY,
-            dragOffsetX: prevMeme.addedImages[index].position.x,
-            dragOffsetY: prevMeme.addedImages[index].position.y,
+            dragOffsetX: prevMeme.imageInputs[index].position.x,
+            dragOffsetY: prevMeme.imageInputs[index].position.y,
         })): 
         setMeme(prevMeme => ({
             ...prevMeme,
@@ -145,17 +146,17 @@ export default function Meme() {
             meme.currentElement === "image" ? 
             setMeme(prevMeme => ({
                 ...prevMeme,
-                addedImages: prevMeme.addedImages.map((addedImage, index) => {
+                imageInputs: prevMeme.imageInputs.map((imageInput, index) => {
                     if (index === prevMeme.dragElement) {
                         return {
-                            ...addedImage,
+                            ...imageInput,
                             position: {
                                 x: `calc(${prevMeme.dragOffsetX} + ${deltaX}px)`,
                                 y: `calc(${prevMeme.dragOffsetY} + ${deltaY}px)`,
                             },
                         };
                     }
-                    return addedImage;
+                    return imageInput;
                 }),
                 mouseX: clientX,
                 mouseY: clientY,
@@ -217,22 +218,22 @@ export default function Meme() {
         
     }, [counter]);
     
-    const handleAddImage = useCallback((event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setMeme(prevMeme => ({
-                ...prevMeme,
-                addedImages: [...meme.addedImages, {
-                    result: reader.result,
-                    position: { x: "0%", y: "0%" },
-                    width:"60px",
-                    type: "image"
-                }]
-            }));
-        }
-    }, [meme.addedImages]);
+    
+
+    const handleAddImageInput = useCallback(() => {
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            imageInputs: [...prevMeme.imageInputs, { 
+                url: null,
+                position: { x: "0%", y: "0%" },
+                width:"60px",
+                type: "image"
+            }],
+            
+        }));
+        {counter > 1 ?  playSound() : null}
+        console.log('added input')
+    }, [counter])
     
     
     return (
@@ -244,18 +245,21 @@ export default function Meme() {
                 onTouchEnd={handlePointerUp}
             >
                 <div className="form">
+                    
                     <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
-                    <div className="upload-container">
-                            <label htmlFor="upload-input" className="upload-btn">
-                                Upload Template
-                            </label>
-                            <input
-                                id="upload-input"
-                                type="file"
-                                accept="image/*"
-                                className="upload-input"
-                                onChange={handleAddImage}
+                    <br/>
+                    <button className="form-button add" onClick={handleAddImageInput}>Add Image</button>
+                    
+                    <div className="inputs-container">
+                        {meme.imageInputs.map((imageInput, index) => (
+                            <ImageInput 
+                                key={index}
+                                index={index}
+                                imageInput={imageInput}
+                                setMeme={setMeme} 
+                                setCounter={setCounter}
                             />
+                        ))}
                     </div>
                     <div className="inputs-container">
                         {meme.textInputs.map((textInput, index) => (
@@ -307,25 +311,27 @@ export default function Meme() {
                         className="meme-image"
                         alt="Meme"
                     />
-                    {meme.addedImages.map((addedImage, index) => (
+                    {meme.imageInputs.map((imageInput, index) => (
                         
                         <div
                             key={index}
                             className="meme-added-image"
                             style={{ 
-                                left: addedImage.position.x, 
-                                top: addedImage.position.y,
-                                width: addedImage.width,
+                                left: imageInput.position.x, 
+                                top: imageInput.position.y,
+                                width: imageInput.width,
                             }}
                             
-                            onMouseDown={(event) => handlePointerDown(event, index, meme.addedImages[0].type)}
-                            onTouchStart={(event) => handlePointerDown(event, index, meme.addedImages[0].type)}
+                            onMouseDown={(event) => handlePointerDown(event, index, meme.imageInputs[0].type)}
+                            onTouchStart={(event) => handlePointerDown(event, index, meme.imageInputs[0].type)}
                         >
-                            {addedImage.result && <img
-                                src={addedImage.result}
-                                className="meme-image"
-                                alt="Meme added image"
-                            />}
+                            
+                                {imageInput.url && <img
+                                    src={imageInput.url}
+                                    className="meme-added-image"
+                                    alt="Meme added image"
+                                />}
+                            
                             
                         </div>
                     ))}

@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
+import WallOfMemes from './components/WallOfMemes';
 import Meme from './components/Meme';
-import './index.css';
+import VideoMeme from './components/VideoMeme';
 import DadJokes from './components/DadJokes';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
+
+import { useEffect, useState } from 'react';
+
+
 function App() {
 
   const [darkMode, setDarkMode] = useState(true);
-  const [activeComponent, setActiveComponent] = useState('meme');
-  // Function to switch between components in the main section of the page
-  function changeComponent(component) {
-    setActiveComponent(component);
-  }
 
   useEffect(() => {
     document.body.className = darkMode ? "dark" : ""
@@ -35,20 +35,22 @@ function App() {
   
 
   return (
-    <>
-      <Navbar 
-        toggleDarkMode={toggleDarkMode} 
-        darkMode={darkMode} 
-        changeComponent={changeComponent}
-        activeComponent={activeComponent}
-      />
-      <main>
-        {activeComponent === 'meme' && <Meme darkMode={darkMode} />}
-        {activeComponent === 'dadjokes' && <DadJokes />}
-        {activeComponent === 'signup' && <Signup />}
-        {activeComponent  === 'login' && <Login />}
-      </main>
-    </>
+    <Router>
+        <Navbar 
+          toggleDarkMode={toggleDarkMode} 
+          darkMode={darkMode} 
+        />
+        <main>
+          <Routes>
+            <Route path="/" element={<Meme />} />
+            <Route path="/wall-of-memes" element={<WallOfMemes />} />
+            <Route path="/video-meme" element={<VideoMeme />} />
+            <Route path="/dad-jokes" element={<DadJokes />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </main>
+    </Router>
   )
 }
 

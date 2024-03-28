@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
-import './componentsCSS/nav.css'
+import './nav.css'
 const Navbar =(props) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showMenu, setShowMenu] = useState(false); 
@@ -45,14 +46,10 @@ const Navbar =(props) => {
                 />
                 <h1 className="logo-text">Meme Maker</h1>
             </div>
-            {windowWidth > 768 ? (
+            {windowWidth > 800 ? (
                 <ul>
-                    <li><button className="nav-button" onClick={() => {props.changeComponent('wallofmemes')}}>Wall Of Memes</button></li>
-                    <li><button className="nav-button" onClick={() => {props.changeComponent('meme')}}>Image Memes</button></li>
-                    <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
-                    <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
-                    <li><button className="nav-button" onClick={() => {props.changeComponent('signup')}}>Sign Up</button></li>
-                    <li><button className="nav-button" onClick={() => {props.changeComponent('login')}}>Login</button></li>
+                    <li><Link to="/">Image Memes</Link></li>
+                    <li><Link to="/dad-jokes">Dad Jokes</Link></li>
                     <li>
                         <div className="toggler" >
                             <div 
@@ -63,18 +60,29 @@ const Navbar =(props) => {
                             </div>
                         </div>
                     </li>
+                    
+                    <button className="hamburger-button" onClick={toggleMenu}>☰</button>
+                    {showMenu && (
+                        <ul className={showMenu ? "show" : ""} ref={ulRef}>
+                            <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
+                            <li><Link to="/video-meme">Video Memes</Link></li>
+                            <li><Link to="/signup">Sign Up</Link></li>
+                            <li><Link to="/login">Login</Link></li>
+                        </ul>
+                    )}
                 </ul>
+                
             ) : (
                 <div className="mobile-nav">
                     <button className="hamburger-button" onClick={toggleMenu}>☰</button>
                     {showMenu && (
                         <ul className={showMenu ? "show" : ""} ref={ulRef}>
-                            <li><button className="nav-button" onClick={() => {props.changeComponent('wallofmemes')}}>Wall Of Memes</button></li>
-                            <li><button className="nav-button" onClick={() => {props.changeComponent('meme')}}>Image Memes</button></li>
-                            <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
-                            <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
-                            <li><button className="nav-button" onClick={() => {props.changeComponent('signup')}}>Sign Up</button></li>
-                            <li><button className="nav-button" onClick={() => {props.changeComponent('login')}}>Login</button></li>
+                            <li><Link to="/">Image Memes</Link></li>
+                            <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
+                            <li><Link to="/video-meme">Video Memes</Link></li>
+                            <li><Link to="/dad-jokes">Dad Jokes</Link></li>
+                            <li><Link to="/signup">Sign Up</Link></li>
+                            <li><Link to="/login">Login</Link></li>
                             <li>
                                 <div className="toggler" >
                                     <div 

@@ -31,7 +31,7 @@ const Signup = () => {
         try {
             await doCreateUserWithEmailAndPassword(formData.email, formData.password); // Call the authentication function
             // Here you can save additional user information to Firestore or Realtime Database
-            console.log('User registered:', currentUser);
+            alert('User registered:', currentUser);
         } catch (error) {
             console.error('Error signing up:', error.message);
             alert(error.message);

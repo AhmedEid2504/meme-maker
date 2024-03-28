@@ -32,61 +32,30 @@ nav.dark {
 
 ul {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     list-style-type: none;
     margin: 0;
     padding: 10px;
+    text-align: center;
+    gap: 15px;
 }
 
-li {
-    margin-bottom: 10px;
-}
-
-button {
+li a {
     background-color: transparent;
     border: none;
     color: white;
     cursor: pointer;
     font-size: 16px;
+    text-decoration: none;
 }
 
-.nav-button {
+a{
     cursor: pointer;
 }
-.nav-button:hover {
+a:hover {
     color: var(--primary-color);
     transition: all ease-in 0.3s;
-}
-
-@media (max-width: 800px) {
-    button {
-        display: block; 
-        padding: 5px 10px;
-        font-size: 1.1rem;
-    }
-    ul {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: translateY(-10dvh); 
-    }
-
-    ul.show {
-        background-color: var(--third-color);
-        max-height: 60dvh; 
-        padding: 10px;
-        position: absolute;
-        top: 0dvh; 
-        right: 0;
-        z-index: 1;
-        flex-direction: column; 
-        width: 100vw; 
-        text-align: center; 
-        height: auto; 
-        transform: translateY(10dvh); 
-        transition: all linear 0.4s; 
-    }
 }
 
 .logo-container {
@@ -155,21 +124,49 @@ nav.dark .toggler-slider {
     transition: all ease-in 0.3s;
 }
 
-@media only screen and (max-width: 767px) {
-    nav {
+ul.show {
+    background-color: var(--third-color);
+    max-height: 60dvh; 
+    padding: 10px;
+    position: absolute;
+    top: 0dvh; 
+    right: 0;
+    z-index: 1;
+    flex-direction: column; 
+    width: 20vw; 
+    text-align: center; 
+    height: auto; 
+    transform: translateY(10dvh); 
+    transition: all linear 0.4s; 
+}
+
+@media (max-width: 800px) {
+    button {
+        display: block; 
+        padding: 5px 10px;
+        font-size: 1.1rem;
+    }
+    ul {
         display: flex;
-        justify-items: center;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        height: 12vh;
-        margin: 0;
-        z-index:  999;
+        transform: translateY(-10dvh); 
     }
 
-    .logo-text {
-        font-size: 1.3rem;
-    }
-    .logo-container {
-        padding-left: 15px;
+    ul.show {
+        background-color: var(--third-color);
+        max-height: 60dvh; 
+        padding: 10px;
+        position: absolute;
+        top: 0dvh; 
+        right: 0;
+        z-index: 1;
+        flex-direction: column; 
+        width: 100vw; 
+        text-align: center; 
+        height: auto; 
+        transform: translateY(10dvh); 
+        transition: all linear 0.4s; 
     }
 }
+

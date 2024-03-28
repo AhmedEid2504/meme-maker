@@ -8,20 +8,20 @@ const Navbar =(props) => {
 
 
 
-useEffect(() => {
-    const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-    };
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
 
-    window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize);
 
-    // Add event listener for clicks outside the ul
-    document.addEventListener('click', handleClickOutside);
+        // Add event listener for clicks outside the ul
+        document.addEventListener('click', handleClickOutside);
 
-    return () => {
-        window.removeEventListener('resize', handleResize);
-        document.removeEventListener('click', handleClickOutside);
-    };
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
 
     const handleClickOutside = (event) => {
@@ -30,10 +30,10 @@ useEffect(() => {
         }
     };
 
-const toggleMenu = (event) => {
-    event.stopPropagation(); // Stop event propagation
-    setShowMenu(!showMenu);
-};
+    const toggleMenu = (event) => {
+        event.stopPropagation(); // Stop event propagation
+        setShowMenu(!showMenu);
+    };
 
     return (
         <nav className={props.darkMode ? "dark" : ""}>
@@ -51,6 +51,7 @@ const toggleMenu = (event) => {
                     <li><button className="nav-button" onClick={() => {props.changeComponent('meme')}}>Image Memes</button></li>
                     <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
                     <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
+                    <li><button className="nav-button" onClick={() => {props.changeComponent('signup')}}>Sign Up</button></li>
                     <li>
                         <div className="toggler" >
                             <div 
@@ -71,6 +72,7 @@ const toggleMenu = (event) => {
                             <li><button className="nav-button" onClick={() => {props.changeComponent('meme')}}>Image Memes</button></li>
                             <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
                             <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
+                            <li><button className="nav-button" onClick={() => {props.changeComponent('signup')}}>Sign Up</button></li>
                             <li>
                                 <div className="toggler" >
                                     <div 

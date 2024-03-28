@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import Meme from '../components/Meme';
+import Navbar from './components/Navbar';
+import Meme from './components/Meme';
 import './index.css';
-import DadJokes from '../components/DadJokes';
+import DadJokes from './components/DadJokes';
+import Signup from './components/Signup';
 
 function App() {
 
@@ -42,7 +43,9 @@ function App() {
         activeComponent={activeComponent}
       />
       <main>
-        {activeComponent === 'meme' ?  <Meme darkMode={darkMode} /> : <DadJokes />} 
+        {activeComponent === 'meme' && <Meme darkMode={darkMode} />}
+        {activeComponent === 'dadjokes' && <DadJokes />}
+        {activeComponent === 'signup' && <Signup />}
       </main>
     </>
   )

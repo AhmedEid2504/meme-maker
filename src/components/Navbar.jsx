@@ -52,6 +52,7 @@ const Navbar =(props) => {
                     <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
                     <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
                     <li><button className="nav-button" onClick={() => {props.changeComponent('signup')}}>Sign Up</button></li>
+                    <li><button className="nav-button" onClick={() => {props.changeComponent('login')}}>Login</button></li>
                     <li>
                         <div className="toggler" >
                             <div 
@@ -73,6 +74,7 @@ const Navbar =(props) => {
                             <li><button className="nav-button" onClick={() => {props.changeComponent('videomeme')}}>Video Memes</button></li>
                             <li><button className="nav-button" onClick={() => {props.changeComponent('dadjokes')}}>Dad Jokes</button></li>
                             <li><button className="nav-button" onClick={() => {props.changeComponent('signup')}}>Sign Up</button></li>
+                            <li><button className="nav-button" onClick={() => {props.changeComponent('login')}}>Login</button></li>
                             <li>
                                 <div className="toggler" >
                                     <div 

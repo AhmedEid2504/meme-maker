@@ -3,8 +3,8 @@ import Navbar from './components/Navbar';
 import Meme from './components/Meme';
 import './index.css';
 import DadJokes from './components/DadJokes';
-import Signup from './components/Signup';
-
+import Signup from './components/Signup/Signup';
+import Login from './components/Login/Login';
 function App() {
 
   const [darkMode, setDarkMode] = useState(true);
@@ -46,6 +46,7 @@ function App() {
         {activeComponent === 'meme' && <Meme darkMode={darkMode} />}
         {activeComponent === 'dadjokes' && <DadJokes />}
         {activeComponent === 'signup' && <Signup />}
+        {activeComponent  === 'login' && <Login />}
       </main>
     </>
   )

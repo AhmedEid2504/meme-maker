@@ -41,6 +41,22 @@ ul {
     gap: 15px;
 }
 
+ul.show {
+    background-color: var(--third-color);
+    max-height: 60dvh; 
+    padding: 20px;
+    position: absolute;
+    top: 0dvh; 
+    right: 0;
+    z-index: 1;
+    flex-direction: column; 
+    width: 20vw; 
+    text-align: center; 
+    border: none;
+    height: auto; 
+    transform: translateY(10dvh); 
+}
+
 li a {
     background-color: transparent;
     border: none;
@@ -124,22 +140,7 @@ nav.dark .toggler-slider {
     transition: all ease-in 0.3s;
 }
 
-ul.show {
-    background-color: var(--third-color);
-    max-height: 60dvh; 
-    padding: 20px;
-    position: absolute;
-    top: 0dvh; 
-    right: 0;
-    z-index: 1;
-    flex-direction: column; 
-    width: 20vw; 
-    text-align: center; 
-    height: auto; 
-    transform: translateY(10dvh); 
-    transition: all linear 0.4s; 
-    border: none;
-}
+
 .user-settings-button {
     display: flex;
     width: auto;
@@ -166,6 +167,7 @@ ul.show {
         justify-content: center;
         align-items: center;
         transform: translateY(-10dvh); 
+        transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
     }
 
     ul.show {
@@ -181,7 +183,7 @@ ul.show {
         text-align: center; 
         height: auto; 
         transform: translateY(10dvh); 
-        transition: all linear 0.4s; 
+        transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
     }
 }
 

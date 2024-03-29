@@ -56,8 +56,13 @@ body.dark .input-switch button:hover {
     transition: all ease-in 0.2s;
 }
 
-.active-input {
+.input-switch .active-input {
     color: var(--primary-color);
+    transition: all 0.3s ease-in;
+}
+body.dark .input-switch .active-input {
+    color: var(--primary-color);
+    transition: all 0.3s ease-in;
 }
 
 .main-container {

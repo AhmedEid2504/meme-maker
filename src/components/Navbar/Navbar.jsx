@@ -67,7 +67,8 @@ const Navbar =(props) => {
                 <ul>
                     <li><Link to="/">Image Memes</Link></li>
                     <li><Link to="/dad-jokes">Dad Jokes</Link></li>
-                    <li>
+                    
+                    <div className="nav-buttons">
                         <div className="toggler" >
                             <div 
                                 className="toggler-slider"
@@ -76,9 +77,6 @@ const Navbar =(props) => {
                                 <div className="toggler-slider-circle"><img src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
                             </div>
                         </div>
-                    </li>
-                    
-                    <div className="nav-buttons">
                         <button className="hamburger-button" onClick={toggleMenu}>☰</button>
                         <button className="user-settings-button" onClick={toggleUserMenu}>
                             <img src="images/profile-user.png" alt="user settings icon" />

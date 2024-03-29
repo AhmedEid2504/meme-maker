@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/authContext'; // Import the AuthContext hook
 import { doCreateUserWithEmailAndPassword } from '../Auth/auth'; // Import the authentication functions
+import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
 const Signup = () => {
+    const navigate = useNavigate();
     const { currentUser } = useAuth(); // Access currentUser from the AuthContext
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phoneNumber: '',
         password: '',
         confirmPassword: '',
-        phoneNumber: ''
     });
 
     const handleChange = (e) => {
@@ -32,6 +34,7 @@ const Signup = () => {
             await doCreateUserWithEmailAndPassword(formData.email, formData.password); // Call the authentication function
             // Here you can save additional user information to Firestore or Realtime Database
             alert('User registered:', currentUser);
+            navigate('/');
         } catch (error) {
             console.error('Error signing up:', error.message);
             alert(error.message);

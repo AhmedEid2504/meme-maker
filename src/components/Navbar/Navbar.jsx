@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/authContext'; // Import the AuthContext hook
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
+import { doSignOut } from '../Auth/auth'
 import './nav.css'
 const Navbar =(props) => {
+    const navigate = useNavigate();
+    const { userLoggedIn } = useAuth();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showMenu, setShowMenu] = useState(false); 
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const ulRef = useRef(null);
 
 
@@ -28,12 +33,24 @@ const Navbar =(props) => {
     const handleClickOutside = (event) => {
         if (ulRef.current && !ulRef.current.contains(event.target)) {
             setShowMenu(false);
+            setShowUserMenu(false);
         }
     };
 
     const toggleMenu = (event) => {
         event.stopPropagation(); // Stop event propagation
         setShowMenu(!showMenu);
+        setShowUserMenu(false);
+    };
+    const toggleUserMenu = (event) => {
+        event.stopPropagation(); // Stop event propagation
+        setShowUserMenu(!showUserMenu);
+        setShowMenu(false);
+    };
+
+    const handleSignOut = async () => {
+        await doSignOut()
+        navigate("/")
     };
 
     return (
@@ -61,28 +78,52 @@ const Navbar =(props) => {
                         </div>
                     </li>
                     
-                    <button className="hamburger-button" onClick={toggleMenu}>☰</button>
+                    <div className="nav-buttons">
+                        <button className="hamburger-button" onClick={toggleMenu}>☰</button>
+                        <button className="user-settings-button" onClick={toggleUserMenu}>
+                            <img src="images/profile-user.png" alt="user settings icon" />
+                        </button>
+                    </div>
                     {showMenu && (
                         <ul className={showMenu ? "show" : ""} ref={ulRef}>
                             <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
                             <li><Link to="/video-meme">Video Memes</Link></li>
-                            <li><Link to="/signup">Sign Up</Link></li>
-                            <li><Link to="/login">Login</Link></li>
+                            
+                        </ul>
+                    )}
+                    {showUserMenu && (
+                        <ul className={showUserMenu ? "show" : ""} ref={ulRef}>
+                            <li><Link to="/wall-of-memes">My Memes</Link></li>
+                            {!userLoggedIn ?
+                                <>
+                                    <li><Link to="/signup">Sign Up</Link></li>
+                                    <li><Link to="/login">Login</Link></li>
+                                </> : 
+                                <>
+                                    <li><button onClick={handleSignOut}>Sign Out</button></li>
+                                </>
+                            }
+
                         </ul>
                     )}
                 </ul>
                 
             ) : (
                 <div className="mobile-nav">
-                    <button className="hamburger-button" onClick={toggleMenu}>☰</button>
+                    <div className="nav-buttons">
+                        <button className="hamburger-button" onClick={toggleMenu}>☰</button>
+                        <button className="user-settings-button" onClick={toggleUserMenu}>
+                            <img src="images/profile-user.png" alt="user settings icon" />
+                        </button>
+                    </div>
+                    
+                    
                     {showMenu && (
                         <ul className={showMenu ? "show" : ""} ref={ulRef}>
                             <li><Link to="/">Image Memes</Link></li>
                             <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
                             <li><Link to="/video-meme">Video Memes</Link></li>
                             <li><Link to="/dad-jokes">Dad Jokes</Link></li>
-                            <li><Link to="/signup">Sign Up</Link></li>
-                            <li><Link to="/login">Login</Link></li>
                             <li>
                                 <div className="toggler" >
                                     <div 
@@ -93,6 +134,21 @@ const Navbar =(props) => {
                                     </div>
                                 </div>
                             </li>
+                        </ul>
+                    )}
+                    {showUserMenu && (
+                        <ul className={showUserMenu ? "show" : ""} ref={ulRef}>
+                            <li><Link to="/wall-of-memes">My Memes</Link></li>
+                            {!userLoggedIn ?
+                                <>
+                                    <li><Link to="/signup">Sign Up</Link></li>
+                                    <li><Link to="/login">Login</Link></li>
+                                </> : 
+                                <>
+                                    <li><button onClick={handleSignOut}>Sign Out</button></li>
+                                </>
+                            }
+
                         </ul>
                     )}
                 </div>

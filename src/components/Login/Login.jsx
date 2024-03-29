@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useAuth } from '../../contexts/authContext'; // Import the AuthContext hook
 import { doSignInWithEmailAndPassword } from '../Auth/auth'; // Import the authentication function
 import './login.css'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const { currentUser } = useAuth(); // Access currentUser from the AuthContext
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -25,6 +25,7 @@ const Login = () => {
             await doSignInWithEmailAndPassword(formData.email, formData.password); // Call the authentication function
             // You can handle successful login redirection or any other logic here
             console.log("successfully logged in");
+            navigate('/')
         } catch (error) {
             console.error('Error signing in:', error.message);
             alert(error.message);

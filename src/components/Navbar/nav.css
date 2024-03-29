@@ -30,6 +30,20 @@ nav.dark {
     transition: all ease-in 0.3s;
 }
 
+.user-settings-button {
+    display: flex;
+    width: auto;
+    padding: 5px;
+}
+.user-settings-button img{
+    width: 23px;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 ul {
     display: flex;
     justify-content: space-between;
@@ -141,20 +155,6 @@ nav.dark .toggler-slider {
 }
 
 
-.user-settings-button {
-    display: flex;
-    width: auto;
-    padding: 5px;
-}
-.user-settings-button img{
-    width: 25px;
-}
-
-.nav-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 @media (max-width: 800px) {
     button {
@@ -184,6 +184,19 @@ nav.dark .toggler-slider {
         height: auto; 
         transform: translateY(10dvh); 
         transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+    .logo-container{
+        padding: 10px;
+        margin: 0px;
+    }
+    .logo-container img {
+        
+        width: 30px;
+        height: 25px;
     }
 }
 

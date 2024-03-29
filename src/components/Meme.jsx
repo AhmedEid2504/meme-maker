@@ -377,7 +377,7 @@ export default function Meme() {
                         memeContainerRef={memeContainerRef} 
                         imageInputs={meme.imageInputs}
                     />
-                    <button className="form-button share"><img src="images/share.png" alt="share icon" /></button>
+                    <button className="form-button share"><img src="images/save.png" alt="share icon" /></button>
                 </div>
                 </div>
             </div>

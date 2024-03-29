@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
-
+import {storage} from  '../firebase/firebase';
+import { ref, uploadString } from 'firebase/storage'
+import { useAuth } from '../contexts/authContext';
 const Canvas = (props) => {
+     // Get the current user from the AuthContext
+    const { currentUser } = useAuth();
 
     const captureScreenshot = () => {
         // Check if all image inputs are uploaded
@@ -31,7 +35,7 @@ const Canvas = (props) => {
         // Draw the content of the meme container onto the canvas
         memeContainer.childNodes.forEach(node => {
             if (node.nodeType === 1) { // If it's an element node
-                if (node.tagName === 'IMG') { // If it's an image element
+                if (node.tagName === 'IMG') { // If it's a template element
                     ctx.drawImage(node, 0, 0, imageWidth, imageHeight);
                 } else if (node.classList.contains('meme-text')) { // If it's a text element
                     const computedStyle = window.getComputedStyle(node);
@@ -84,17 +88,75 @@ const Canvas = (props) => {
         // Convert the canvas to a data URL
         const screenshotUrl = canvas.toDataURL();
     
+        // Serialize canvas data
+        const canvasData = {
+            imageWidth: imageWidth,
+            imageHeight: imageHeight,
+            templateImageSrc: imageElement.src, // Save the source of the template image
+            elements: []
+        };
+
+        memeContainer.childNodes.forEach(node => {
+            if (node.nodeType === 1) {
+                if (node.tagName === 'IMG') {
+                    // Skip images
+                } else if (node.classList.contains('meme-text')) {
+                    const computedStyle = window.getComputedStyle(node);
+                    canvasData.elements.push({
+                        type: 'text',
+                        content: node.innerText,
+                        style: {
+                            left: parseFloat(computedStyle.left),
+                            top: parseFloat(computedStyle.top),
+                            fontSize: parseFloat(computedStyle.fontSize),
+                            color: computedStyle.color,
+                            rotate: parseFloat(computedStyle.rotate) || 0
+                        }
+                    });
+                } else if (node.classList.contains('meme-added-image')) {
+                    const computedStyle = window.getComputedStyle(node);
+                    canvasData.elements.push({
+                        type: 'image',
+                        src: node.querySelector('img').src,
+                        style: {
+                            left: parseFloat(computedStyle.left),
+                            top: parseFloat(computedStyle.top),
+                            width: parseFloat(computedStyle.width),
+                            height: parseFloat(computedStyle.height)
+                        }
+                    });
+                }
+            }
+        });
+
         // Create a download link and trigger the download
         const downloadLink = document.createElement('a');
         downloadLink.href = screenshotUrl;
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
+
+        // Store canvas data
+        localStorage.setItem('canvasData', JSON.stringify(canvasData));
+        console.log(canvasData);
+        console.log(downloadLink);
+
+        // Generate a timestamp for the file name
+        const timestamp = new Date().toISOString();
+
+        // send canvas data to firebase storage 
+        const canvasDataString = JSON.stringify(canvasData);
+        const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
+        try {
+            uploadString(canvasRef, canvasDataString, 'raw');
+            console.log("Canvas data uploaded successfully");
+        } catch (error) {
+            console.error("Error uploading canvas data:", error);
+        }
     }
 
     return (  
         <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
     )
-    
 }
 
-export default Canvas
+export default Canvas;

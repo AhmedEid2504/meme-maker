@@ -186,7 +186,7 @@ body.dark .upload-btn:hover {
     display: none;
 }
 .download {
-    margin: 15px;
+    margin: 10px;
     display: flex;
     align-items: center;
     padding: 0px;
@@ -201,11 +201,11 @@ body.dark .upload-btn:hover {
     align-items: center;
 }
 .footer-buttons img {
-    width: 40px;
-    padding: 8px;
+    width: 45px;
+    padding: 5px;
 }
 .share {
-    margin: 15px;
+    margin: 10px;
     display: flex;
     align-items: center;
     padding: 0px;

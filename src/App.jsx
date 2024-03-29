@@ -8,6 +8,7 @@ import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 
 import { useEffect, useState } from 'react';
+import MyMemes from './components/MyMemes';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
             <Route path="/" element={<Meme />} />
             <Route path="/wall-of-memes" element={<WallOfMemes />} />
             <Route path="/video-meme" element={<VideoMeme />} />
+            <Route path="/my-memes" element={<MyMemes />} />
             <Route path="/dad-jokes" element={<DadJokes />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />

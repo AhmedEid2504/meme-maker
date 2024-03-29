@@ -79,7 +79,7 @@ const Navbar =(props) => {
                         </div>
                         <button className="hamburger-button" onClick={toggleMenu}>☰</button>
                         <button className="user-settings-button" onClick={toggleUserMenu}>
-                            <img src="images/profile-user.png" alt="user settings icon" />
+                            <img src="images/user.png" alt="user settings icon" />
                         </button>
                     </div>
                     {showMenu && (
@@ -91,7 +91,7 @@ const Navbar =(props) => {
                     )}
                     {showUserMenu && (
                         <ul className={showUserMenu ? "show" : ""} ref={ulRef}>
-                            <li><Link to="/wall-of-memes">My Memes</Link></li>
+                            <li><Link to="/my-memes">My Memes</Link></li>
                             {!userLoggedIn ?
                                 <>
                                     <li><Link to="/signup">Sign Up</Link></li>
@@ -109,10 +109,19 @@ const Navbar =(props) => {
             ) : (
                 <div className="mobile-nav">
                     <div className="nav-buttons">
+                        <div className="toggler" >
+                            <div 
+                                className="toggler-slider"
+                                onClick={props.toggleDarkMode}
+                            >
+                                <div className="toggler-slider-circle"><img src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
+                            </div>
+                        </div>
                         <button className="hamburger-button" onClick={toggleMenu}>☰</button>
                         <button className="user-settings-button" onClick={toggleUserMenu}>
-                            <img src="images/profile-user.png" alt="user settings icon" />
+                            <img src="images/user.png" alt="user settings icon" />
                         </button>
+
                     </div>
                     
                     
@@ -122,21 +131,12 @@ const Navbar =(props) => {
                             <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
                             <li><Link to="/video-meme">Video Memes</Link></li>
                             <li><Link to="/dad-jokes">Dad Jokes</Link></li>
-                            <li>
-                                <div className="toggler" >
-                                    <div 
-                                        className="toggler-slider"
-                                        onClick={props.toggleDarkMode}
-                                    >
-                                        <div className="toggler-slider-circle"><img src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
-                                    </div>
-                                </div>
-                            </li>
+                            
                         </ul>
                     )}
                     {showUserMenu && (
                         <ul className={showUserMenu ? "show" : ""} ref={ulRef}>
-                            <li><Link to="/wall-of-memes">My Memes</Link></li>
+                            <li><Link to="/my-memes">My Memes</Link></li>
                             {!userLoggedIn ?
                                 <>
                                     <li><Link to="/signup">Sign Up</Link></li>

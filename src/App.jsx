@@ -8,7 +8,7 @@ import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 
 import { useEffect, useState } from 'react';
-import MyMemes from './components/MyMemes';
+import MyMemes from './components/MyMemes/MyMemes';
 
 
 function App() {

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import {storage} from  '../firebase/firebase';
-import { ref, uploadString } from 'firebase/storage'
+import { ref, uploadString,uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useAuth } from '../contexts/authContext';
 const Canvas = (props) => {
      // Get the current user from the AuthContext
@@ -87,6 +87,38 @@ const Canvas = (props) => {
     
         // Convert the canvas to a data URL
         const screenshotUrl = canvas.toDataURL();
+
+        // Convert the canvas to a blob
+        canvas.toBlob((blob) => {
+            // Generate a timestamp for the file name
+            const timestamp = new Date().toISOString();
+
+            // Create a reference to the storage location
+            const storageRef = ref(storage, `user-memes/${currentUser.uid}/canvas_${timestamp}.png`);
+
+            // Upload the file to Firebase Storage
+            const uploadTask = uploadBytes(storageRef, blob);
+
+            // Monitor the upload task
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Handle progress
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    console.error("Error uploading canvas:", error);
+                },
+                () => {
+                    // Handle successful uploads on complete
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        console.log('File available at', downloadURL);
+                        // You can use the downloadURL to retrieve the image when needed
+                    });
+                }
+            );
+        }, 'image/png');
     
         // Serialize canvas data
         const canvasData = {
@@ -140,18 +172,18 @@ const Canvas = (props) => {
         console.log(canvasData);
         console.log(downloadLink);
 
-        // Generate a timestamp for the file name
-        const timestamp = new Date().toISOString();
+        // // Generate a timestamp for the file name
+        // const timestamp = new Date().toISOString();
 
-        // send canvas data to firebase storage 
-        const canvasDataString = JSON.stringify(canvasData);
-        const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
-        try {
-            uploadString(canvasRef, canvasDataString, 'raw');
-            console.log("Canvas data uploaded successfully");
-        } catch (error) {
-            console.error("Error uploading canvas data:", error);
-        }
+        // // send canvas data to firebase storage 
+        // const canvasDataString = JSON.stringify(canvasData);
+        // const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
+        // try {
+        //     uploadString(canvasRef, canvasDataString, 'raw');
+        //     console.log("Canvas data uploaded successfully");
+        // } catch (error) {
+        //     console.error("Error uploading canvas data:", error);
+        // }
     }
 
     return (  

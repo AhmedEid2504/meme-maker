@@ -1,3 +1,14 @@
+root {
+    color: rgba(255, 255, 255, 0.87);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    --primary-color: #00ADB5;
+    --secondary-color:#EEEEEE;
+    --third-color: #393E46;
+    --fourth-color:#222831;
+}
 
 .meme-cards-container {
     display: flex;
@@ -9,9 +20,42 @@
 }
 
 .meme-card  {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: auto;
 }
 
 .meme-card img {
     width:  100%;
+}
+
+.card-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 20px;
+    gap: 10px;
+}
+
+.card-button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: 100px;
+}
+.card-button:hover {
+    background-color: var(--secondary-color);
+    transition: all  .3s ease-in-out;
+    color: var(--fourth-color);
+}
+
+.delete {
+    background-color: red;
+}
+
+.edit {
+    background-color: var(--primary-color);
 }

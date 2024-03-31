@@ -25,7 +25,6 @@ const MyMemes = () => {
                     Promise.all(promises).then((memes) => {
                         setMemes(memes);
                     });
-                    console.log(memes);
                 })
                 .catch((error) => {
                     console.error('Error fetching memes:', error);
@@ -41,6 +40,10 @@ const MyMemes = () => {
                     {memes.map((meme) => (
                     <div key={meme.id} className='meme-card'>
                         <img  src={meme.url} alt="Meme" />
+                        <div className='card-buttons'>
+                            <button className='card-button edit'>Edit</button>
+                            <button className='card-button delete'>Delete</button>
+                        </div>
                     </div>
                     ))}
                 </div>

@@ -26,6 +26,8 @@ root {
     align-items: center;
     gap: 15px;
     width: auto;
+    border: var(--third-color) 5px solid;
+    padding: 20px;
 }
 
 .meme-card img {
@@ -37,12 +39,11 @@ root {
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 100%;
-    margin: 20px;
     gap: 10px;
 }
 
 .card-button {
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 10px;
     width: 100px;
 }
@@ -54,6 +55,17 @@ root {
 
 .delete {
     background-color: red;
+}
+
+.card-button-download {
+    background-color: green;
+    border-radius: 10px;
+    padding: 10px;
+}
+.card-button-download:hover {
+    background-color: var(--secondary-color);
+    transition: all  .3s ease-in-out;
+    color: var(--fourth-color);
 }
 
 .edit {

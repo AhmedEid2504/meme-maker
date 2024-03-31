@@ -172,18 +172,18 @@ const Canvas = (props) => {
         console.log(canvasData);
         console.log(downloadLink);
 
-        // Generate a timestamp for the file name
-        const timestamp = new Date().toISOString();
+        // // Generate a timestamp for the file name
+        // const timestamp = new Date().toISOString();
 
-        // send canvas data to firebase storage 
-        const canvasDataString = JSON.stringify(canvasData);
-        const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
-        try {
-            uploadString(canvasRef, canvasDataString, 'raw');
-            console.log("Canvas data uploaded successfully");
-        } catch (error) {
-            console.error("Error uploading canvas data:", error);
-        }
+        // // send canvas data to firebase storage 
+        // const canvasDataString = JSON.stringify(canvasData);
+        // const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
+        // try {
+        //     uploadString(canvasRef, canvasDataString, 'raw');
+        //     console.log("Canvas data uploaded successfully");
+        // } catch (error) {
+        //     console.error("Error uploading canvas data:", error);
+        // }
     }
 
     return (  

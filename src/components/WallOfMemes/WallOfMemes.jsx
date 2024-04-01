@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
-import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage'; // Import getMetadata function
 import './wallofmemes.css';
 
 const WallOfMemes = () => {
@@ -19,12 +19,17 @@ const WallOfMemes = () => {
 
                     // Iterate through each image in the user's folder
                     for (const imageRef of userImages.items) {
+                        // Get the metadata for the image to obtain the timestamp
+                        const metadata = await getMetadata(imageRef);
                         const downloadURL = await getDownloadURL(imageRef);
-                        urls.push(downloadURL);
+                        urls.push({ downloadURL, timestamp: metadata.timeCreated }); // Store the downloadURL and timestamp
                     }
                 }
 
-                setImageUrls(urls);
+                // Sort the imageUrls array based on the timestamps
+                urls.sort((a, b) => b.timestamp - a.timestamp);
+
+                setImageUrls(urls.map(item => item.downloadURL)); // Extract downloadURLs from sorted objects
             } catch (error) {
                 console.error('Error fetching images:', error);
             }

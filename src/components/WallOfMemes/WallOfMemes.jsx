@@ -1,12 +1,9 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import './wallofmemes.css';
-import { useAuth } from '../../contexts/authContext';
 
 const WallOfMemes = () => {
-    const {currentUser} = useAuth()
     const [imageUrls, setImageUrls] = useState([]);
 
     useEffect(() => {
@@ -14,13 +11,17 @@ const WallOfMemes = () => {
             try {
                 const urls = [];
                 const rootRef = ref(storage, 'wall-of-memes');
-                const userRef = ref(rootRef, currentUser.uid); // Reference to the current user's directory
+                const userFolders = await listAll(rootRef); // List all folders (user directories) in the "wall-of-memes" directory
 
-                const userImages = await listAll(userRef); // List all images in the user's directory
+                // Iterate through each user's folder
+                for (const userFolder of userFolders.prefixes) {
+                    const userImages = await listAll(userFolder); // List all images in the user's folder
 
-                for (const imageRef of userImages.items) {
-                    const downloadURL = await getDownloadURL(imageRef);
-                    urls.push(downloadURL);
+                    // Iterate through each image in the user's folder
+                    for (const imageRef of userImages.items) {
+                        const downloadURL = await getDownloadURL(imageRef);
+                        urls.push(downloadURL);
+                    }
                 }
 
                 setImageUrls(urls);
@@ -30,7 +31,7 @@ const WallOfMemes = () => {
         };
 
         fetchImagesFromAllUsers();
-    }, [currentUser]); // Dependency on currentUser to fetch images for the current user
+    }, []); // No dependencies needed as we only fetch once on component mount
 
     return (
         <div className='main-container'>

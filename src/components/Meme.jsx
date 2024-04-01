@@ -372,13 +372,10 @@ export default function Meme() {
                     ))}
                     
                 </div>
-                <div className="footer-buttons">
                     <Canvas 
                         memeContainerRef={memeContainerRef} 
                         imageInputs={meme.imageInputs}
                     />
-                    <button className="form-button share"><img src="images/save.png" alt="share icon" /></button>
-                </div>
                 </div>
             </div>
         );

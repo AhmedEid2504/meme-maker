@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import WallOfMemes from './components/WallOfMemes';
+import WallOfMemes from './components/WallOfMemes/WallOfMemes';
 import Meme from './components/Meme';
 import VideoMeme from './components/VideoMeme';
 import DadJokes from './components/DadJokes';

@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import {storage} from  '../firebase/firebase';
-import { ref, uploadString,uploadBytes, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useAuth } from '../contexts/authContext';
 const Canvas = (props) => {
      // Get the current user from the AuthContext
     const { currentUser } = useAuth();
 
-    const captureScreenshot = () => {
+    const captureCanvas =() => {
         // Check if all image inputs are uploaded
         const allUploaded = props.imageInputs.every(input => input.imageUploaded);
         if (!allUploaded) {
@@ -84,17 +84,120 @@ const Canvas = (props) => {
                 }
             }
         });
-    
+        return (canvas)
+    }
+
+    const handleDownload = () => {
+        const canvas = captureCanvas()
         // Convert the canvas to a data URL
         const screenshotUrl = canvas.toDataURL();
+
+        // Create a download link and trigger the download
+        const downloadLink = document.createElement('a');
+        downloadLink.href = screenshotUrl;
+        downloadLink.download = 'Meme_Maker.png';
+        downloadLink.click();
+    }
+
+    const handleSave = () => {
+        const canvas = captureCanvas();
+        // Convert the canvas to a blob
+        canvas.toBlob((blob) => {
+            // Generate a timestamp for the file name
+            const timestamp = new Date().toISOString();
+            // Create a reference to the storage location
+            const storageRef = ref(storage, `user-memes/${currentUser.uid}/canvas_${timestamp}.png`);
+            // Upload the file to Firebase Storage
+            const uploadTask = uploadBytes(storageRef, blob);
+            // Monitor the upload task
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Handle progress
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                },
+                (error) => {
+                    // Handle unsuccessful uploads
+                    console.error("Error uploading canvas:", error);
+                },
+                () => {
+                    // Handle successful uploads on complete
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        console.log('File available at', downloadURL);
+                        // You can use the downloadURL to retrieve the image when needed
+                    });
+                }
+            );
+        }, 'image/png');
+    
+        // // Serialize canvas data
+        // const canvasData = {
+        //     imageWidth: imageWidth,
+        //     imageHeight: imageHeight,
+        //     templateImageSrc: imageElement.src, // Save the source of the template image
+        //     elements: []
+        // };
+
+        // memeContainer.childNodes.forEach(node => {
+        //     if (node.nodeType === 1) {
+        //         if (node.tagName === 'IMG') {
+        //             // Skip images
+        //         } else if (node.classList.contains('meme-text')) {
+        //             const computedStyle = window.getComputedStyle(node);
+        //             canvasData.elements.push({
+        //                 type: 'text',
+        //                 content: node.innerText,
+        //                 style: {
+        //                     left: parseFloat(computedStyle.left),
+        //                     top: parseFloat(computedStyle.top),
+        //                     fontSize: parseFloat(computedStyle.fontSize),
+        //                     color: computedStyle.color,
+        //                     rotate: parseFloat(computedStyle.rotate) || 0
+        //                 }
+        //             });
+        //         } else if (node.classList.contains('meme-added-image')) {
+        //             const computedStyle = window.getComputedStyle(node);
+        //             canvasData.elements.push({
+        //                 type: 'image',
+        //                 src: node.querySelector('img').src,
+        //                 style: {
+        //                     left: parseFloat(computedStyle.left),
+        //                     top: parseFloat(computedStyle.top),
+        //                     width: parseFloat(computedStyle.width),
+        //                     height: parseFloat(computedStyle.height)
+        //                 }
+        //             });
+        //         }
+        //     }
+        // });
+
+        // // Store canvas data
+        // localStorage.setItem('canvasData', JSON.stringify(canvasData));
+
+        // // Generate a timestamp for the file name
+        // const timestamp = new Date().toISOString();
+
+        // // send canvas data to firebase storage 
+        // const canvasDataString = JSON.stringify(canvasData);
+        // const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
+        // try {
+        //     uploadString(canvasRef, canvasDataString, 'raw');
+        //     console.log("Canvas data uploaded successfully");
+        // } catch (error) {
+        //     console.error("Error uploading canvas data:", error);
+        // }
+    
+    }
+
+    const handleShare = () => {
+        const canvas = captureCanvas();
 
         // Convert the canvas to a blob
         canvas.toBlob((blob) => {
             // Generate a timestamp for the file name
             const timestamp = new Date().toISOString();
-
             // Create a reference to the storage location
-            const storageRef = ref(storage, `user-memes/${currentUser.uid}/canvas_${timestamp}.png`);
+            const storageRef = ref(storage, `wall-of-memes/${currentUser.uid}/Meme-Maker_by_${currentUser.uid}_${timestamp}.png`);
 
             // Upload the file to Firebase Storage
             const uploadTask = uploadBytes(storageRef, blob);
@@ -118,77 +221,25 @@ const Canvas = (props) => {
                     });
                 }
             );
-        }, 'image/png');
-    
-        // Serialize canvas data
-        const canvasData = {
-            imageWidth: imageWidth,
-            imageHeight: imageHeight,
-            templateImageSrc: imageElement.src, // Save the source of the template image
-            elements: []
-        };
-
-        memeContainer.childNodes.forEach(node => {
-            if (node.nodeType === 1) {
-                if (node.tagName === 'IMG') {
-                    // Skip images
-                } else if (node.classList.contains('meme-text')) {
-                    const computedStyle = window.getComputedStyle(node);
-                    canvasData.elements.push({
-                        type: 'text',
-                        content: node.innerText,
-                        style: {
-                            left: parseFloat(computedStyle.left),
-                            top: parseFloat(computedStyle.top),
-                            fontSize: parseFloat(computedStyle.fontSize),
-                            color: computedStyle.color,
-                            rotate: parseFloat(computedStyle.rotate) || 0
-                        }
-                    });
-                } else if (node.classList.contains('meme-added-image')) {
-                    const computedStyle = window.getComputedStyle(node);
-                    canvasData.elements.push({
-                        type: 'image',
-                        src: node.querySelector('img').src,
-                        style: {
-                            left: parseFloat(computedStyle.left),
-                            top: parseFloat(computedStyle.top),
-                            width: parseFloat(computedStyle.width),
-                            height: parseFloat(computedStyle.height)
-                        }
-                    });
-                }
-            }
-        });
-
-        // Create a download link and trigger the download
-        const downloadLink = document.createElement('a');
-        downloadLink.href = screenshotUrl;
-        downloadLink.download = 'Meme_Maker.png';
-        downloadLink.click();
-
-        // Store canvas data
-        localStorage.setItem('canvasData', JSON.stringify(canvasData));
-        console.log(canvasData);
-        console.log(downloadLink);
-
-        // // Generate a timestamp for the file name
-        // const timestamp = new Date().toISOString();
-
-        // // send canvas data to firebase storage 
-        // const canvasDataString = JSON.stringify(canvasData);
-        // const canvasRef = ref(storage, `user-memes/${currentUser.uid}/canvasData_${timestamp}.json`);
-        // try {
-        //     uploadString(canvasRef, canvasDataString, 'raw');
-        //     console.log("Canvas data uploaded successfully");
-        // } catch (error) {
-        //     console.error("Error uploading canvas data:", error);
-        // }
+        }, 'image/png');  
     }
 
     return (  
-        <button className="form-button download" onClick={captureScreenshot}><img src="images/download.png" alt="download icon" /></button>
-    )
+        <div className="canvas-buttons">
+            <div className="canvas-button">
+                <button id='download' className="form-button download" onClick={handleDownload}><img src="images/download.png" alt="download icon" /></button>
+                <label htmlFor='download'>Download</label>
+            </div>
+            <div className="canvas-button">
+                <button id='save' className="form-button save" onClick={handleSave}><img src="images/save.png" alt="share icon" /></button>    
+                <label htmlFor='save'>Save To Your Memes</label>
+            </div>
+            <div className="canvas-button">
+                <button id='share' className="form-button share" onClick={handleShare}><img src="images/share.png" alt="share icon" /></button>    
+                <label htmlFor='share'>share To The Wall Of Memes</label>
+            </div>
+        </div>
+        )
 }
 
 export default Canvas;

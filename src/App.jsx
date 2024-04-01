@@ -50,6 +50,7 @@ function App() {
             <Route path="/dad-jokes" element={<DadJokes />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Meme />} />
           </Routes>
         </main>
     </Router>

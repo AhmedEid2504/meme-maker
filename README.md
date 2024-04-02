@@ -9,25 +9,36 @@ The project consists of the following components:
 1. Meme: This is the main component that handles the application logic. It contains the state and event handlers for the meme generator.
 2. TextInput: This is a child component that renders a text input field and handles input, deletion, and dragging of the text elements. It receives a prop textInput which contains the text input's properties, and event handlers.
 3. Canvas: This is a child component that handles the creation of the meme image. It makes use of the memeContainerRef to access the canvas containing the meme and create a screenshot of it.
+4. ImageInput: just like the TextInput the user can upload images to be added on the template can be moved too with customizations like size
+
+5. WallOfMemes: meme social media where users can share their memes, authenticated users can post guests can only look
+
+6. MyMemes: private meme library for users to store their memes
+
+7. SignUp, Login
 
 ## Features
 
-- Generate a random meme image from a collection of memes or upload a custom image.
+- Generate a random meme image from a collection of memes or upload a custom Template.
 
-- Allows users to upload their own images.
+- Supports adding multiple text inputs with customization options such as size, color, and rotation and can drag and drop the text.
 
-- Supports adding multiple text inputs with customization options such as text, font size, color, and rotation and can drag and drop the text.
+- adding images with customizations over the template
 
-- Download the generated meme as an image file.
+- Download the Made Meme, Save it to MyMemes, Share it to the Wall Of Memes.
+
+- MyMemes a private  space where you can save your favorite memes and delete  them if needed.
+
+- The "Wall of Memes" is publicly accessible showcase where everyone can see all the generated memes.   
+
+- post or look at Memes in Wall of memes
 
 - Get Dad Jokes from Dad Jokes Page
 
 # Technologies:
 
 - React
-- JavaScript
-- CSS
-- Fetch API *File Reader API *Web Audio API *Canvas API
+- Firebase
 
 ## Installation
 

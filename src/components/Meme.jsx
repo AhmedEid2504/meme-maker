@@ -24,7 +24,7 @@ export default function Meme() {
             });
             // Resolve all promises
             const memeUrls = await Promise.all(promises);
-            setAllMemes(memeUrls);
+            setAllTemplates(memeUrls);
         })
         .catch((error) => {
             console.error('Error fetching memes:', error);
@@ -46,7 +46,7 @@ export default function Meme() {
         textInputs: [],
         imageInputs: [],
     });
-    const [allMemes, setAllMemes] = useState([]);
+    const [AllTemplates, setAllTemplates] = useState([]);
     const [counter, setCounter] = useState(0);
     const memeContainerRef = useRef(null);
     const [imageInputsVisible, setImageInputsVisible] = useState(false);
@@ -86,8 +86,8 @@ export default function Meme() {
 
     const getMemeTemplate = useCallback(async () => {
         if (!meme.showUploadedTemplate) {
-            const randomNumber = Math.floor(Math.random() * allMemes.length);
-            const url = allMemes[randomNumber].url;
+            const randomNumber = Math.floor(Math.random() * AllTemplates.length);
+            const url = AllTemplates[randomNumber].url;
             // downloading the image from the api and creating a blob object with it
             // so that it works for the screenshot function as well
             const response = await fetch(url);
@@ -103,7 +103,7 @@ export default function Meme() {
                 randomTemplate: meme.uploadedTemplate,
             }));
         }
-    }, [allMemes, meme.showUploadedTemplate, meme.uploadedTemplate]);
+    }, [AllTemplates, meme.showUploadedTemplate, meme.uploadedTemplate]);
 
     const handleTemplateUpload = useCallback((event) => {
         const file = event.target.files[0];

@@ -34,40 +34,50 @@ root {
     width:  100%;
 }
 
+
 .card-buttons {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    width: 100%;
-    gap: 10px;
+    align-items: center;
+    gap: 50px;
+}
+.card-buttons img {
+    width: 40px;
+    padding: 5px;
 }
 
 .card-button {
-    padding: 10px;
-    border-radius: 10px;
-    width: 100px;
-}
-.card-button:hover {
-    background-color: var(--secondary-color);
-    transition: all  .3s ease-in-out;
-    color: var(--fourth-color);
-}
-
-.delete {
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
 }
 
 .card-button-download {
-    background-color: green;
     border-radius: 10px;
-    padding: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    background-color: var(--primary-color);
 }
+
 .card-button-download:hover {
     background-color: var(--secondary-color);
     transition: all  .3s ease-in-out;
-    color: var(--fourth-color);
 }
-
-.edit {
+.card-button-share {
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0px;
     background-color: var(--primary-color);
 }
+.card-button-share:hover {
+    background-color: var(--secondary-color);
+    transition: all  .3s ease-in-out;
+}
+

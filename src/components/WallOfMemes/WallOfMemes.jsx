@@ -41,7 +41,7 @@ const WallOfMemes = () => {
         fetchImagesFromAllUsers();
     }, []);
 
-    const downloadImage = (imageUrl) => {
+    const handleDownload = (imageUrl) => {
         fetch(imageUrl, {
             method: "GET",
             headers: {}
@@ -69,8 +69,11 @@ const WallOfMemes = () => {
                     {imageUrls.map((imageUrl, index) => (
                         <div key={index} className='meme-card'>
                             <img src={imageUrl} alt={`Meme ${index}`} />
-                            <div className='card-buttons'>
-                                <button className='card-button-download' onClick={() => downloadImage(imageUrl)}>Download</button>
+                            <div className="card-buttons">
+                                <div className="card-button">
+                                    <button id='download' className="card-button-download" onClick={() => handleDownload(imageUrl)}><img src="images/download.png" alt="download icon" /></button>
+                                    <label htmlFor='download'>Download</label>
+                                </div>
                             </div>
                         </div>
                     ))}

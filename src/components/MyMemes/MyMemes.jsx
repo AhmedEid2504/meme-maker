@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
-import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import { ref, listAll, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useAuth } from '../../contexts/authContext';
 import './mymemes.css';
 
@@ -33,7 +33,7 @@ const MyMemes = () => {
         }
     }, [currentUser]);
 
-    const downloadImage = (imageUrl) => {
+    const handleDownload = (imageUrl) => {
         fetch(imageUrl, {
             method: "GET",
             headers: {}
@@ -43,7 +43,7 @@ const MyMemes = () => {
                     const url = window.URL.createObjectURL(new Blob([buffer]));
                     const link = document.createElement("a");
                     link.href = url;
-                    link.setAttribute("download", "image.png"); // Change the filename as needed
+                    link.setAttribute("download", "Meme-Maker.png"); // Change the filename as needed
                     document.body.appendChild(link);
                     link.click();
                 });
@@ -51,6 +51,26 @@ const MyMemes = () => {
             .catch(err => {
                 console.log(err);
             });
+    };
+
+    const handleShare = async (memeUrl) => {
+        // Generate a timestamp for the file name
+        const timestamp = new Date().toISOString();
+        // Define the reference to the storage location in the wall-of-memes bucket
+        const storageRef = ref(storage, `wall-of-memes/${currentUser.uid}/Meme-Maker_${currentUser.uid}_At_${timestamp}.png`);
+    
+        try {
+            // Fetch the image data as a Blob
+            const response = await fetch(memeUrl);
+            const blob = await response.blob();
+            
+            // Upload the meme to the wall-of-memes bucket with correct content type
+            await uploadBytes(storageRef, blob, { contentType: 'image/png' });
+            
+            console.log('Meme shared successfully to Wall of Memes!');
+        } catch (error) {
+            console.error('Error sharing meme:', error);
+        }
     };
 
     return (
@@ -61,8 +81,15 @@ const MyMemes = () => {
                     {memes.map((meme) => (
                     <div key={meme.id} className='meme-card'>
                         <img  src={meme.url} alt="Meme" />
-                        <div className='card-buttons'>
-                                <button className='card-button-download' onClick={() => downloadImage(meme.url)}>Download</button>
+                        <div className="card-buttons">
+                            <div className="card-button">
+                                <button id='download' className="card-button-download" onClick={() => handleDownload(meme.url)}><img src="images/download.png" alt="download icon" /></button>
+                                <label htmlFor='download'>Download</label>
+                            </div>
+                            <div className="card-button">
+                                <button id='share' className="card-button-share" onClick={() => handleShare(meme.url)}><img src="images/share.png" alt="share icon" /></button>    
+                                <label htmlFor='share'>Share To The Wall</label>
+                            </div>
                         </div>
                     </div>
                     ))}

@@ -81,3 +81,17 @@ root {
     transition: all  .3s ease-in-out;
 }
 
+.card-button-delete {
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    background-color: var(--primary-color);
+}
+.card-button-delete:hover {
+    background-color: var(--secondary-color);
+    transition: all  .3s ease-in-out;
+}
+
+

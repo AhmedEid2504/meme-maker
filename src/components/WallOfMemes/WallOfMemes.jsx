@@ -64,6 +64,10 @@ const WallOfMemes = () => {
         downloadNotify();
     };
 
+    
+
+    
+
     return (
         <div className='main-container'>
             <div className="main">

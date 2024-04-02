@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
-import { ref, listAll, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { ref, listAll, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { useAuth } from '../../contexts/authContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,7 @@ import './mymemes.css';
 const MyMemes = () => {
     const shareWarning = () => toast("This will share the image to the public, please don't upload personal Images", {type: "warning"});
     const downloadNotify = () => toast("Meme Downloaded To Your Device", {type: "success"});
+    const deleteNotify = () => toast("Meme Deleted", {type: "info"});
     
     const { currentUser } = useAuth();
     const [memes, setMemes] = useState([]);
@@ -26,6 +27,7 @@ const MyMemes = () => {
                         return {
                             id: itemRef.name, // Use the file name as ID
                             url: url, // URL of the image
+                            ref: itemRef // Reference to the file in storage
                         };
                     });
                     // Resolve all promises
@@ -79,6 +81,19 @@ const MyMemes = () => {
         }
     };
 
+    const handleDelete = async (memeRef, memeId) => {
+        try {
+            // Delete the meme file from Firebase Storage
+            await deleteObject(memeRef);
+            // Remove the deleted meme from the state
+            setMemes(prevMemes => prevMemes.filter(meme => meme.id !== memeId));
+            // Show notification
+            deleteNotify();
+        } catch (error) {
+            console.error('Error deleting meme:', error);
+        }
+    };
+
     return (
         <div className='main-container'>
             <div className="main">
@@ -95,6 +110,10 @@ const MyMemes = () => {
                             <div className="card-button">
                                 <button id='share' className="card-button-share" onClick={() => handleShare(meme.url)}><img src="images/share.png" alt="share icon" /></button>    
                                 <label htmlFor='share'>Share To The Wall</label>
+                            </div>
+                            <div className="card-button">
+                                <button id='delete' className="card-button-delete" onClick={() => handleDelete(meme.ref, meme.id)}><img src="images/delete.png" alt="delete icon" /></button>    
+                                <label htmlFor='delete'>Delete</label>
                             </div>
                         </div>
                     </div>

@@ -61,13 +61,14 @@ const Navbar =(props) => {
                     src="../images/troll-face.png"
                     alt="meme maker logo(troll face)"
                 />
-                <h1 className="logo-text">Meme Maker</h1>
+                <h1 className="logo-text">
+                    <Link to="/">Meme Maker</Link>
+                </h1>
             </div>
             {windowWidth > 800 ? (
                 <ul>
-                    <li><Link to="/">Image Memes</Link></li>
-                    <li><Link to="/dad-jokes">Dad Jokes</Link></li>
-                    
+                    <li><Link to="/">Meme Maker</Link></li>
+                    <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
                     <div className="nav-buttons">
                         <div className="toggler" >
                             <div 
@@ -84,14 +85,14 @@ const Navbar =(props) => {
                     </div>
                     {showMenu && (
                         <ul className={showMenu ? "show" : ""} ref={ulRef}>
-                            <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
-                            <li><Link to="/video-meme">Video Memes</Link></li>
+                            <li><Link to="/dad-jokes">Dad Jokes</Link></li>
                             
+                            <li><Link to="/video-meme">Video Memes</Link></li>
                         </ul>
                     )}
                     {showUserMenu && (
                         <ul className={showUserMenu ? "show" : ""} ref={ulRef}>
-                            <li><Link to="/my-memes">My Memes</Link></li>
+                            <li><Link to="/my-memes">Your Memes</Link></li>
                             {!userLoggedIn ?
                                 <>
                                     <li><Link to="/signup">Sign Up</Link></li>
@@ -127,7 +128,7 @@ const Navbar =(props) => {
                     
                     {showMenu && (
                         <ul className={showMenu ? "show" : ""} ref={ulRef}>
-                            <li><Link to="/">Image Memes</Link></li>
+                            <li><Link to="/">Meme Maker</Link></li>
                             <li><Link to="/wall-of-memes">Wall Of Memes</Link></li>
                             <li><Link to="/video-meme">Video Memes</Link></li>
                             <li><Link to="/dad-jokes">Dad Jokes</Link></li>
@@ -136,7 +137,7 @@ const Navbar =(props) => {
                     )}
                     {showUserMenu && (
                         <ul className={showUserMenu ? "show" : ""} ref={ulRef}>
-                            <li><Link to="/my-memes">My Memes</Link></li>
+                            <li><Link to="/my-memes">Your Memes</Link></li>
                             {!userLoggedIn ?
                                 <>
                                     <li><Link to="/signup">Sign Up</Link></li>

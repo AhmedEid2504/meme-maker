@@ -64,7 +64,7 @@ const WallOfMemes = () => {
     return (
         <div className='main-container'>
             <div className="main">
-                <h2>Community Memes</h2>
+                <h1>Wall Of Memes</h1>
                 <div className="meme-cards-container">
                     {imageUrls.map((imageUrl, index) => (
                         <div key={index} className='meme-card'>

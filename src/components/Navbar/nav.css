@@ -82,6 +82,8 @@ li a {
 
 a{
     cursor: pointer;
+    text-decoration: none;
+    color: var(--secondary-color);
 }
 a:hover {
     color: var(--primary-color);

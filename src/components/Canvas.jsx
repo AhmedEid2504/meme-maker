@@ -236,7 +236,7 @@ const Canvas = (props) => {
             </div>
             <div className="canvas-button">
                 <button id='share' className="form-button share" onClick={handleShare}><img src="images/share.png" alt="share icon" /></button>    
-                <label htmlFor='share'>share To The Wall Of Memes</label>
+                <label htmlFor='share'>Share To The Wall</label>
             </div>
         </div>
         )

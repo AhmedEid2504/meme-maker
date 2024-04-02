@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import {storage} from  '../firebase/firebase';
-import { ref, uploadBytes, getDownloadURL, updateMetadata  } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useAuth } from '../contexts/authContext';
 const Canvas = (props) => {
      // Get the current user from the AuthContext
@@ -191,17 +191,17 @@ const Canvas = (props) => {
 
     const handleShare = () => {
         const canvas = captureCanvas();
-    
+
         // Convert the canvas to a blob
         canvas.toBlob((blob) => {
             // Generate a timestamp for the file name
             const timestamp = new Date().toISOString();
             // Create a reference to the storage location
-            const storageRef = ref(storage, `wall-of-memes/${currentUser.uid}/Meme-Maker_by_${currentUser.uid}_${timestamp}.png`);
-    
+            const storageRef = ref(storage, `wall-of-memes/${currentUser.uid}/Meme-Maker_${currentUser.uid}_At_${timestamp}.png`);
+
             // Upload the file to Firebase Storage
             const uploadTask = uploadBytes(storageRef, blob);
-    
+
             // Monitor the upload task
             uploadTask.on('state_changed',
                 (snapshot) => {
@@ -213,22 +213,12 @@ const Canvas = (props) => {
                     // Handle unsuccessful uploads
                     console.error("Error uploading canvas:", error);
                 },
-                async () => {
+                () => {
                     // Handle successful uploads on complete
-                    try {
-                        // Add timestamp to metadata
-                        await updateMetadata(storageRef, {
-                            customMetadata: {
-                                timestamp: timestamp
-                            }
-                        });
-    
-                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         console.log('File available at', downloadURL);
                         // You can use the downloadURL to retrieve the image when needed
-                    } catch (error) {
-                        console.error("Error updating metadata:", error);
-                    }
+                    });
                 }
             );
         }, 'image/png');  

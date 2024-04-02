@@ -3,14 +3,34 @@ import './componentsCSS/meme.css';
 import TextInput from './TextInput'
 import ImageInput from "./ImageInput";
 import Canvas from "./Canvas";
+import { storage } from "../firebase/firebase";
+import { ref, listAll, getDownloadURL } from 'firebase/storage';
+
 
 export default function Meme() {
     // Fetch API request here
     useEffect(() => {
-        fetch("https://api.imgflip.com/get_memes")
-            .then((res) => res.json())
-            .then(data => setAllMemes(data.data.memes));
+        const templatesRef = ref(storage, `templates`);
+        // Fetch the list of files in the user's folder
+        listAll(templatesRef)
+        .then(async (res) => {
+            const promises = res.items.map(async (itemRef) => {
+                const url = await getDownloadURL(itemRef);
+                return {
+                    id: itemRef.name, // Use the file name as ID
+                    url: url, // URL of the image
+                    ref: itemRef // Reference to the file in storage
+                };
+            });
+            // Resolve all promises
+            const memeUrls = await Promise.all(promises);
+            setAllMemes(memeUrls);
+        })
+        .catch((error) => {
+            console.error('Error fetching memes:', error);
+        });
     }, []);
+
     
     const [meme, setMeme] = useState({
         randomTemplate: "/images/defaultMeme.png",
@@ -64,7 +84,7 @@ export default function Meme() {
     
     
 
-    const getMemeImage = useCallback(async () => {
+    const getMemeTemplate = useCallback(async () => {
         if (!meme.showUploadedTemplate) {
             const randomNumber = Math.floor(Math.random() * allMemes.length);
             const url = allMemes[randomNumber].url;
@@ -305,7 +325,7 @@ export default function Meme() {
                             {!meme.showUploadedTemplate && (
                                 <button
                                     className="form-button random"
-                                    onClick={getMemeImage}
+                                    onClick={getMemeTemplate}
                                 >
                                     Random Template
                                 </button>

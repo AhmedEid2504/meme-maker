@@ -2,9 +2,14 @@ import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
 import { ref, listAll, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useAuth } from '../../contexts/authContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './mymemes.css';
 
 const MyMemes = () => {
+    const shareWarning = () => toast("This will share the image to the public, please don't upload personal Images", {type: "warning"});
+    const downloadNotify = () => toast("Meme Downloaded To Your Device", {type: "success"});
+    
     const { currentUser } = useAuth();
     const [memes, setMemes] = useState([]);
 
@@ -46,6 +51,7 @@ const MyMemes = () => {
                     link.setAttribute("download", "Meme-Maker.png"); // Change the filename as needed
                     document.body.appendChild(link);
                     link.click();
+                    downloadNotify();
                 });
             })
             .catch(err => {
@@ -67,7 +73,7 @@ const MyMemes = () => {
             // Upload the meme to the wall-of-memes bucket with correct content type
             await uploadBytes(storageRef, blob, { contentType: 'image/png' });
             
-            console.log('Meme shared successfully to Wall of Memes!');
+            shareWarning();
         } catch (error) {
             console.error('Error sharing meme:', error);
         }

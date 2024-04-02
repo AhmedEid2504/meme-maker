@@ -6,7 +6,8 @@ import VideoMeme from './components/VideoMeme';
 import DadJokes from './components/DadJokes';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import MyMemes from './components/MyMemes/MyMemes';
 
@@ -37,6 +38,20 @@ function App() {
 
   return (
     <Router>
+        <ToastContainer
+          type="info"
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition: Bounce
+        />
         <Navbar 
           toggleDarkMode={toggleDarkMode} 
           darkMode={darkMode} 

@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import './wallofmemes.css';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const WallOfMemes = () => {
+    const downloadNotify = () => toast("Meme Downloaded To Your Device");
     const [imageUrls, setImageUrls] = useState([]);
 
     useEffect(() => {
@@ -59,6 +61,7 @@ const WallOfMemes = () => {
             .catch(err => {
                 console.log(err);
             });
+        downloadNotify();
     };
 
     return (

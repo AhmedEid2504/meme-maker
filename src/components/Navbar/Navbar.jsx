@@ -3,8 +3,14 @@ import { useAuth } from '../../contexts/authContext'; // Import the AuthContext 
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { doSignOut } from '../Auth/auth'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './nav.css'
+
+
 const Navbar =(props) => {
+    const signedoutNotify = () => toast("Signed Out", { type: "info" });
+
     const navigate = useNavigate();
     const { userLoggedIn } = useAuth();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -51,6 +57,7 @@ const Navbar =(props) => {
     const handleSignOut = async () => {
         await doSignOut()
         navigate("/")
+        signedoutNotify();
     };
 
     return (

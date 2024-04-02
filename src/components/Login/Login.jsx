@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { doSignInWithEmailAndPassword } from '../Auth/auth'; // Import the authentication function
 import './login.css'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+    const loggedinNotify = () => toast("Welcome Back", { type: "success" });
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         email: '',
@@ -23,8 +26,7 @@ const Login = () => {
 
         try {
             await doSignInWithEmailAndPassword(formData.email, formData.password); // Call the authentication function
-            // You can handle successful login redirection or any other logic here
-            console.log("successfully logged in");
+            loggedinNotify();
             navigate('/')
         } catch (error) {
             console.error('Error signing in:', error.message);

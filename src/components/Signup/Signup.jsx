@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { useAuth } from '../../contexts/authContext'; // Import the AuthContext hook
 import { doCreateUserWithEmailAndPassword } from '../Auth/auth'; // Import the authentication functions
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
+    const signedupNotify = () => toast("Signed Up Successfully", { type: "success" });
     const navigate = useNavigate();
-    const { currentUser } = useAuth(); // Access currentUser from the AuthContext
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -32,8 +33,7 @@ const Signup = () => {
 
         try {
             await doCreateUserWithEmailAndPassword(formData.email, formData.password); // Call the authentication function
-            // Here you can save additional user information to Firestore or Realtime Database
-            alert('User registered:', currentUser);
+            signedupNotify();
             navigate('/');
         } catch (error) {
             console.error('Error signing up:', error.message);

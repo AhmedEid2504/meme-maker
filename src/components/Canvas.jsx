@@ -2,8 +2,15 @@
 import {storage} from  '../firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useAuth } from '../contexts/authContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Canvas = (props) => {
-     // Get the current user from the AuthContext
+    const shareWarning = () => toast("This will share the image to the public, please don't upload personal Images");
+    const downloadNotify = () => toast("Meme Downloaded To Your Device");
+    const saveNotify = () => toast("Meme Saved To Your Memes Collection");
+    
+    
+    // Get the current user from the AuthContext
     const { currentUser } = useAuth();
 
     const captureCanvas =() => {
@@ -97,6 +104,7 @@ const Canvas = (props) => {
         downloadLink.href = screenshotUrl;
         downloadLink.download = 'Meme_Maker.png';
         downloadLink.click();
+        downloadNotify();
     }
 
     const handleSave = () => {
@@ -128,6 +136,7 @@ const Canvas = (props) => {
                     });
                 }
             );
+            saveNotify();
         }, 'image/png');
     
         // // Serialize canvas data
@@ -190,6 +199,7 @@ const Canvas = (props) => {
     }
 
     const handleShare = () => {
+        shareWarning();
         const canvas = captureCanvas();
 
         // Convert the canvas to a blob

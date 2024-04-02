@@ -9,7 +9,9 @@ root {
     --third-color: #393E46;
     --fourth-color:#222831;
 }
-
+a {
+    text-decoration: none;
+}
 .meme-cards-container {
     display: flex;
     flex-direction: column;

@@ -41,18 +41,35 @@ const WallOfMemes = () => {
         fetchImagesFromAllUsers();
     }, []);
 
+    const handleDownload = async (imageUrl) => {
+        try {
+            const storageRef = ref(storage, imageUrl);
+    
+            // Get the download URL for the file
+            const downloadURL = await getDownloadURL(storageRef);
+    
+            // Create an anchor element to trigger the download
+            const link = document.createElement("a");
+            link.href = downloadURL;
+            link.setAttribute("download", ""); // Set an empty value for the download attribute to ensure browser download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
+    };
+
     return (
         <div className='main-container'>
             <div className="main">
                 <h2>Community Memes</h2>
                 <div className="meme-cards-container">
-                    {imageUrls.map((imageUrl) => (
-                        <div key={imageUrl} className='meme-card'>
-                            <img src={imageUrl} alt={`Meme ${imageUrl}`} />
+                    {imageUrls.map((imageUrl, index) => (
+                        <div key={index} className='meme-card'>
+                            <img src={imageUrl} alt={`Meme ${index}`} />
                             <div className='card-buttons'>
-                                <a href={imageUrl} download={`Meme_${imageUrl}.png`} target="_blank" rel="noopener noreferrer">
-                                    <button className='card-button-download'>Download</button>
-                                </a>
+                                <button className='card-button-download' onClick={() => handleDownload(imageUrl)}>Download</button>
                             </div>
                         </div>
                     ))}

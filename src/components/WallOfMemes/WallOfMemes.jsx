@@ -41,23 +41,24 @@ const WallOfMemes = () => {
         fetchImagesFromAllUsers();
     }, []);
 
-    const handleDownload = async (imageUrl) => {
-        try {
-            const storageRef = ref(storage, imageUrl);
-    
-            // Get the download URL for the file
-            const downloadURL = await getDownloadURL(storageRef);
-    
-            // Create an anchor element to trigger the download
-            const link = document.createElement("a");
-            link.href = downloadURL;
-            link.setAttribute("download", ""); // Set an empty value for the download attribute to ensure browser download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (error) {
-            console.error('Error downloading file:', error);
-        }
+    const downloadImage = (imageUrl) => {
+        fetch(imageUrl, {
+            method: "GET",
+            headers: {}
+        })
+            .then(response => {
+                response.arrayBuffer().then(function(buffer) {
+                    const url = window.URL.createObjectURL(new Blob([buffer]));
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute("download", "image.png"); // Change the filename as needed
+                    document.body.appendChild(link);
+                    link.click();
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (
@@ -69,7 +70,7 @@ const WallOfMemes = () => {
                         <div key={index} className='meme-card'>
                             <img src={imageUrl} alt={`Meme ${index}`} />
                             <div className='card-buttons'>
-                                <button className='card-button-download' onClick={() => handleDownload(imageUrl)}>Download</button>
+                                <button className='card-button-download' onClick={() => downloadImage(imageUrl)}>Download</button>
                             </div>
                         </div>
                     ))}

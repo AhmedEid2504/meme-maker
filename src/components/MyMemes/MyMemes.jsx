@@ -33,6 +33,25 @@ const MyMemes = () => {
         }
     }, [currentUser]);
 
+    const downloadImage = (imageUrl) => {
+        fetch(imageUrl, {
+            method: "GET",
+            headers: {}
+        })
+            .then(response => {
+                response.arrayBuffer().then(function(buffer) {
+                    const url = window.URL.createObjectURL(new Blob([buffer]));
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute("download", "image.png"); // Change the filename as needed
+                    document.body.appendChild(link);
+                    link.click();
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
     return (
         <div className='main-container'>
@@ -43,7 +62,7 @@ const MyMemes = () => {
                     <div key={meme.id} className='meme-card'>
                         <img  src={meme.url} alt="Meme" />
                         <div className='card-buttons'>
-                            <a href={meme.url} download><button className='card-button-download'>Download</button></a>
+                                <button className='card-button-download' onClick={() => downloadImage(meme.url)}>Download</button>
                         </div>
                     </div>
                     ))}

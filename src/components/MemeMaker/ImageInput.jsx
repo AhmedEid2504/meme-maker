@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 
-import './componentsCSS/image.css'
+import './image.css'
 import {useState, useCallback} from 'react'
 
 const ImageInput = ({imageInput, index, setMeme, setCounter }) => {

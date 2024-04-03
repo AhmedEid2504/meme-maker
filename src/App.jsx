@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import WallOfMemes from './components/WallOfMemes/WallOfMemes';
-import Meme from './components/Meme';
+import MemeMaker from './components/MemeMaker/MemeMaker';
 import VideoMeme from './components/VideoMeme';
 import DadJokes from './components/DadJokes';
 import Signup from './components/Signup/Signup';
@@ -58,7 +58,7 @@ function App() {
         />
         <main>
           <Routes>
-            <Route path="/" element={<Meme />} />
+            <Route path="/" element={<MemeMaker />} />
             <Route path="/wall-of-memes" element={<WallOfMemes />} />
             <Route path="/video-meme" element={<VideoMeme />} />
             <Route path="/my-memes" element={<MyMemes />} />

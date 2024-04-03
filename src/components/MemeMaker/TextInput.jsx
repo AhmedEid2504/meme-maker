@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import {useCallback, useState} from 'react';
-import './componentsCSS/text.css'
+import './text.css'
 
 
 const TextInput = ({ textInput, index, setMeme, setCounter }) => {

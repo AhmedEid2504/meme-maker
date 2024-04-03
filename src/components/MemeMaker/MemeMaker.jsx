@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import './componentsCSS/meme.css';
+import './meme.css';
 import TextInput from './TextInput'
 import ImageInput from "./ImageInput";
 import Canvas from "./Canvas";
-import { storage } from "../firebase/firebase";
+import { storage } from "../../firebase/firebase";
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 
 

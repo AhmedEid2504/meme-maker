@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import {storage} from  '../firebase/firebase';
+import {storage} from  '../../firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { useAuth } from '../contexts/authContext';
+import { useAuth } from '../../contexts/authContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Canvas = (props) => {

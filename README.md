@@ -19,6 +19,8 @@ The project consists of the following components:
 
 ## Features
 
+- Login Or SignUp to save your memes or share it
+
 - Generate a random meme image from a collection of memes or upload a custom Template.
 
 - Supports adding multiple text inputs with customization options such as size, color, and rotation and can drag and drop the text.

@@ -56,7 +56,11 @@ function App() {
           toggleDarkMode={toggleDarkMode} 
           darkMode={darkMode} 
         />
-        <main>
+        <main className='bg-transparent p-10 items-center justify-evenly flex 
+                rounded-lg border-4 border-gray-600 
+                w-auto
+                m-8 transition-all'
+                >
           <Routes>
             <Route path="/" element={<MemeMaker />} />
             <Route path="/wall-of-memes" element={<WallOfMemes />} />

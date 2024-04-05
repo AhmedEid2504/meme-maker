@@ -25,11 +25,17 @@ const DadJokes = () => {
     };
 
     return (
-        <div className="joke-container">
-            <h1>Dad Jokes</h1>
-            <button className="joke-button" onClick={getDadJoke}>Get Joke</button>
+        <div className="
+                flex flex-col items-center justify-around w-full p-3 gap-4 text-white font-mono
+            ">
+            <h1 className="text-2xl">Dad Jokes</h1>
+            <button className="bg-cyan-700 p-3 m-1 rounded-lg 
+                                hover:bg-white transition-all 
+                                hover:text-black
+                                text-xl
+                                " onClick={getDadJoke}>Get Joke</button>
             <div id="joke">
-                <h2>{joke}</h2>
+                <h2  className="text-xl" >{joke}</h2>
             </div>
         </div>
     )

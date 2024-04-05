@@ -61,8 +61,9 @@ const Navbar =(props) => {
     };
 
     return (
-        <nav className={props.darkMode ? "dark" : ""}>
-            <div className="logo-container">
+        <nav className={props.darkMode ? "bg-gray-700" : 
+                                        "bg-gray-700"}>
+            <div className=" flex justify-center items-center p-4">
                 <img 
                     className="logo"
                     src="../images/troll-face.png"

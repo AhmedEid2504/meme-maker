@@ -6,7 +6,7 @@ nav {
     text-align: center;
     align-items: center;
     padding: 5px;
-    background-color: var(--third-color);
+    
     height: 10dvh;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all ease-in 0.3s;

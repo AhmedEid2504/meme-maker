@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { doSignOut } from '../Auth/auth'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './nav.css'
 
 
 const Navbar =(props) => {
@@ -83,16 +82,17 @@ const Navbar =(props) => {
                 </h1>
             </div>
             {windowWidth > 800 ? (
-                <ul className="flex justify-between items-center list-none p-1 text-center gap-4">
+                <ul className="flex justify-between items-center list-none p-2 text-center gap-5">
                     <li><Link className={props.darkMode ? "hover:text-primary transition-colors" : "hover:text-third transition-colors" } to="/">Meme Maker</Link></li>
                     <li><Link className={props.darkMode ? "hover:text-primary transition-colors" : "hover:text-third transition-colors" } to="/wall-of-memes">Wall Of Memes</Link></li>
-                    <div className="flex justify-center items-center text-center content-center gap-2">
-                        <div className="toggler" >
+                    <div className="flex justify-center items-center text-center content-center gap-3">
+                        <div className="flex items-center" >
                             <div 
-                                className="toggler-slider"
+                                className={props.darkMode ? " w-10  h-13 rounded-xl flex justify-start  items-center content-center bg-fourth p-0.5 cursor-pointer transition-all" : 
+                                                            " w-10  h-13 rounded-xl flex justify-end items-center content-center bg-secondary p-0.5 cursor-pointer transition-all"}
                                 onClick={props.toggleDarkMode}
                             >
-                                <div className="toggler-slider-circle"><img src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
+                                <div className="h-5 w-5"><img className="h-5 w-5" src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
                             </div>
                         </div>
                         
@@ -129,12 +129,13 @@ const Navbar =(props) => {
             ) : (
                 <div className="mobile-nav">
                     <div className="flex justify-center items-center text-center content-center gap-2">
-                        <div className="toggler" >
+                        <div className="flex items-center" >
                             <div 
-                                className="toggler-slider"
+                                className={props.darkMode ? " w-10  h-13 rounded-xl flex justify-start  items-center content-center bg-fourth p-0.5 cursor-pointer transition-all" : 
+                                                            " w-10  h-13 rounded-xl flex justify-end items-center content-center bg-secondary p-0.5 cursor-pointer transition-all"}
                                 onClick={props.toggleDarkMode}
                             >
-                                <div className="toggler-slider-circle"><img src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
+                                <div className="h-5 w-5"><img className="h-5 w-5" src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
                             </div>
                         </div>
                         <button className="hover:text-primary transition-colors text-2xl w-auto h-auto" onClick={toggleMenu}>☰</button>

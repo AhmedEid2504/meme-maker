@@ -57,8 +57,8 @@ function App() {
           darkMode={darkMode} 
         />
         <main className='bg-transparent p-10 items-center justify-evenly flex 
-                rounded-lg border-4 border-gray-600 
-                w-auto
+                rounded-lg border-4 border-third 
+                w-auto -z-[1]
                 m-8 transition-all'
                 >
           <Routes>

@@ -26,7 +26,7 @@ const DadJokes = () => {
     return (
         <div className="
                 flex flex-col items-center justify-around
-                w-full p-3 gap-4 text-white font-mono
+                w-full p-3 gap-4 text-white font-mono -z-[50]
             ">
             <h1 className="text-2xl">Dad Jokes</h1>
             <button className="bg-cyan-700 p-3 m-1 rounded-lg 

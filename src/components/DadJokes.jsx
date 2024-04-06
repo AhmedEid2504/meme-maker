@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const DadJokes = () => {
+const DadJokes = (props) => {
     const [joke, setJoke] = useState("Loading...");
     
     // Fetch API request here
@@ -24,18 +25,16 @@ const DadJokes = () => {
     };
 
     return (
-        <div className="
-                flex flex-col items-center justify-around
-                w-full p-3 gap-4 text-white font-mono -z-[50]
-            ">
+        <div className={props.darkMode ?"flex flex-col items-center justify-around w-full p-3 gap-4 text-secondary font-mono" :
+                                        "flex flex-col items-center justify-around w-full p-3 gap-4 text-fourth font-mono"}>
             <h1 className="text-2xl">Dad Jokes</h1>
             <button className="bg-cyan-700 p-3 m-1 rounded-lg 
-                                hover:bg-white transition-all 
-                                hover:text-black
-                                text-xl
+                                hover:bg-secondary transition-all
+                                hover:text-black text-secondary
+                                text-xl shadow-inner
                                 " onClick={getDadJoke}>Get Joke</button>
             <div id="joke">
-                <h2  className="text-xl text-center" >{joke}</h2>
+                <h2 className="text-xl text-center" >{joke}</h2>
             </div>
         </div>
     )

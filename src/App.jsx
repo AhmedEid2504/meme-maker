@@ -62,13 +62,13 @@ function App() {
                 m-8 transition-all'
                 >
           <Routes>
-            <Route path="/" element={<MemeMaker />} />
-            <Route path="/wall-of-memes" element={<WallOfMemes />} />
-            <Route path="/video-meme" element={<VideoMeme />} />
-            <Route path="/my-memes" element={<MyMemes />} />
-            <Route path="/dad-jokes" element={<DadJokes />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<MemeMaker darkMode={darkMode}  />} />
+            <Route path="/wall-of-memes" element={<WallOfMemes darkMode={darkMode}  />} />
+            <Route path="/video-meme" element={<VideoMeme darkMode={darkMode}  />} />
+            <Route path="/my-memes" element={<MyMemes darkMode={darkMode}  />} />
+            <Route path="/dad-jokes" element={<DadJokes darkMode={darkMode}  />} />
+            <Route path="/signup" element={<Signup darkMode={darkMode}  />} />
+            <Route path="/login" element={<Login darkMode={darkMode}  />} />
           </Routes>
         </main>
     </Router>

@@ -59,15 +59,6 @@ const Navbar =(props) => {
         signedoutNotify();
     };
 
-    /* ul.show {
-    max-height: 60dvh; 
-    width: 20vw; 
-    text-align: center; 
-    border: none;
-    height: auto; 
-    transform: translateY(10dvh); 
-} */
-
     return (
         <nav className={props.darkMode ? "bg-third shadow-sm shadow-black relative h-20 flex justify-between items-center px-5 font-sans" : 
                                         "bg-primary shadow-sm shadow-primary relative h-20 flex justify-between items-center px-5 font-sans"}>
@@ -86,13 +77,14 @@ const Navbar =(props) => {
                     <li><Link className={props.darkMode ? "hover:text-primary transition-colors" : "hover:text-third transition-colors" } to="/">Meme Maker</Link></li>
                     <li><Link className={props.darkMode ? "hover:text-primary transition-colors" : "hover:text-third transition-colors" } to="/wall-of-memes">Wall Of Memes</Link></li>
                     <div className="flex justify-center items-center text-center content-center gap-3">
+                        {/* toggler */}
                         <div className="flex items-center" >
                             <div 
-                                className={props.darkMode ? " w-10  h-13 rounded-xl flex justify-start  items-center content-center bg-fourth p-0.5 cursor-pointer transition-all" : 
-                                                            " w-10  h-13 rounded-xl flex justify-end items-center content-center bg-secondary p-0.5 cursor-pointer transition-all"}
+                                className={props.darkMode ? " w-10 h-6 rounded-xl flex justify-start items-center content-center bg-fourth p-0.5 cursor-pointer transition-all" : 
+                                                            " w-10 h-6 rounded-xl flex justify-end align-middle items-center content-center bg-secondary p-0.5 cursor-pointer transition-all"}
                                 onClick={props.toggleDarkMode}
                             >
-                                <div className="h-5 w-5"><img className="h-5 w-5" src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
+                                <div><img className="h-5 w-5" src={props.darkMode ? "images/moon.png" : "images/sun.png"} alt="moon icon" /></div>
                             </div>
                         </div>
                         

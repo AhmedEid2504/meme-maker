@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useCallback, useRef } from "react";
 import './meme.css';
 import TextInput from './TextInput'
@@ -7,7 +8,7 @@ import { storage } from "../../firebase/firebase";
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 
 
-export default function Meme() {
+export default function Meme(props) {
     // Fetch API request here
     useEffect(() => {
         const templatesRef = ref(storage, `templates`);
@@ -260,23 +261,27 @@ export default function Meme() {
     
     
     return (
-        <div className="main-container">
-            <div className="main" 
+            // main
+            <container className="w-[100%] md:w-[80%] flex flex-col justify-center items-center" 
                 onMouseMove={handlePointerMove} 
                 onMouseUp={handlePointerUp}
                 onTouchMove={handlePointerMove} 
                 onTouchEnd={handlePointerUp}
             >
-                <div className="form">
-                    <div className="top-buttons">
+                <div className="flex flex-col justify-center items-center flex-wrap p-5 w-[100%]">
+                    {/* top buttons */}
+                    <div className="flex justify-center items-center flex-wrap gap-3">
                         <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
                         <button className="form-button add" onClick={handleAddImageInput}>Add Image</button>
                     </div>
-                    <div className="input-switch">
-                        <button className={textInputsVisible ? "active-input" : ""} onClick={toggleTextInputs}>
+                    {/* input switch */}
+                    <div className="flex justify-center items-center flex-wrap gap-5 p-5">
+                        <button className={props.darkMode ? `${textInputsVisible ? "text-primary " : "text-secondary hover:text-primary transition-all"}` :
+                                                            `${textInputsVisible ? "text-primary" : "text-fourth"}`} onClick={toggleTextInputs}>
                             Text Inputs
                         </button>
-                        <button className={imageInputsVisible ? "active-input" : ""} onClick={toggleImageInputs}>
+                        <button className={props.darkMode ? `${imageInputsVisible ? "text-primary" : "text-secondary hover:text-primary transition-all"}` :
+                                                            `${imageInputsVisible ? "text-primary" : "text-fourth"}`} onClick={toggleImageInputs}>
                             Image Inputs
                         </button>
                     </div>
@@ -396,7 +401,6 @@ export default function Meme() {
                         memeContainerRef={memeContainerRef} 
                         imageInputs={meme.imageInputs}
                     />
-                </div>
-            </div>
+            </container>
         );
     }

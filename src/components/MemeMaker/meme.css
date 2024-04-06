@@ -18,97 +18,6 @@ button {
     font-size: 16px;
 }
 
-.top-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.input-switch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 20px;
-}
-
-.input-switch button {
-    background-color: transparent;
-    color: var(--third-color);
-}
-.input-switch button:hover {
-    background-color: transparent;
-    box-shadow: none;
-    color: var(--primary-color);
-    transition: all ease-in 0.2s;
-}
-body.dark .input-switch button {
-    background-color: transparent;
-    color: var(--secondary-color);
-}
-body.dark .input-switch button:hover {
-    background-color: transparent;
-    box-shadow: none;
-    color: var(--primary-color);
-    transition: all ease-in 0.2s;
-}
-
-.input-switch .active-input {
-    color: var(--primary-color);
-    transition: all 0.3s ease-in;
-}
-body.dark .input-switch .active-input {
-    color: var(--primary-color);
-    transition: all 0.3s ease-in;
-}
-
-.main-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    width: 100vw;
-    height: 100%;
-    margin-top: 40px;
-}
-
-.main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--secondary-color);
-    width: 80%;
-    padding: 20px;
-    margin-bottom: 30px;
-    color: black; 
-    border: 5px solid var(--third-color);
-    border-radius: 15px;
-    transition: all ease-in 0.3s;
-}
-body.dark .main {
-    color: white;   
-    background-color: var(--fourth-color);
-    border: 5px solid var(--third-color);
-    border-radius: 15px;
-    transition: all ease-in 0.3s;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 17px;
-    width:100% ;
-}
-
-
 .form-input {
     border-radius: 6px;
     text-indent: 5px;
@@ -272,12 +181,7 @@ body.dark .upload-btn:hover {
 
 
 @media only screen and (max-width: 767px) {
-    
-.form {
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
+
 
 label {
     font-size: 0.8rem;
@@ -287,15 +191,6 @@ label {
     margin-right: 0px;
 } 
 
-.meme {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    width: fit-content;
-}
 .meme-image {
     user-select: none; /* Prevent the image from being highlighted */
     pointer-events: none; /* Make the image non-draggable */

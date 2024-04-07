@@ -35,39 +35,43 @@ const Login = () => {
     };
 
     return (
-        <div className="main-container">
-            <div className="main">
-                <div className="login-container">
-                    <h2>Login</h2>
-                    <form className='login-form' onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                className='login-input'
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                className='login-input'
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <button className='login-button' type="submit">Login</button>
-                    </form>
+        <div className="flex flex-col justify-center items-center
+                        max-w-50 border-4 border-third p-5 rounded-md"
+        >
+            <h2>Login</h2>
+            <form className='flex flex-col gap-5 p-2' onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        className='w-[100%] h-8 bg-third rounded-sm p-2 border-none'
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
-            </div>
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input
+                        className='w-[100%] h-8 bg-third rounded-sm p-2 border-none'
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <button className="bg-primary shadow-md shadow-fourth focus:shadow-inner
+                                    focus:shadow-primary p-2 rounded-md hover:bg-secondary
+                                    hover:text-third border-2 border-primary transition-all 
+                                    duration-200 ease-in
+                            " 
+                        type="submit">Login
+                </button>
+            </form>
         </div>
     );
 };

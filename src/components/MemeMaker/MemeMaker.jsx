@@ -268,7 +268,7 @@ export default function Meme(props) {
                 onTouchMove={handlePointerMove} 
                 onTouchEnd={handlePointerUp}
             >
-                <div className="flex flex-col justify-center items-center flex-wrap p-5 w-[100%]">
+                <div className="flex flex-col justify-center items-center overflow-hidden p-5 w-[100%]">
                     {/* top buttons */}
                     <div className="flex justify-center items-center flex-wrap gap-3">
                         <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
@@ -287,7 +287,7 @@ export default function Meme(props) {
                     </div>
                     
                     {imageInputsVisible && (
-                        <div className="inputs-container">
+                        <div className="flex justify-start items-center gap-1 h-[100%] flex-nowrap overflow-x-scroll w-[100%] p-3">
                             {meme.imageInputs.map((imageInput, index) => (
                                 <ImageInput 
                                     key={index}
@@ -300,7 +300,7 @@ export default function Meme(props) {
                         </div>
                     )}
                     {textInputsVisible && (
-                        <div className="inputs-container">
+                        <div className="flex justify-start flex-nowrap items-center gap-3 h-auto overflow-x-scroll max-w-[100%] p-3">
                             {meme.textInputs.map((textInput, index) => (
                                 <TextInput
                                     key={index}

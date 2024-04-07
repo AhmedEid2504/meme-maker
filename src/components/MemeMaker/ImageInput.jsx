@@ -45,7 +45,7 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
         setShowSettings(!showSettings);
     }
   return (
-    <div className="input-container image">
+    <div className="flex flex-col justify-center items-center border-4 border-third rounded-md p-3 md:min-w-[50%] min-w-[100%]">
         <div className="input">
             <div className="upload-container">
                 <label htmlFor={`url-${index}`} className="upload-btn">
@@ -79,9 +79,9 @@ const ImageInput = ({imageInput, index, setMeme, setCounter }) => {
                     </div>
                 </>
             )}
-        <div className="input-buttons">
-                <button className="form-button remove" onClick={() => handleRemove(index)}><img src="images/delete.png" alt="delete icon" /></button>
-                <button className="form-button settings" onClick={handleShowSettings} ><img src="/images/settings.png" alt="settings icon" /></button>
+        <div className="flex justify-evenly items-center p-3">
+                <button className="flex justify-center cursor-pointer items-center rounded-md w-7 bg-red-600 h-7 p-0.5" onClick={() => handleRemove(index)}><img src="images/delete.png" alt="delete icon" /></button>
+                <button className="flex justify-center cursor-pointer items-center rounded-xl w-7 bg-secondary h-7 p-0.5" onClick={handleShowSettings} ><img className='hover:rotate-180 transition-all ease-in duration-300' src="images/settings.png" alt="settings icon" /></button>
         </div>
     </div>
   )

@@ -157,7 +157,7 @@ const Navbar =(props) => {
                                     <li><Link className={props.darkMode ? "hover:text-primary transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" } to="/login">Login</Link></li>
                                 </> : 
                                 <>
-                                    <li><button onClick={handleSignOut}>Sign Out</button></li>
+                                    <li><button className={props.darkMode ? "hover:text-primary transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" } onClick={handleSignOut}>Sign Out</button></li>
                                 </>
                             }
 

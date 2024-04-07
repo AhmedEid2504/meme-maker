@@ -295,6 +295,7 @@ export default function Meme(props) {
                                     imageInput={imageInput}
                                     setMeme={setMeme} 
                                     setCounter={setCounter}
+                                    darkMode={props.darkMode}
                                 />
                             ))}
                         </div>

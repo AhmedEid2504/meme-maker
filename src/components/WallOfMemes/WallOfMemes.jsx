@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
 import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
@@ -5,7 +6,7 @@ import './wallofmemes.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../contexts/authContext';
-const WallOfMemes = () => {
+const WallOfMemes = (props) => {
     const downloadNotify = () => toast("Meme Downloaded To Your Device", {type: "success"});
     const deleteNotify = () => toast("Meme Deleted Successfully", {type: "info"});
     const [imageUrls, setImageUrls] = useState([]);
@@ -88,30 +89,27 @@ const WallOfMemes = () => {
     
 
     return (
-        <div className='main-container'>
-            <div className="main">
-                <h1>Wall Of Memes</h1>
-                <div className="meme-cards-container">
-                    {imageUrls.map((imageUrl, index) => (
-                        <div key={index} className='meme-card'>
-                            <img src={imageUrl.downloadURL} alt={`Meme ${index}`} />
-                            <div className="card-buttons">
-                                <div className="card-button">
-                                    <button id='download' className="card-button-download" onClick={() => handleDownload(imageUrl.downloadURL)}><img src="images/download.png" alt="download icon" /></button>
-                                    <label htmlFor='download'>Download</label>
-                                </div>
-                                { currentUser && currentUser.uid === imageUrl.userId && (
-                                    <div className="card-button">
-                                        <button className="card-button-delete" onClick={() => handleDelete(imageUrl.downloadURL)}>
-                                            <img src="images/delete.png" alt="delete icon" />
-                                        </button>
-                                        <label>Delete</label>
-                                    </div>
-                                )}
-                            </div>
+        <div className="flex flex-col items-center justify-center">
+            <h1 className={props.darkMode ? "text-xl text-secondary transition-all duration-200 ease-in mb-5" : "text-xl text-third transition-all duration-200 ease-in mb-5"}>Wall Of Memes</h1>
+            <div className="flex flex-col justify-center items-center gap-5">
+                {imageUrls.map((imageUrl, index) => (
+                    <div key={index} className='flex flex-col justify-center items-center gap-3 w-auto p-5 border-4 border-third'>
+                        <img src={imageUrl.downloadURL} alt={`Meme ${index}`} />
+                        <div className="flex justify-center flex-wrap items-center gap-5">
+                            <button id='download' className="flex justify-center gap-1 items-center shadow-md shadow-fourth 
+                                    focus:shadow-inner focus:shadow-secondary w-auto bg-primary p-1 
+                                    rounded-md cursor-pointer hover:bg-third transition-all ease-in duration-200
+                                "  onClick={() => handleDownload(imageUrl.downloadURL)}><img className='w-7 md:w-8 p-0.5' src="images/download.png" alt="download icon" />Download</button>
+                            { currentUser && currentUser.uid === imageUrl.userId && (
+                                    <button className="flex justify-center cursor-pointer items-center rounded-md w-8 p-0.5" onClick={() => handleDelete(imageUrl.downloadURL)}>
+                                        <img className='hover:rotate-45  transition-all ease-in duration-200' 
+                                            src="images/delete.png" alt="delete icon" 
+                                        />
+                                    </button>
+                            )}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

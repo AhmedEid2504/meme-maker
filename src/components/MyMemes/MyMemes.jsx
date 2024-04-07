@@ -122,7 +122,6 @@ const MyMemes = (props) => {
                                 <img className='w-7 md:w-8 p-0.5' src="images/share.png" alt="share icon" />
                                 Share To The Wall
                             </button> 
-                            <div className="card-button">
                                 <button id='delete' 
                                     className="flex justify-center cursor-pointer items-center rounded-md w-8 p-0.5" 
                                     onClick={() => handleDelete(meme.ref, meme.id)}
@@ -131,7 +130,6 @@ const MyMemes = (props) => {
                                         src="images/delete.png" alt="delete icon" 
                                     />
                                 </button>
-                            </div>
                         </div>
                     </div>
                     ))}

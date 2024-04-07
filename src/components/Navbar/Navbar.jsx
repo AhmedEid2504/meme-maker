@@ -62,15 +62,16 @@ const Navbar =(props) => {
     return (
         <nav className={props.darkMode ? "bg-third shadow-sm shadow-black relative h-20 flex justify-between items-center px-5 font-sans transition-all ease-in duration-200" : 
                                         "bg-primary shadow-sm shadow-primary relative h-20 flex justify-between items-center px-5 font-sans transition-all ease-in duration-200"}>
-            <div className="flex justify-center items-center p-4 gap-2 text-lg">
+            <div className="flex justify-center items-center p-4 gap-2">
                 <img 
                     className="w-8 md:w-12"
                     src="../images/troll-face.png"
                     alt="meme maker logo(troll face)"
                 />
-                <h1 className={props.darkMode ? "text-xl hover:text-primary transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" }>
-                    <Link className={props.darkMode ? "hover:text-primary text-md transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" } to="/">Meme Maker</Link>
-                </h1>
+                    <Link className={props.darkMode ? "hover:text-primary text-md md:text-xl transition-all ease-in duration-200" : 
+                                                    "hover:text-third text-md md:text-xl transition-all ease-in duration-200" } 
+                        to="/">Meme Maker
+                    </Link>
             </div>
             {windowWidth > 800 ? (
                 <ul className="flex justify-between items-center list-none p-2 text-center gap-5">

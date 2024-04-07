@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
 import { ref, listAll, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { useAuth } from '../../contexts/authContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './mymemes.css';
 
-const MyMemes = () => {
+const MyMemes = (props) => {
     const shareWarning = () => toast("This will share the image to the public, please don't upload personal Images", {type: "warning"});
     const downloadNotify = () => toast("Meme Downloaded To Your Device", {type: "success"});
     const deleteNotify = () => toast("Meme Deleted", {type: "info"});
@@ -95,32 +95,48 @@ const MyMemes = () => {
     };
 
     return (
-        <div className='main-container'>
-            <div className="main">
-                <h2>Your Memes</h2>
-                <div className="meme-cards-container">
+            <div className="flex flex-col items-center justify-center">
+                <h1 className={props.darkMode ? "text-xl text-secondary transition-all duration-200 ease-in mb-5" : "text-xl text-third transition-all duration-200 ease-in mb-5"}>Your Memes</h1>
+                <div className="flex flex-col justify-center items-center gap-5">
                     {memes.map((meme) => (
-                    <div key={meme.id} className='meme-card'>
+                    <div key={meme.id} className='flex flex-col justify-center items-center gap-3 w-auto p-5 border-4 border-third'>
                         <img  src={meme.url} alt="Meme" />
-                        <div className="card-buttons">
+                        <div className="flex justify-center flex-wrap items-center gap-5">
+                            <button id='download' 
+                                className="flex justify-center gap-1 items-center shadow-md shadow-fourth 
+                                            focus:shadow-inner focus:shadow-secondary w-auto bg-primary p-1 
+                                            rounded-md cursor-pointer hover:bg-third transition-all ease-in duration-200
+                                        " 
+                                onClick={() => handleDownload(meme.url)}
+                            >
+                                <img className='w-7 md:w-8 p-0.5' src="images/download.png" alt="download icon" />
+                                Download
+                            </button>
+                            <button id='share' 
+                                className="flex justify-center gap-1 items-center shadow-md shadow-fourth 
+                                            focus:shadow-inner focus:shadow-secondary w-auto bg-primary p-1 
+                                            rounded-md cursor-pointer hover:bg-third  transition-all ease-in duration-200
+                                        " 
+                                onClick={() => handleShare(meme.url)}
+                            >
+                                <img className='w-7 md:w-8 p-0.5' src="images/share.png" alt="share icon" />
+                                Share To The Wall
+                            </button> 
                             <div className="card-button">
-                                <button id='download' className="card-button-download" onClick={() => handleDownload(meme.url)}><img src="images/download.png" alt="download icon" /></button>
-                                <label htmlFor='download'>Download</label>
-                            </div>
-                            <div className="card-button">
-                                <button id='share' className="card-button-share" onClick={() => handleShare(meme.url)}><img src="images/share.png" alt="share icon" /></button>    
-                                <label htmlFor='share'>Share To The Wall</label>
-                            </div>
-                            <div className="card-button">
-                                <button id='delete' className="card-button-delete" onClick={() => handleDelete(meme.ref, meme.id)}><img src="images/delete.png" alt="delete icon" /></button>    
-                                <label htmlFor='delete'>Delete</label>
+                                <button id='delete' 
+                                    className="flex justify-center cursor-pointer items-center rounded-md w-8 p-0.5" 
+                                    onClick={() => handleDelete(meme.ref, meme.id)}
+                                >
+                                    <img className='hover:rotate-45  transition-all ease-in duration-200' 
+                                        src="images/delete.png" alt="delete icon" 
+                                    />
+                                </button>
                             </div>
                         </div>
                     </div>
                     ))}
                 </div>
             </div>
-        </div>
     );
 };
 

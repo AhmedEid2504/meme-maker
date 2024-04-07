@@ -235,19 +235,19 @@ const Canvas = (props) => {
     }
 
     return (  
-        <div className="canvas-buttons">
-            <div className="canvas-button">
-                <button id='download' className="form-button download" onClick={handleDownload}><img src="images/download.png" alt="download icon" /></button>
-                <label htmlFor='download'>Download</label>
-            </div>
-            <div className="canvas-button">
-                <button id='save' className="form-button save" onClick={handleSave}><img src="images/save.png" alt="share icon" /></button>    
-                <label htmlFor='save'>Save To Your Memes</label>
-            </div>
-            <div className="canvas-button">
-                <button id='share' className="form-button share" onClick={handleShare}><img src="images/share.png" alt="share icon" /></button>    
-                <label htmlFor='share'>Share To The Wall</label>
-            </div>
+        <div className="flex justify-center flex-wrap items-center gap-5 md:gap-10 text-md md:text-lg mt-5">
+                <button id='download' className="flex justify-center gap-1 items-center shadow-md shadow-fourth hover:shadow-inner hover:shadow-secondary w-auto bg-primary p-1 rounded-md cursor-pointer hover:bg-third transition-all ease-in duration-200" onClick={handleDownload}>
+                    <img className='w-7 md:w-8 p-0.5' src="images/download.png" alt="download icon" />
+                    Download
+                </button>
+                <button id='share' className="flex justify-center gap-1 items-center shadow-md shadow-fourth hover:shadow-inner hover:shadow-secondary w-auto bg-primary p-1 rounded-md cursor-pointer hover:bg-third  transition-all ease-in duration-200" onClick={handleShare}>
+                    <img className='w-7 md:w-8 p-0.5' src="images/share.png" alt="share icon" />
+                    Share To The Wall
+                </button>    
+                <button id='save' className="flex justify-center gap-1 items-center shadow-md shadow-fourth hover:shadow-inner hover:shadow-secondary w-auto bg-primary p-1 rounded-md cursor-pointer hover:bg-third transition-all ease-in duration-200" onClick={handleSave}>
+                    <img className='w-7 md:w-8 p-0.5' src="images/save.png" alt="share icon" />
+                    Save To Your Memes
+                </button>    
         </div>
         )
 }

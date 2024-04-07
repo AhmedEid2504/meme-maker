@@ -271,17 +271,33 @@ export default function Meme(props) {
                 <div className="flex flex-col justify-center items-center overflow-hidden p-5 w-[100%]">
                     {/* top buttons */}
                     <div className="flex justify-center items-center flex-wrap gap-3">
-                        <button className="bg-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in" onClick={handleAddTextInput}>Add Text</button>
-                        <button className="bg-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in" onClick={handleAddImageInput}>Add Image</button>
+                        <button 
+                            className="bg-primary shadow-md shadow-fourth hover:shadow-inner
+                                    hover:shadow-primary p-2 rounded-md hover:bg-secondary
+                                    hover:text-third border-2 border-primary transition-all 
+                                    duration-200 ease-in
+                            " 
+                            onClick={handleAddTextInput}
+                        >Add Text
+                        </button>
+                        <button 
+                            className="bg-primary shadow-md shadow-fourth hover:shadow-inner
+                                    hover:shadow-primary p-2 rounded-md hover:bg-secondary
+                                    hover:text-third border-2 border-primary transition-all 
+                                    duration-200 ease-in
+                            " 
+                            onClick={handleAddImageInput}
+                        >Add Image
+                        </button>
                     </div>
                     {/* input switch */}
                     <div className="flex justify-center items-center flex-wrap gap-5 p-5">
                         <button className={props.darkMode ? `${textInputsVisible ? "text-primary " : "text-secondary hover:text-primary transition-all"}` :
-                                                            `${textInputsVisible ? "text-primary" : "text-fourth"}`} onClick={toggleTextInputs}>
+                                                            `${textInputsVisible ? "text-primary" : "text-fourth hover:text-primary transition-all"}`} onClick={toggleTextInputs}>
                             Text Inputs
                         </button>
                         <button className={props.darkMode ? `${imageInputsVisible ? "text-primary" : "text-secondary hover:text-primary transition-all"}` :
-                                                            `${imageInputsVisible ? "text-primary" : "text-fourth"}`} onClick={toggleImageInputs}>
+                                                            `${imageInputsVisible ? "text-primary" : "text-fourth hover:text-primary transition-all"}`} onClick={toggleImageInputs}>
                             Image Inputs
                         </button>
                     </div>
@@ -318,7 +334,7 @@ export default function Meme(props) {
                             <div className="flex">
                                 <label htmlFor="upload-input" 
                                     className={props.darkMode ? "bg-secondary text-fourth p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-secondary border-2 transition-all ease-in duration-200" :
-                                                            "bg-third text-secondary p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-third border-2 border-third transition-all ease-in duration-200"}
+                                                            "bg-third text-secondary shadow-md shadow-fourth hover:shadow-inner hover:shadow-third p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-third border-2 border-third transition-all ease-in duration-200"}
                                 >
                                     Upload Template
                                 </label>
@@ -333,7 +349,7 @@ export default function Meme(props) {
             
                             {!meme.showUploadedTemplate && (
                                 <button
-                                className="bg-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
+                                className="bg-primary shadow-md shadow-fourth hover:shadow-inner hover:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
                                     onClick={getMemeTemplate}
                                 >
                                     Random Template
@@ -341,7 +357,7 @@ export default function Meme(props) {
                             )}
                             {meme.showUploadedTemplate && (
                                 <button
-                                    className="form-button"
+                                className="bg-primary shadow-md shadow-fourth hover:shadow-inner hover:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
                                     onClick={removeUploadedTemplate}
                                 >
                                     Remove Template
@@ -349,17 +365,22 @@ export default function Meme(props) {
                             )}
                         </div>
                 </div>
-                <div ref={memeContainerRef} className="meme">
+                <div ref={memeContainerRef} 
+                    className="relative flex flex-col justify-center 
+                                items-center h-fit w-fit md:max-w-[80vw] 
+                                m-2.5 max-w-[100vw]
+                            "
+                >
                     <img
                         src={meme.showUploadedTemplate ? meme.uploadedTemplate : meme.randomTemplate}
-                        className="meme-image"
-                        alt="Meme"
+                        className="meme-image pointer-events-none select-none max-h-[80dvh] w-[100%]"
+                        alt="Meme image"
                     />
                     {meme.imageInputs.map((imageInput, index) => (
                         
                         <div
                             key={index}
-                            className="meme-added-image"
+                            className="meme-added-image absolute flex cursor-move"
                             style={{ 
                                 left: imageInput.position.x, 
                                 top: imageInput.position.y,
@@ -385,7 +406,7 @@ export default function Meme(props) {
                     {meme.textInputs.map((textInput, index) => (
                         <div
                             key={index}
-                            className="meme-text"
+                            className="meme-text absolute font-sans-impact cursor-move h-min uppercase"
                             style={{ 
                                 left: textInput.position.x, 
                                 top: textInput.position.y,
@@ -404,6 +425,7 @@ export default function Meme(props) {
                     <Canvas 
                         memeContainerRef={memeContainerRef} 
                         imageInputs={meme.imageInputs}
+                        darkMode={props.darkMode}
                     />
             </container>
         );

@@ -1,84 +1,10 @@
-:root {
-    color: rgba(255, 255, 255, 0.87);
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    --primary-color: #00ADB5;
-    --secondary-color:#EEEEEE;
-    --third-color: #393E46;
-    --fourth-color:#222831;
-}
-
-/* buttons */
-
-.canvas-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 50px;
-}
-.canvas-buttons img {
-    width: 40px;
-    padding: 5px;
-}
-
-.canvas-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.download {
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    padding: 0px;
-    background-color: transparent;
-    background-color: var(--primary-color);
-}
-
-.save {
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    padding: 0px;
-    background-color: transparent;
-    background-color: var(--primary-color);
-}
-
-.share {
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    padding: 0px;
-    background-color: transparent;
-    background-color: var(--primary-color);
-}
-
-.meme {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    width: fit-content;
-    max-width: 80vw;
-    margin: 10px;
-}
 
 .meme-image {
-    user-select: none; /* Prevent the image from being highlighted */
-    pointer-events: none; /* Make the image non-draggable */
     max-height: 80dvh;
     width: 100%;
 }
 
 .meme-text {
-    position: absolute;
     font-family: Impact, sans-serif;
     text-transform: uppercase;
     text-shadow:
@@ -86,23 +12,6 @@
         1px -1px 1px rgba(0, 0, 0, 1), /* Top-right */
         -1px 1px 1px rgba(0, 0, 0, 1), /* Bottom-left */
         1px 1px 1px rgba(0, 0, 0, 1); /* Bottom-right */
-    cursor: move;
     height:min-content;
 }
 
-.meme-added-image {
-    position: absolute;
-    display: flex;
-    cursor: move;
-}
-
-
-@media only screen and (max-width: 767px) {
-
-.meme-image {
-    user-select: none; /* Prevent the image from being highlighted */
-    pointer-events: none; /* Make the image non-draggable */
-    height: 100%;
-    width: 100%;
-}
-}

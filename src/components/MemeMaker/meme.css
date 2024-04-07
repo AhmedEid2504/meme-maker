@@ -12,15 +12,6 @@
 
 /* buttons */
 
-.mid-buttons {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding: 10px;
-    padding-top: 40px;
-    gap: 15px;
-}
-
 .canvas-buttons {
     display: flex;
     justify-content: center;
@@ -107,15 +98,6 @@
 
 
 @media only screen and (max-width: 767px) {
-
-
-label {
-    font-size: 0.8rem;
-}
-
-.upload-btn {
-    margin-right: 0px;
-} 
 
 .meme-image {
     user-select: none; /* Prevent the image from being highlighted */

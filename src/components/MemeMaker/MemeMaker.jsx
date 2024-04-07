@@ -271,8 +271,8 @@ export default function Meme(props) {
                 <div className="flex flex-col justify-center items-center overflow-hidden p-5 w-[100%]">
                     {/* top buttons */}
                     <div className="flex justify-center items-center flex-wrap gap-3">
-                        <button className="form-button add" onClick={handleAddTextInput}>Add Text</button>
-                        <button className="form-button add" onClick={handleAddImageInput}>Add Image</button>
+                        <button className="bg-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in" onClick={handleAddTextInput}>Add Text</button>
+                        <button className="bg-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in" onClick={handleAddImageInput}>Add Image</button>
                     </div>
                     {/* input switch */}
                     <div className="flex justify-center items-center flex-wrap gap-5 p-5">
@@ -313,24 +313,27 @@ export default function Meme(props) {
                             ))}
                         </div>
                     )}
-                        <div className="mid-buttons">
-
-                            <div className="upload-container">
-                                <label htmlFor="upload-input" className="upload-btn">
+                        {/* mid buttons */}
+                        <div className="flex justify-evenly gap-5 pt-5 flex-wrap">
+                            <div className="flex">
+                                <label htmlFor="upload-input" 
+                                    className={props.darkMode ? "bg-secondary text-fourth p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-secondary border-2 transition-all ease-in duration-200" :
+                                                            "bg-third text-secondary p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-third border-2 border-third transition-all ease-in duration-200"}
+                                >
                                     Upload Template
                                 </label>
                                 <input
                                     id="upload-input"
                                     type="file"
                                     accept="image/*"
-                                    className="upload-input"
+                                    className="hidden"
                                     onChange={handleTemplateUpload}
                                 />
                             </div>
             
                             {!meme.showUploadedTemplate && (
                                 <button
-                                    className="form-button random"
+                                className="bg-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
                                     onClick={getMemeTemplate}
                                 >
                                     Random Template

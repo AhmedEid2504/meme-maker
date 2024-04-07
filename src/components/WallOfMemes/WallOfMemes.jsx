@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { storage } from '../../firebase/firebase';
 import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
-import './wallofmemes.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../contexts/authContext';

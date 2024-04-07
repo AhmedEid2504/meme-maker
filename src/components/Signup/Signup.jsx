@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { doCreateUserWithEmailAndPassword } from '../Auth/auth'; // Import the authentication functions
 import { useNavigate } from 'react-router-dom';
-import './signup.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

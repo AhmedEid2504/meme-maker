@@ -262,7 +262,7 @@ export default function Meme(props) {
     
     return (
             // main
-            <container className="w-[100%] md:w-[80%] flex flex-col justify-center items-center" 
+            <div className="w-[100%] md:w-[80%] flex flex-col justify-center items-center" 
                 onMouseMove={handlePointerMove} 
                 onMouseUp={handlePointerUp}
                 onTouchMove={handlePointerMove} 
@@ -427,6 +427,6 @@ export default function Meme(props) {
                         imageInputs={meme.imageInputs}
                         darkMode={props.darkMode}
                     />
-            </container>
+            </div>
         );
     }

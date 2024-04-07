@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { doCreateUserWithEmailAndPassword } from '../Auth/auth'; // Import the authentication functions
+import { doCreateUserWithEmailAndPassword } from '../Auth/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { database } from '../../firebase/firebase'; // Import Firebase database
+import { ref, set } from "firebase/database"
 const Signup = () => {
-    const signedupNotify = () => toast("Signed Up Successfully", { type: "success" });
+    const signedUpNotify = () => toast("Signed Up Successfully", { type: "success" });
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
@@ -22,6 +23,7 @@ const Signup = () => {
             [name]: value
         });
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,8 +33,20 @@ const Signup = () => {
         }
 
         try {
-            await doCreateUserWithEmailAndPassword(formData.email, formData.password); // Call the authentication function
-            signedupNotify();
+            // Create user in Firebase Authentication
+            const userCredential = await doCreateUserWithEmailAndPassword(formData.email, formData.password);
+            const user = userCredential.user;
+
+            // Store additional user data in Realtime Database
+            await set(ref(database, 'users/' + user.uid), {
+                name: formData.name,
+                email: formData.email,
+                phoneNumber: formData.phoneNumber,
+            });
+            
+
+            // Notify user and navigate
+            signedUpNotify();
             navigate('/');
         } catch (error) {
             console.error('Error signing up:', error.message);
@@ -41,9 +55,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center
-                        max-w-50 border-4 border-third p-5 rounded-md"
-        >
+        <div className="flex flex-col justify-center items-center max-w-50 border-4 border-third p-5 rounded-md">
             <h2>Sign Up</h2>
             <form className='flex flex-col gap-5 p-2' onSubmit={handleSubmit}>
                 <div>
@@ -107,11 +119,7 @@ const Signup = () => {
                     />
                 </div>
                 <button 
-                    className="bg-primary shadow-md shadow-fourth focus:shadow-inner
-                                    focus:shadow-primary p-2 rounded-md hover:bg-secondary
-                                    hover:text-third border-2 border-primary transition-all 
-                                    duration-200 ease-in
-                            " 
+                    className="bg-primary shadow-md shadow-fourth focus:shadow-inner focus:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
                     type="submit">
                     Sign Up
                 </button>

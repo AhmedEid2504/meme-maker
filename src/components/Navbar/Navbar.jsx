@@ -95,14 +95,14 @@ const Navbar =(props) => {
                         </button>
                     </div>
                     {showMenu && (
-                        <ul className={showMenu ? "absolute flex flex-col justify-center gap-2 items-center bg-third p-10 top-0 right-0 translate-y-20 h-10 w-auto transition-all ease-in duration-200" : "translate-y-20 transition-all ease-in duration-200"} ref={ulRef}>
+                        <ul className={showMenu ? "absolute flex flex-col justify-center gap-2 items-center bg-third p-6 top-0 right-0 translate-y-20 h-auto w-auto transition-all ease-in duration-200" : "translate-y-20 transition-all ease-in duration-200"} ref={ulRef}>
                             <li><Link className={props.darkMode ? "hover:text-primary transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" } to="/dad-jokes">Dad Jokes</Link></li>
                             
                             <li><Link className={props.darkMode ? "hover:text-primary transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" } to="/video-meme">Video Memes</Link></li>
                         </ul>
                     )}
                     {showUserMenu && (
-                        <ul className={showUserMenu ? "absolute flex flex-col justify-center gap-2 items-center bg-third p-10 top-0 right-0 translate-y-20 h-10 w-auto transition-all ease-in duration-200" : "translate-y-20 transition-all ease-in duration-200"} ref={ulRef}>
+                        <ul className={showUserMenu ? "absolute flex flex-col justify-center gap-2 items-center bg-third p-7 top-0 right-0 translate-y-20 h-auto w-auto transition-all ease-in duration-200" : "translate-y-20 transition-all ease-in duration-200"} ref={ulRef}>
                             <li><Link className={props.darkMode ? "hover:text-primary transition-all ease-in duration-200" : "hover:text-third transition-all ease-in duration-200" } to="/my-memes">Your Memes</Link></li>
                             {!userLoggedIn ?
                                 <>

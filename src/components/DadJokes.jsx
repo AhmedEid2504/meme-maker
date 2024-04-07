@@ -28,11 +28,11 @@ const DadJokes = (props) => {
         <div className={props.darkMode ?"flex flex-col items-center justify-around w-full p-3 gap-4 text-secondary font-mono" :
                                         "flex flex-col items-center justify-around w-full p-3 gap-4 text-fourth font-mono"}>
             <h1 className="text-2xl">Dad Jokes</h1>
-            <button className="bg-cyan-700 p-3 m-1 rounded-lg 
-                                hover:bg-secondary transition-all
-                                hover:text-black text-secondary
-                                text-xl shadow-inner
-                                " onClick={getDadJoke}>Get Joke</button>
+            <button className="bg-primary shadow-md shadow-fourth hover:shadow-inner
+                                    hover:shadow-primary p-2 rounded-md hover:bg-secondary
+                                    hover:text-third border-2 border-primary transition-all 
+                                    duration-200 ease-in text-xl
+                            " onClick={getDadJoke}>Get Joke</button>
             <div id="joke">
                 <h2 className="text-xl text-center" >{joke}</h2>
             </div>

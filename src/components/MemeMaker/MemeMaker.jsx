@@ -272,20 +272,20 @@ export default function Meme(props) {
                     {/* top buttons */}
                     <div className="flex justify-center items-center flex-wrap gap-3">
                         <button 
-                            className="bg-primary shadow-md shadow-fourth hover:shadow-inner
-                                    hover:shadow-primary p-2 rounded-md hover:bg-secondary
+                            className="bg-primary shadow-md shadow-fourth focus:shadow-inner
+                                    focus:shadow-primary p-2 rounded-md hover:bg-secondary
                                     hover:text-third border-2 border-primary transition-all 
                                     duration-200 ease-in
-                            " 
+                            "
                             onClick={handleAddTextInput}
                         >Add Text
                         </button>
                         <button 
-                            className="bg-primary shadow-md shadow-fourth hover:shadow-inner
-                                    hover:shadow-primary p-2 rounded-md hover:bg-secondary
+                            className="bg-primary shadow-md shadow-fourth focus:shadow-inner
+                                    focus:shadow-primary p-2 rounded-md hover:bg-secondary
                                     hover:text-third border-2 border-primary transition-all 
                                     duration-200 ease-in
-                            " 
+                            "
                             onClick={handleAddImageInput}
                         >Add Image
                         </button>
@@ -334,7 +334,7 @@ export default function Meme(props) {
                             <div className="flex">
                                 <label htmlFor="upload-input" 
                                     className={props.darkMode ? "bg-secondary text-fourth p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-secondary border-2 transition-all ease-in duration-200" :
-                                                            "bg-third text-secondary shadow-md shadow-fourth hover:shadow-inner hover:shadow-third p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-third border-2 border-third transition-all ease-in duration-200"}
+                                                            "bg-third text-secondary shadow-md shadow-fourth focus:shadow-inner focus:shadow-third p-2 rounded-md cursor-pointer hover:bg-transparent hover:text-third border-2 border-third transition-all ease-in duration-200"}
                                 >
                                     Upload Template
                                 </label>
@@ -349,7 +349,7 @@ export default function Meme(props) {
             
                             {!meme.showUploadedTemplate && (
                                 <button
-                                className="bg-primary shadow-md shadow-fourth hover:shadow-inner hover:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
+                                className="bg-primary shadow-md shadow-fourth focus:shadow-inner focus:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
                                     onClick={getMemeTemplate}
                                 >
                                     Random Template
@@ -357,7 +357,7 @@ export default function Meme(props) {
                             )}
                             {meme.showUploadedTemplate && (
                                 <button
-                                className="bg-primary shadow-md shadow-fourth hover:shadow-inner hover:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
+                                className="bg-primary shadow-md shadow-fourth focus:shadow-inner focus:shadow-primary p-2 rounded-md hover:bg-secondary hover:text-third border-2 border-primary transition-all duration-200 ease-in"
                                     onClick={removeUploadedTemplate}
                                 >
                                     Remove Template

@@ -82,7 +82,7 @@ const ImageInput = ({imageInput, index, setMeme, setCounter, darkMode }) => {
                 </>
             )}
         <div className="flex gap-5 items-center justify-between p-3">
-            <button className="flex justify-center cursor-pointer items-center rounded-md w-7 bg-red-600 h-7 p-0.5" onClick={() => handleRemove(index)}><img src="images/delete.png" alt="delete icon" /></button>
+            <button className="flex justify-center cursor-pointer items-center rounded-md w-8  h-7 p-0.5" onClick={() => handleRemove(index)}><img className='hover:rotate-45  transition-all ease-in duration-200' src="images/delete.png" alt="delete icon" /></button>
             <button className="flex justify-center cursor-pointer items-center rounded-xl w-7 bg-secondary h-7 p-0.5" onClick={handleShowSettings} ><img className='hover:rotate-180 transition-all ease-in duration-300' src="images/settings.png" alt="settings icon" /></button>
         </div>
     </div>

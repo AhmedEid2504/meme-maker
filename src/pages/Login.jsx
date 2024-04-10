@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { doSignInWithEmailAndPassword } from '../Auth/auth'; // Import the authentication function
+import { doSignInWithEmailAndPassword } from '../components/Auth/auth'; // Import the authentication function
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

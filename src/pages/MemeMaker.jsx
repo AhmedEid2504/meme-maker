@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useCallback, useRef } from "react";
-import './meme.css';
-import TextInput from './TextInput'
-import ImageInput from "./ImageInput";
-import Canvas from "./Canvas";
-import { storage } from "../../firebase/firebase";
+import '../components/MemeMaker/meme.css';
+import TextInput from '../components/MemeMaker/TextInput'
+import ImageInput from "../components/MemeMaker/ImageInput";
+import Canvas from "../components/MemeMaker/Canvas";
+import { storage } from "../firebase/firebase";
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 
 

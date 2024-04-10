@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { doCreateUserWithEmailAndPassword } from '../Auth/auth';
+import { doCreateUserWithEmailAndPassword } from '../components/Auth/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { database } from '../../firebase/firebase'; // Import Firebase database
+import { database } from '../firebase/firebase'; // Import Firebase database
 import { ref, set } from "firebase/database"
 const Signup = () => {
     const signedUpNotify = () => toast("Signed Up Successfully", { type: "success" });

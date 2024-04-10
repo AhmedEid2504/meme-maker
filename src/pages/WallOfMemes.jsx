@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { storage } from '../../firebase/firebase';
+import { storage } from '../firebase/firebase';
 import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuth } from '../../contexts/authContext';
+import { useAuth } from '../contexts/authContext';
 const WallOfMemes = (props) => {
     const downloadNotify = () => toast("Meme Downloaded To Your Device", {type: "success"});
     const deleteNotify = () => toast("Meme Deleted Successfully", {type: "info"});

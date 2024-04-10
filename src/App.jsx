@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import WallOfMemes from './components/WallOfMemes/WallOfMemes';
-import MemeMaker from './components/MemeMaker/MemeMaker';
-import VideoMeme from './components/VideoMeme';
-import DadJokes from './components/DadJokes';
-import Signup from './components/Signup/Signup';
-import Login from './components/Login/Login';
+import WallOfMemes from './pages/WallOfMemes';
+import MemeMaker from './pages/MemeMaker';
+import VideoMeme from './pages/VideoMeme';
+import DadJokes from './pages/DadJokes';
+import MyMemes from './pages/MyMemes';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
-import MyMemes from './components/MyMemes/MyMemes';
 
 
 function App() {

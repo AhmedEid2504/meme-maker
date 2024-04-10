@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { storage } from '../../firebase/firebase';
+import { storage } from '../firebase/firebase';
 import { ref, listAll, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
-import { useAuth } from '../../contexts/authContext';
+import { useAuth } from '../contexts/authContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
